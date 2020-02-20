@@ -38,7 +38,7 @@ export default class App extends React.Component {
                   latitude:63.428104,
                   longitude:10.388036
                 }}
-                title = "Skjer"/>
+                title = "Vegard er stygg"/>
 
         </MapView>
 
