@@ -9,10 +9,6 @@
   },
   "dependencies": {
     "expo": "~36.0.0",
-<<<<<<< HEAD
-    "expo-camera": "~8.0.0",
-=======
->>>>>>> dev
     "native-base": "^2.13.8",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
