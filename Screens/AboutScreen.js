@@ -12,7 +12,7 @@ export default class AboutScreen extends Component{
     render(){
         return(
             <View style={styles.container}>
-                <Text>Dette er info siden om SpotIT</Text>
+                <Text>Dette er infosiden om SpotIT</Text>
             </View>
         );
     }
