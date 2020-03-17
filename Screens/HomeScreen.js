@@ -2,18 +2,13 @@ import React from 'react';
 import MapView from 'react-native-maps';
 import {Text, View, Dimensions, SafeAreaView, StyleSheet} from 'react-native';
 import {Header, Button, Body, Title, Fab, Icon, Left, Right} from 'native-base';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
-import AboutScreen from './AboutScreen';
-
-const Drawer = createDrawerNavigator();
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = ({navigation}) => {
     return {
       headerTitle: 'SpotIT',
       headerLeft: () => (
-        <Button transparent onPress={() => navigation.openDrawer()}>
+        <Button transparent onPress={() => navigation.navigate('About')}>
           <Icon name ='list' style={{color: 'white'}}/>
         </Button>
       ),
@@ -31,13 +26,6 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.headerStyle}>
-
-        <NavigationContainer>
-          <Drawer.Navigator initialRouteName="Home">
-            <Drawer.Screen name="Home" component={HomeScreen} />
-            <Drawer.Screen name="Notifications" component={AboutScreen} />
-          </Drawer.Navigator>
-        </NavigationContainer>
 
         <MapView style={styles.mapStyle}
               initialRegion = {{

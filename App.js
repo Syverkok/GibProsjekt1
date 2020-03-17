@@ -4,7 +4,6 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import AboutScreen from './Screens/AboutScreen';
 import HomeScreen from './Screens/HomeScreen';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Container = createStackNavigator({
   Home: HomeScreen,
