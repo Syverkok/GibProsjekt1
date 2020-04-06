@@ -26,37 +26,30 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.headerStyle}>
-
         <MapView style={styles.mapStyle}
-              initialRegion = {{
-                latitude:63.428104,
-                longitude:10.388036,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }}
-              showsUserLocation>
-
-            <MapView.Marker draggable
-                coordinate= {{
-                  latitude:63.428104,
-                  longitude:10.388036
-                }}
-                title = "Skjer"/>
-
+          initialRegion = {{
+            latitude:63.428104,
+            longitude:10.388036,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+          showsUserLocation>
+          <MapView.Marker draggable
+            coordinate= {{
+            latitude:63.428104,
+            longitude:10.388036
+            }}
+          title = "Skjer"/>
         </MapView>
-
-        <Fab direction="center" position="bottomLeft"
-        style={{backgroundColor: 'darkslateblue'}}>
-            <Icon name="add"/>
+        <Fab direction="center" position="bottomLeft" style={{backgroundColor: 'darkslateblue'}}>
+          <Icon name="add"/>
         </Fab>
-
         <Fab direction="center" position="bottomRight"
-        style={{backgroundColor: 'darkslateblue'}}>
-            <Icon name="camera"/>
+        style={{backgroundColor: 'darkslateblue'}} onPress={() => this.props.navigation.navigate('Camera')}>
+          <Icon name="camera"/>
         </Fab>
-
       </SafeAreaView>
-    );
+   );
   }
 }
 
