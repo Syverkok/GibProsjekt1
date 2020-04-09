@@ -45,7 +45,7 @@ export default class HomeScreen extends React.Component {
           <Icon name="add"/>
         </Fab>
         <Fab direction="center" position="bottomRight"
-        style={{backgroundColor: 'darkslateblue'}} onPress={() => this.props.navigation.navigate('Camera')}>
+        style={{backgroundColor: 'darkslateblue'}} onPress={() => this.props.navigation.navigate('')}>
           <Icon name="camera"/>
         </Fab>
       </SafeAreaView>
