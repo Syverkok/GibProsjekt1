@@ -9,7 +9,7 @@ import CameraScreen from './Screens/CameraScreen';
 const Container = createStackNavigator({
   Home: HomeScreen,
   About: AboutScreen,
-  Camrea: CameraScreen
+  //Camera: CameraScreen
 },
 {
   initialRouteName: 'Home',
