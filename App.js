@@ -5,10 +5,12 @@ import {createStackNavigator} from 'react-navigation-stack';
 import AboutScreen from './Screens/AboutScreen';
 import HomeScreen from './Screens/HomeScreen';
 import CameraScreen from './Screens/CameraScreen';
+import SearchScreen from './Screens/SearchScreen';
 
 const Container = createStackNavigator({
   Home: HomeScreen,
   About: AboutScreen,
+  Search: SearchScreen,
   //Camera: CameraScreen
 },
 {

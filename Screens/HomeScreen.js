@@ -13,7 +13,7 @@ export default class HomeScreen extends React.Component {
         </Button>
       ),
       headerRight: () => (
-        <Button transparent>
+        <Button transparent onPress={() => navigation.navigate('Search')}>
           <Icon name='search' style={{color: 'white'}}/>
         </Button>
       ),
