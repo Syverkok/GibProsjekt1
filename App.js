@@ -7,13 +7,17 @@ import HomeScreen from './Screens/HomeScreen';
 import CameraScreen from './Screens/CameraScreen';
 import SearchScreen from './Screens/SearchScreen';
 import SpotScreen from './Screens/SpotScreen';
+import GalleryScreen from './Screens/GalleryScreen';
+
+
 
 const Container = createStackNavigator({
   Home: HomeScreen,
   About: AboutScreen,
-  Search: SearchScreen,
   Spot: SpotScreen,
-  //Camera: CameraScreen
+  Camera: CameraScreen,
+  Gallery: GalleryScreen,
+  Search: SearchScreen
 },
 {
   initialRouteName: 'Home',
