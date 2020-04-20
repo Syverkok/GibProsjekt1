@@ -13,7 +13,7 @@ export default class HomeScreen extends React.Component {
         </Button>
       ),
       headerRight: () => (
-        <Button transparent>
+        <Button transparent onPress={() => navigation.navigate('Search')}>
           <Icon name='search' style={{color: 'white'}}/>
         </Button>
       ),
@@ -23,6 +23,10 @@ export default class HomeScreen extends React.Component {
       headerTintColor: 'white'
     }
   }
+  fetchData(){
+    
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.headerStyle}>
@@ -41,11 +45,12 @@ export default class HomeScreen extends React.Component {
             }}
           title = "Skjer"/>
         </MapView>
-        <Fab direction="center" position="bottomLeft" style={{backgroundColor: 'darkslateblue'}}>
+        <Fab direction="center" position="bottomLeft" style={{backgroundColor: 'darkslateblue'}}
+        onPress={() => this.props.navigation.navigate('Gallery')}>
           <Icon name="add"/>
         </Fab>
         <Fab direction="center" position="bottomRight"
-        style={{backgroundColor: 'darkslateblue'}} onPress={() => this.props.navigation.navigate('')}>
+        style={{backgroundColor: 'darkslateblue'}} onPress={() => this.props.navigation.navigate('Camera')}>
           <Icon name="camera"/>
         </Fab>
       </SafeAreaView>
