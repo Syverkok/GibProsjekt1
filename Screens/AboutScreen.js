@@ -5,8 +5,9 @@ class AboutScreen extends Component {
     constructor() {
         super();
         this.state = {
-            name: '',
-            email: ''
+            title: '',
+            latitude: '',
+            longitude: ''
         }
     }
     static navigationOptions = {
@@ -20,21 +21,24 @@ class AboutScreen extends Component {
         this.setState({ [field]: text });
     }
     submit() {
-        name = this.state.name
-        email = this.state.email
-        console.warn(name)
-        const data = { username: 'example' };
 
-        fetch('localhost:5000/postjson', {
+        let vp = {}
+        vp.title = this.state.title
+        vp.latitude = this.state.latitude
+        vp.longitude = this.state.longitude
+        console.log(vp)
+        console.warn(vp)
+
+        fetch('https://8b7a06e0.ngrok.io/postjson', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(vp),
         })
             .then((response) => response.json())
-            .then((data) => {
-                console.log('Success:', data);
+            .then((vp) => {
+                console.log('Success:', vp);
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -46,16 +50,21 @@ class AboutScreen extends Component {
         return (
             <View style={styles.container}>
                 <TextInput
-                    placeholder="Name"
-                    onChangeText={(text) => this.updateValue(text, 'name')}>
+                    placeholder="Title"
+                    onChangeText={(text) => this.updateValue(text, 'title')}>
 
                 </TextInput>
                 <TextInput
-                    placeholder="Email"
-                    onChangeText={(text) => this.updateValue(text, 'email')}>
+                    placeholder="Latitude"
+                    onChangeText={(text) => this.updateValue(text, 'latitude')}>
 
                 </TextInput>
-                <TouchableOpacity onPress={() => this.submit} >
+                <TextInput
+                    placeholder="Longitude"
+                    onChangeText={(text) => this.updateValue(text, 'longitude')}>
+
+                </TextInput>
+                <TouchableOpacity onPress={() => this.submit()} >
                     <Text>
                         Submit
                     </Text>
