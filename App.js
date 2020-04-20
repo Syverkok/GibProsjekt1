@@ -6,13 +6,16 @@ import AboutScreen from './Screens/AboutScreen';
 import HomeScreen from './Screens/HomeScreen';
 import CameraScreen from './Screens/CameraScreen';
 import GalleryScreen from './Screens/GalleryScreen';
+import SearchScreen from './Screens/GalleryScreen';
+
 
 
 const Container = createStackNavigator({
   Home: HomeScreen,
   About: AboutScreen,
   Camera: CameraScreen,
-  Gallery: GalleryScreen
+  Gallery: GalleryScreen,
+  Search: SearchScreen
 },
 {
   initialRouteName: 'Home',
