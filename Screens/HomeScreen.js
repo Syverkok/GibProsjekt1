@@ -41,7 +41,8 @@ export default class HomeScreen extends React.Component {
             }}
           title = "Skjer"/>
         </MapView>
-        <Fab direction="center" position="bottomLeft" style={{backgroundColor: 'darkslateblue'}}>
+        <Fab direction="center" position="bottomLeft" style={{backgroundColor: 'darkslateblue'}}
+        onPress={() => this.props.navigation.navigate('Gallery')}>
           <Icon name="add"/>
         </Fab>
         <Fab direction="center" position="bottomRight"
