@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 
 class AboutScreen extends Component {
     constructor() {
@@ -17,16 +17,26 @@ class AboutScreen extends Component {
         },
         headerTintColor: 'white'
     }
+  
     updateValue(text, field) {
         this.setState({ [field]: text });
     }
+    componentDidMount(){
+        navigator.geolocation.getCurrentPosition(
+			position => {
+                this.state.longitude = position.coords.longitude
+                this.state.latitude = position.coords.latitude
+			},
+			error => Alert.alert(error.message),
+			{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+		);
+    }
     submit() {
-
         let vp = {}
         vp.title = this.state.title
         vp.latitude = this.state.latitude
         vp.longitude = this.state.longitude
-        fetch('https://37054af2.ngrok.io/postjson', {
+        fetch('https://adfb4651.ngrok.io/postjson', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -51,7 +61,7 @@ class AboutScreen extends Component {
                     onChangeText={(text) => this.updateValue(text, 'title')}>
 
                 </TextInput>
-                <TextInput
+                {/* <TextInput
                     placeholder="Latitude"
                     onChangeText={(text) => this.updateValue(text, 'latitude')}>
 
@@ -60,7 +70,7 @@ class AboutScreen extends Component {
                     placeholder="Longitude"
                     onChangeText={(text) => this.updateValue(text, 'longitude')}>
 
-                </TextInput>
+                </TextInput> */}
                 <TouchableOpacity onPress={() => this.submit()} >
                     <Text>
                         Submit

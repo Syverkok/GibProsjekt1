@@ -7,32 +7,7 @@ export default class HomeScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      listOfViews: [
-        {
-          "ID": 1,
-          "date": null,
-          "image_name": null,
-          "lat": 63.419296,
-          "long": 10.401807,
-          "title": "Gl\u00f8shaugen"
-        },
-        {
-          "ID": 2,
-          "date": null,
-          "image_name": null,
-          "lat": 63.42686,
-          "long": 10.410917,
-          "title": "Festningen"
-        },
-        {
-          "ID": 6,
-          "date": null,
-          "image_name": null,
-          "lat": 59.234581,
-          "long": 10.433676,
-          "title": "SyverCrib"
-        }
-      ]
+      listOfViews: []
     }
   }
   static navigationOptions = ({ navigation }) => {
@@ -54,16 +29,17 @@ export default class HomeScreen extends React.Component {
       headerTintColor: 'white'
     }
   }
-  fetchData() {
-    fetch('https://37054af2.ngrok.io/viewPoints')
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-      });
 
-  }
+  componentDidMount() {
+    return fetch('https://adfb4651.ngrok.io/viewPoints')
+        .then((response) => response.json())
+        .then((responseJson) => {
+            this.setState({
+                listOfViews: responseJson.viewPoints,
+            })
+        })
+        .catch((error) => console.log(error))
+}
   render() {
     return (
       <SafeAreaView style={styles.headerStyle}>
@@ -76,7 +52,7 @@ export default class HomeScreen extends React.Component {
           }}
           showsUserLocation>
           {this.state.listOfViews.map(marker => (
-            <MapView.Marker
+            <MapView.Marker key = {marker.ID}
               coordinate={{
                 latitude: marker.lat,
                 longitude: marker.long
@@ -94,7 +70,7 @@ export default class HomeScreen extends React.Component {
           <Icon name="camera" />
         </Fab>
         <Fab direction="center" position="topLeft"
-          style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.fetchData()}>
+          style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.componentDidMount()}>
           <Icon name="ios-cloud-download" />
         </Fab>
       </SafeAreaView>
