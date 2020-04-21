@@ -23,9 +23,6 @@ export default class HomeScreen extends React.Component {
       headerTintColor: 'white'
     }
   }
-  fetchData(){
-    
-  }
 
   render() {
     return (

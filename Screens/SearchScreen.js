@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ActivityIndicator } from 'react-native';
-import { Header, Item, Icon, Input, Container, Button, Body, Segment } from 'native-base'
+import { Text, View, StyleSheet, ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
+import { Icon, Input, Button, InputGroup, Content} from 'native-base'
 
 export default class SearchScreen extends Component {
     static navigationOptions = {
@@ -14,14 +14,14 @@ export default class SearchScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: null,
+            dataSource: [],
             isLoading: true,
             searchKey: '',
         }
     }
 
     componentDidMount() {
-        return fetch('https://jsonplaceholder.typicode.com/user/1/todos/')
+        return fetch('https://jsonplaceholder.typicode.com/posts')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
@@ -32,68 +32,80 @@ export default class SearchScreen extends Component {
             .catch((error) => console.log(error))
     }
 
+    _renderItem = ({ item }) => (
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Spot', item)}>
+            <View style={styles.item}>
+                <Text>{item.title}</Text>
+            </View>
+        </TouchableOpacity>
+    );
+
     render() {
 
         if (this.state.isLoading) {
 
             return (
-                <ActivityIndicator/>
+                <ActivityIndicator />
             )
         }
         else {
-            const filteredData = this.state.dataSource.filter( (item) => {
+            const filteredData = this.state.dataSource.filter((item) => {
                 return item.title.indexOf(this.state.searchKey) >= 0
             })
 
-            let todos = filteredData.map((value, key) => {
+            /* let todos = filteredData.map((value, key) => {
 
                 return (
                     <View key={key}>
-                        <Text>
+                        <Text style={styles.item}>
                             {value.title}
                         </Text>
                     </View>
                 );
-        });
+            }); */
 
-        return (
-            
-            <Container>
-                
-                <Header searchBar rounded>
-                    <Item>
-                        <Icon name='search'/>
-                        <Input placeholder='Search for a spot' onChangeText={ (value) => this.setState({searchKey: value}) }/>
-                    </Item>
-                    <Button transparent>
-                        <Text>Search</Text>
-                    </Button>
-                </Header>
+            return (
 
                 <View style={styles.container}>
-                    {todos}
+
+                    <View style={styles.searchBar}>
+                        <InputGroup>
+                            <Icon name='search' />
+                            <Input placeholder='Search for a spot' onChangeText={(value) => this.setState({ searchKey: value })} />
+                        </InputGroup>
+                    </View>
+
+                    <View style={styles.list}>
+                        <FlatList
+                            data={filteredData}
+                            renderItem={this._renderItem}
+                            keyExtractor={(item, index) => index.toString()}
+                        />
+                    </View>
+
                 </View>
 
-            </Container>
-            
-        )
+            )
         }
     }
 }
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+    },
+    searchBar: {
+        borderBottomWidth: 4,
+        borderBottomColor: 'darkslateblue'
+    },
+    list: {
+        flex: 1,
+        paddingBottom: 5
     },
     item: {
-        flex: 1,
-        alignSelf: 'stretch',
+        padding: 20,
+        borderBottomColor: 'darkslateblue',
+        borderBottomWidth: 2,
         alignItems: 'center',
-        justifyContent: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: '#bbb'
     }
 })
