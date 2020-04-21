@@ -14,7 +14,7 @@ export default class HomeScreen extends React.Component {
     return {
       headerTitle: 'SpotIT',
       headerLeft: () => (
-        <Button transparent onPress={() => navigation.navigate('About')}>
+        <Button transparent onPress={() => navigation.navigate('Info')}>
           <Icon name='list' style={{ color: 'white' }} />
         </Button>
       ),
@@ -31,7 +31,7 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    return fetch('https://adfb4651.ngrok.io/viewPoints')
+    return fetch('https://f891a4ec.ngrok.io/viewPoints')
         .then((response) => response.json())
         .then((responseJson) => {
             this.setState({
@@ -39,7 +39,7 @@ export default class HomeScreen extends React.Component {
             })
         })
         .catch((error) => console.log(error))
-}
+  }
   render() {
     return (
       <SafeAreaView style={styles.headerStyle}>

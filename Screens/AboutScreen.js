@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, Alert , Image} from 'react-native';
 
 class AboutScreen extends Component {
     constructor() {
@@ -7,7 +7,7 @@ class AboutScreen extends Component {
         this.state = {
             title: '',
             latitude: '',
-            longitude: ''
+            longitude: '',
         }
     }
     static navigationOptions = {
@@ -28,7 +28,7 @@ class AboutScreen extends Component {
                 this.state.latitude = position.coords.latitude
 			},
 			error => Alert.alert(error.message),
-			{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
 		);
     }
     submit() {
@@ -36,9 +36,12 @@ class AboutScreen extends Component {
         vp.title = this.state.title
         vp.latitude = this.state.latitude
         vp.longitude = this.state.longitude
-        fetch('https://adfb4651.ngrok.io/postjson', {
+        console.log(this.props.navigation.getParam('photo2'))
+        vp.image = this.props.navigation.getParam('photo2').base64
+        fetch('https://f891a4ec.ngrok.io/postjson', {
             method: 'POST', // or 'PUT'
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(vp),
@@ -76,6 +79,7 @@ class AboutScreen extends Component {
                         Submit
                     </Text>
                 </TouchableOpacity>
+                <Image style={{width: 400, height: 400}} source={{uri: this.props.navigation.getParam("photo").uri}}/>
             </View>
         );
     }
