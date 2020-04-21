@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button, ActivityIndicator} from 'react-native';
+import { Text, View, StyleSheet, ActivityIndicator } from 'react-native';
+import { Header, Item, Icon, Input, Container, Button, Body, Segment } from 'native-base'
 
 export default class SearchScreen extends Component {
     static navigationOptions = {
@@ -13,70 +14,86 @@ export default class SearchScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoading: true,
             dataSource: null,
+            isLoading: true,
+            searchKey: '',
         }
     }
 
     componentDidMount() {
-        return fetch('https://reactnative.dev/movies.json')
-        .then( (response) => response.json()) 
-        .then( (responseJson) => {
-            this.setState({
-                dataSource: responseJson,
-                isLoading: true,
+        return fetch('https://jsonplaceholder.typicode.com/user/1/todos/')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    dataSource: responseJson,
+                    isLoading: false,
+                })
             })
-        })
-        .catch( (error) => console.log(error))
+            .catch((error) => console.log(error))
     }
 
     render() {
-        
+
         if (this.state.isLoading) {
 
             return (
-                <View style={styles.container}>
-                    <View style={styles.container}>
-                        <Text>Dette er søkesiden til SpotIT</Text>
-                    </View>
-                <View style={styles.container}>
-                    <Button title="Display all spots" onPress={ (responseJson) => this.setState({
-                    isLoading: false,
-                    })}/>
-                </View> 
-                </View>
+                <ActivityIndicator/>
             )
         }
         else {
-            let movies = this.state.dataSource.movies.map((value, key) => {
-                return (
-                <View key={key} style={styles.item}>
-                    <Text> {value.title} </Text>
-                </View>
-                )
-            });
+            const filteredData = this.state.dataSource.filter( (item) => {
+                return item.title.indexOf(this.state.searchKey) >= 0
+            })
 
-            return (
+            let todos = filteredData.map((value, key) => {
+
+                return (
+                    <View key={key}>
+                        <Text>
+                            {value.title}
+                        </Text>
+                    </View>
+                );
+        });
+
+        return (
+            
+            <Container>
+                
+                <Header searchBar rounded>
+                    <Item>
+                        <Icon name='search'/>
+                        <Input placeholder='Search for a spot' onChangeText={ (value) => this.setState({searchKey: value}) }/>
+                    </Item>
+                    <Button transparent>
+                        <Text>Search</Text>
+                    </Button>
+                </Header>
+
                 <View style={styles.container}>
-                    {movies}
+                    {todos}
                 </View>
-            )
+
+            </Container>
+            
+        )
         }
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
-    }, 
+    },
     item: {
-        flex:1,
+        flex: 1,
         alignSelf: 'stretch',
         alignItems: 'center',
         justifyContent: 'center',
         borderBottomWidth: 1,
-        borderBottomColor: '#bbb' 
+        borderBottomColor: '#bbb'
     }
 })
