@@ -36,7 +36,7 @@ class AboutScreen extends Component {
         vp.title = this.state.title
         vp.latitude = this.state.latitude
         vp.longitude = this.state.longitude
-        fetch('https://adfb4651.ngrok.io/postjson', {
+        fetch('https://fc768162.ngrok.io/postjson', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ class AboutScreen extends Component {
         })
             .then((response) => response.json())
             .then((vp) => {
-                console.log('Success:', vp);
+                //console.log('Success:', vp);
             })
             .catch((error) => {
                 console.error('Error:', error);
