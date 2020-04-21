@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button, ActivityIndicator} from 'react-native';
+import { Text, View, StyleSheet, Button, ActivityIndicator } from 'react-native';
 
 export default class SearchScreen extends Component {
     static navigationOptions = {
@@ -20,18 +20,18 @@ export default class SearchScreen extends Component {
 
     componentDidMount() {
         return fetch('https://reactnative.dev/movies.json')
-        .then( (response) => response.json()) 
-        .then( (responseJson) => {
-            this.setState({
-                dataSource: responseJson,
-                isLoading: true,
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    dataSource: responseJson,
+                    isLoading: true,
+                })
             })
-        })
-        .catch( (error) => console.log(error))
+            .catch((error) => console.log(error))
     }
 
     render() {
-        
+
         if (this.state.isLoading) {
 
             return (
@@ -39,20 +39,20 @@ export default class SearchScreen extends Component {
                     <View style={styles.container}>
                         <Text>Dette er søkesiden til SpotIT</Text>
                     </View>
-                <View style={styles.container}>
-                    <Button title="Display all spots" onPress={ (responseJson) => this.setState({
-                    isLoading: false,
-                    })}/>
-                </View> 
+                    <View style={styles.container}>
+                        <Button title="Display all spots" onPress={(responseJson) => this.setState({
+                            isLoading: false,
+                        })} />
+                    </View>
                 </View>
             )
         }
         else {
             let movies = this.state.dataSource.movies.map((value, key) => {
                 return (
-                <View key={key} style={styles.item}>
-                    <Text> {value.title} </Text>
-                </View>
+                    <View key={key} style={styles.item}>
+                        <Text> {value.title} </Text>
+                    </View>
                 )
             });
 
@@ -70,13 +70,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
-    }, 
+    },
     item: {
-        flex:1,
+        flex: 1,
         alignSelf: 'stretch',
         alignItems: 'center',
         justifyContent: 'center',
         borderBottomWidth: 1,
-        borderBottomColor: '#bbb' 
+        borderBottomColor: '#bbb'
     }
 })

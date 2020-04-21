@@ -26,9 +26,7 @@ class AboutScreen extends Component {
         vp.title = this.state.title
         vp.latitude = this.state.latitude
         vp.longitude = this.state.longitude
-        console.warn(vp)
-
-        fetch('https://aa6cd66a.ngrok.io/postjson', {
+        fetch('https://37054af2.ngrok.io/postjson', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
