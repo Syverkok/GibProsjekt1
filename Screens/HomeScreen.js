@@ -1,15 +1,18 @@
 import React from 'react';
 import MapView from 'react-native-maps';
-import { Text, View, Dimensions, SafeAreaView, StyleSheet } from 'react-native';
+import { Text, View, Dimensions, SafeAreaView, StyleSheet, Alert } from 'react-native';
 import { Header, Button, Body, Title, Fab, Icon, Left, Right } from 'native-base';
 
 export default class HomeScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      listOfViews: []
+      listOfViews: [],
+      latitude: '',
+      longitude: ''
     }
   }
+  
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: 'SpotIT',
@@ -29,30 +32,43 @@ export default class HomeScreen extends React.Component {
       headerTintColor: 'white'
     }
   }
-
+  displayLongitue() {
+    if (this.state.longitude == '') {
+        return 10.388036;
+    } else {
+        return this.state.longitude;
+    }
+  }
+  displayLatitude() {
+    if (this.state.latitude == '') {
+        return 63.428104;
+    } else {
+        return this.state.latitude;
+    }
+  }
   componentDidMount() {
-    return fetch('https://f891a4ec.ngrok.io/viewPoints')
-        .then((response) => response.json())
-        .then((responseJson) => {
-            this.setState({
-                listOfViews: responseJson.viewPoints,
-            })
+    return fetch('https://9cf140bf.ngrok.io/viewPoints')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          listOfViews: responseJson.viewPoints,
         })
-        .catch((error) => console.log(error))
+      })
+      .catch((error) => console.log(error))
   }
   render() {
     return (
       <SafeAreaView style={styles.headerStyle}>
         <MapView style={styles.mapStyle}
           initialRegion={{
-            latitude: 63.428104,
-            longitude: 10.388036,
+            latitude: this.displayLatitude(),
+            longitude: this.displayLongitue(),
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
           showsUserLocation>
           {this.state.listOfViews.map(marker => (
-            <MapView.Marker key = {marker.ID}
+            <MapView.Marker key={marker.ID}
               coordinate={{
                 latitude: marker.lat,
                 longitude: marker.long

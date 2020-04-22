@@ -23,7 +23,7 @@ export default class InfoScreen extends Component {
     loadData() {
         let vp = {}
         vp.title = this.state.title
-        return fetch('https://f891a4ec.ngrok.io/getViewPoint',{
+        return fetch('https://9cf140bf.ngrok.io/getViewPoint',{
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -51,7 +51,7 @@ export default class InfoScreen extends Component {
                     placeholder="Title"
                     onChangeText={(text) => this.updateValue(text, 'title')}>
                 </TextInput>
-                <Image style={{ width: 400, height: 400 }} source={{ uri: `data:image/jpeg;base64,${this.state.photo}` }} />
+                <Image style={{ width: 400, height: 400, borderRadius: 10}} source={{ uri: `data:image/jpeg;base64,${this.state.photo}` }} />
             </View>
         );
     }

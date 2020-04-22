@@ -7,7 +7,6 @@ export default function App({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null)
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [photo, setPhoto] = useState(null)
   const [photo2, setPhoto2] = useState(null)
 
 
@@ -50,11 +49,9 @@ export default function App({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity style={{ alignSelf: 'center' }} onPress={async () => {
             if (cameraRef) {
-              let photo = await cameraRef.takePictureAsync({quality:0.1});
-              let photo2 = await cameraRef.takePictureAsync({base64:true, quality:0.1});
-              setPhoto(photo);
+              let photo2 = await cameraRef.takePictureAsync({base64:true, quality:0.05});
               setPhoto2(photo2);
-              navigation.navigate('About', {photo, photo2});
+              navigation.navigate('About', {photo2});
             }
           }}>
             <View style={{
