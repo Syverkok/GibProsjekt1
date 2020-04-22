@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button, ActivityIndicator } from 'react-native';
+import { Text, View, StyleSheet, ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
+import { Icon, Input, Button, InputGroup, Content} from 'native-base'
 
 export default class SearchScreen extends Component {
     static navigationOptions = {
@@ -13,53 +14,78 @@ export default class SearchScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            dataSource: [],
             isLoading: true,
-            dataSource: null,
+            searchKey: '',
         }
     }
 
     componentDidMount() {
-        return fetch('https://reactnative.dev/movies.json')
+        return fetch('https://9cf140bf.ngrok.io/viewPoints')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
                     dataSource: responseJson,
-                    isLoading: true,
+                    isLoading: false,
                 })
             })
             .catch((error) => console.log(error))
     }
+
+    _renderItem = ({ item }) => (
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Spot', item)}>
+            <View style={styles.item}>
+                <Text style={{fontSize: 25}}>{item.title}</Text>
+                <Text>Rating: {item.rating}</Text>
+            </View>
+        </TouchableOpacity>
+    );
 
     render() {
 
         if (this.state.isLoading) {
 
             return (
-                <View style={styles.container}>
-                    <View style={styles.container}>
-                        <Text>Dette er søkesiden til SpotIT</Text>
-                    </View>
-                    <View style={styles.container}>
-                        <Button title="Display all spots" onPress={(responseJson) => this.setState({
-                            isLoading: false,
-                        })} />
-                    </View>
-                </View>
+                <ActivityIndicator />
             )
         }
         else {
-            let movies = this.state.dataSource.movies.map((value, key) => {
+            const filteredData = this.state.dataSource.viewPoints.filter((item) => {
+                return item.title.indexOf(this.state.searchKey) >= 0
+            })
+
+            /* let todos = filteredData.map((value, key) => {
+
                 return (
-                    <View key={key} style={styles.item}>
-                        <Text> {value.title} </Text>
+                    <View key={key}>
+                        <Text style={styles.item}>
+                            {value.title}
+                        </Text>
                     </View>
-                )
-            });
+                );
+            }); */
 
             return (
+
                 <View style={styles.container}>
-                    {movies}
+
+                    <View style={styles.searchBar}>
+                        <InputGroup>
+                            <Icon name='search' />
+                            <Input placeholder='Search for a spot' onChangeText={(value) => this.setState({ searchKey: value })} />
+                        </InputGroup>
+                    </View>
+
+                    <View style={styles.list}>
+                        <FlatList
+                            data={filteredData}
+                            renderItem={this._renderItem}
+                            keyExtractor={(item, index) => index.toString()}
+                        />
+                    </View>
+
                 </View>
+
             )
         }
     }
@@ -68,15 +94,19 @@ export default class SearchScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+    },
+    searchBar: {
+        borderBottomWidth: 4,
+        borderBottomColor: 'darkslateblue'
+    },
+    list: {
+        flex: 1,
+        paddingBottom: 5
     },
     item: {
-        flex: 1,
-        alignSelf: 'stretch',
+        padding: 50,
+        borderBottomColor: 'darkslateblue',
+        borderBottomWidth: 2,
         alignItems: 'center',
-        justifyContent: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: '#bbb'
     }
 })
