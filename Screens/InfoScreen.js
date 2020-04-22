@@ -23,7 +23,7 @@ export default class InfoScreen extends Component {
     loadData() {
         let vp = {}
         vp.title = this.state.title
-        return fetch('https://9cf140bf.ngrok.io/getViewPoint',{
+        return fetch('https://a4cd83bc.ngrok.io/getViewPoint',{
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',

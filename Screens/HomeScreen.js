@@ -47,7 +47,7 @@ export default class HomeScreen extends React.Component {
     }
   }
   componentDidMount() {
-    return fetch('https://9cf140bf.ngrok.io/viewPoints')
+    return fetch('https://a4cd83bc.ngrok.io/viewPoints')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({

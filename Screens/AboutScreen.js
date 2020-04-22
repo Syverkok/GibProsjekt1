@@ -10,6 +10,7 @@ class AboutScreen extends Component {
             title: '',
             latitude: '',
             longitude: '',
+            vent: ''
         }
     }
     static navigationOptions = {
@@ -23,6 +24,16 @@ class AboutScreen extends Component {
     updateValue(text, field) {
         this.setState({ [field]: text });
     }
+    updateValue2() {
+        // navigator.geolocation.getCurrentPosition(
+        //     position => {
+        //         this.setState({ 'latitude': position.coords.latitude });
+        //         this.setState({ 'longitude': position.coords.longitude });
+        //     },
+        //     error => Alert.alert(error.message),
+        //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+        // );
+    }
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
             position => {
@@ -33,14 +44,22 @@ class AboutScreen extends Component {
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
         );
     }
+    renderElement(){
+        if(this.state.latitude != '')
+           this.submit();
+        else
+        this.setState({vent:'Vent ca 10 sekunder mens vi henter din lokasjon'})
+        return null;
+     }
     submit() {
         let vp = {}
         vp.title = this.state.title
         vp.latitude = this.state.latitude
         vp.longitude = this.state.longitude
-        console.log(this.props.navigation.getParam('photo2'))
+        console.log(vp.longitude)
+        console.log(vp.latitude)
         vp.image = this.props.navigation.getParam('photo2').base64
-        fetch('https://9cf140bf.ngrok.io/postjson', {
+        fetch('https://a4cd83bc.ngrok.io/postjson', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -73,9 +92,10 @@ class AboutScreen extends Component {
 
                 </View>
                 <View style={styles.container}>
-                <Button onPress={() => this.submit()} rounded success>
+                <Button onPress={() => this.renderElement()} rounded success>
                     <Text>  Del spotten!  </Text>
                 </Button>
+                <Text>  {this.state.vent}  </Text>
                 </View>
             </View>
         );
