@@ -21,7 +21,7 @@ export default class SearchScreen extends Component {
     }
 
     componentDidMount() {
-        return fetch('https://d2d63f3a.ngrok.io/viewPoints')
+        return fetch('https://reactnative.dev/movies.json')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
