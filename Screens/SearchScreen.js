@@ -21,7 +21,7 @@ export default class SearchScreen extends Component {
     }
 
     componentDidMount() {
-        return fetch('https://jsonplaceholder.typicode.com/posts')
+        return fetch('https://d2d63f3a.ngrok.io/viewPoints')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
@@ -35,7 +35,8 @@ export default class SearchScreen extends Component {
     _renderItem = ({ item }) => (
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Spot', item)}>
             <View style={styles.item}>
-                <Text>{item.title}</Text>
+                <Text style={{fontSize: 25}}>{item.title}</Text>
+                <Text>Rating: {item.rating}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -49,7 +50,7 @@ export default class SearchScreen extends Component {
             )
         }
         else {
-            const filteredData = this.state.dataSource.filter((item) => {
+            const filteredData = this.state.dataSource.viewPoints.filter((item) => {
                 return item.title.indexOf(this.state.searchKey) >= 0
             })
 
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
         paddingBottom: 5
     },
     item: {
-        padding: 20,
+        padding: 50,
         borderBottomColor: 'darkslateblue',
         borderBottomWidth: 2,
         alignItems: 'center',
