@@ -65,7 +65,7 @@ class AboutScreen extends Component {
         console.log(vp.longitude)
         console.log(vp.latitude)
         vp.image = this.props.navigation.getParam('photo2').base64
-        fetch('https://e4b1582f.ngrok.io/postjson', {
+        fetch('https://2802f069.ngrok.io//postjson', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
