@@ -46,8 +46,9 @@ export default class HomeScreen extends React.Component {
         return this.state.latitude;
     }
   }
+
   componentDidMount() {
-    return fetch('https://a4cd83bc.ngrok.io/viewPoints')
+    return fetch('https://e4b1582f.ngrok.io/viewPoints')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -78,7 +79,7 @@ export default class HomeScreen extends React.Component {
           ))}
         </MapView>
         <Fab direction="center" position="bottomLeft" style={{ backgroundColor: 'darkslateblue' }}
-          onPress={() => this.props.navigation.navigate('Gallery')}>
+          onPress={() => this.props.navigation.navigate('')}>
           <Icon name="add" />
         </Fab>
         <Fab direction="center" position="bottomRight"

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, TextInput } from 'react-native';
-import { Header, Button, Body, Title, Fab, Icon, Left, Right } from 'native-base';
+import { Header, Button, Body, Title, Fab, Icon, Left, Right , Container ,Content, Picker, Form} from 'native-base';
 
 export default class InfoScreen extends Component {
     constructor() {
         super();
         this.state = {
             photo: "",
-            title: ""
+            title: "",
+            selected: "key1"
+
         }
     }
     static navigationOptions = {
@@ -20,10 +22,15 @@ export default class InfoScreen extends Component {
     updateValue(text, field) {
         this.setState({ [field]: text });
     }
+    onValueChange(value) {
+        this.setState({
+          selected: value
+        });
+      }
     loadData() {
         let vp = {}
         vp.title = this.state.title
-        return fetch('https://a4cd83bc.ngrok.io/getViewPoint',{
+        return fetch('https://e4b1582f.ngrok.io/getViewPoint',{
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -42,17 +49,28 @@ export default class InfoScreen extends Component {
     }
     render() {
         return (
-            <View style={styles.container}>
-                <Fab direction="center" position="topLeft"
-                    style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.loadData()}>
-                    <Icon name="ios-cloud-download" />
-                </Fab>
-                <TextInput
-                    placeholder="Title"
-                    onChangeText={(text) => this.updateValue(text, 'title')}>
-                </TextInput>
-                <Image style={{ width: 400, height: 400, borderRadius: 10}} source={{ uri: `data:image/jpeg;base64,${this.state.photo}` }} />
-            </View>
+            <Container>
+            <Header />
+            <Content>
+              <Form>
+                <Picker
+                  mode="dropdown"
+                  iosIcon={<Icon name="arrow-down" />}
+                  headerStyle={{ backgroundColor: "#b95dd3" }}
+                  headerBackButtonTextStyle={{ color: "#fff" }}
+                  headerTitleStyle={{ color: "#fff" }}
+                  selectedValue={this.state.selected}
+                  onValueChange={this.onValueChange.bind(this)}
+                >
+                  <Picker.Item label="Wallet" value="key0" />
+                  <Picker.Item label="ATM Card" value="key1" />
+                  <Picker.Item label="Debit Card" value="key2" />
+                  <Picker.Item label="Credit Card" value="key3" />
+                  <Picker.Item label="Net Banking" value="key4" />
+                </Picker>
+              </Form>
+            </Content>
+          </Container>
         );
     }
 }
