@@ -7,7 +7,6 @@ import HomeScreen from './Screens/HomeScreen';
 import CameraScreen from './Screens/CameraScreen';
 import SearchScreen from './Screens/SearchScreen';
 import SpotScreen from './Screens/SpotScreen';
-import GalleryScreen from './Screens/GalleryScreen';
 import InfoScreen from './Screens/InfoScreen';
 
 
@@ -18,7 +17,6 @@ const Container = createStackNavigator({
   Spot: SpotScreen,
   Camera: CameraScreen,
   Info:InfoScreen,
-  Gallery: GalleryScreen,
   Search: SearchScreen
 },
 {

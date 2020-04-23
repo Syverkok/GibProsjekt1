@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native';
-import { Header, Button, Body, Title, Fab, Icon, Left, Right, Item, Input } from 'native-base';
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, Alert, Image, Dimensions } from 'react-native';
+import { Header, Button, Body, Title, Fab, Icon, Left, Right, Item, Input, Content, Picker, Form, Container } from 'native-base';
 
 
 class AboutScreen extends Component {
@@ -10,6 +10,8 @@ class AboutScreen extends Component {
             title: '',
             latitude: '',
             longitude: '',
+            vent: '',
+            selected: "Natur"
         }
     }
     static navigationOptions = {
@@ -19,9 +21,23 @@ class AboutScreen extends Component {
         },
         headerTintColor: 'white'
     }
-
+    onValueChange(value) {
+        this.setState({
+            selected: value
+        });
+    }
     updateValue(text, field) {
         this.setState({ [field]: text });
+    }
+    updateValue2() {
+        // navigator.geolocation.getCurrentPosition(
+        //     position => {
+        //         this.setState({ 'latitude': position.coords.latitude });
+        //         this.setState({ 'longitude': position.coords.longitude });
+        //     },
+        //     error => Alert.alert(error.message),
+        //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+        // );
     }
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
@@ -33,14 +49,23 @@ class AboutScreen extends Component {
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
         );
     }
+    renderElement() {
+        if (this.state.latitude != '')
+            this.submit();
+        else
+            this.setState({ vent: 'Vent ca 10 sekunder mens vi henter din lokasjon' })
+        return null;
+    }
     submit() {
         let vp = {}
         vp.title = this.state.title
         vp.latitude = this.state.latitude
         vp.longitude = this.state.longitude
-        console.log(this.props.navigation.getParam('photo2'))
+        vp.type = this.state.selected
+        console.log(vp.longitude)
+        console.log(vp.latitude)
         vp.image = this.props.navigation.getParam('photo2').base64
-        fetch('https://9cf140bf.ngrok.io/postjson', {
+        fetch('https://e4b1582f.ngrok.io/postjson', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -55,27 +80,48 @@ class AboutScreen extends Component {
             .catch((error) => {
                 console.error('Error:', error);
             });
-        
-            this.props.navigation.navigate('Home');
+
+        this.props.navigation.navigate('Home');
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.container} >
-                <Item>
-                    <Icon active name='ios-megaphone' />
-                    <Input onChangeText={(text) => this.updateValue(text, 'title')} placeholder='Skriv inn navnet på spotten' />
-                </Item>
+                    <Item>
+                        <Icon active name='ios-megaphone' />
+                        <Input onChangeText={(text) => this.updateValue(text, 'title')} placeholder='Skriv inn navnet på spotten' />
+                    </Item>
                 </View>
-                <View style={styles.container}>
-                <Image style={{ width: 400, height: 400, borderRadius: 10 }} source={{ uri: `data:image/jpeg;base64,${this.props.navigation.getParam('photo2').base64}` }} />
+                <View style={styles.container2} >
+                        <Form>
+                            <Picker
+                                mode="dropdown"
+                                iosIcon={<Icon name="arrow-down" />}
+                                headerStyle={{ backgroundColor: "darkslateblue" }}
+                                headerBackButtonTextStyle={{ color: "#fff" }}
+                                headerTitleStyle={{ color: "#fff" }}
+                                selectedValue={this.state.selected}
+                                onValueChange={this.onValueChange.bind(this)}
+                            >
+                                <Picker.Item label="Arkitektur" value="Arkitektur" />
+                                <Picker.Item label="Utkikspunkt" value="Utkikspunkt" />
+                                <Picker.Item label="Natur" value="Natur" />
+                                <Picker.Item label="Kultur" value="Kultur" />
+                                <Picker.Item label="Park" value="Park" />
+                                <Picker.Item label="Annet" value="Annet" />
+                            </Picker>
+                        </Form>
+                    </View>
+                <View style={styles.container3}>
+                    <Image source={{ uri: `data:image/jpeg;base64,${this.props.navigation.getParam('photo2').base64}` }} style={styles.picture} />
 
                 </View>
-                <View style={styles.container}>
-                <Button onPress={() => this.submit()} rounded success>
-                    <Text>  Del spotten!  </Text>
-                </Button>
+                <View style={styles.container4}>
+                    <Button onPress={() => this.renderElement()} rounded success>
+                        <Text>  Del spotten!  </Text>
+                    </Button>
+                    <Text>  {this.state.vent}  </Text>
                 </View>
             </View>
         );
@@ -87,7 +133,29 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 3,
+        padding: 30,
+        paddingTop: 0
+    },
+    container2: {
+        flex: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 0
+    },
+    container3: {
+        flex: 3,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    container4: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    picture: {
+        width: 300,
+        height: 300,
+        // resizeMode: 'contain',
     }
 })
 
