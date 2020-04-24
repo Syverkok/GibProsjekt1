@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TextInput, View, StyleSheet, TouchableOpacity, Alert, Image, Dimensions } from 'react-native';
 import { Header, Button, Body, Title, Fab, Icon, Left, Right, Item, Input, Content, Picker, Form, Container } from 'native-base';
+import { CustomPicker } from 'react-native-custom-picker'
 
 
 class PublishScreen extends Component {
@@ -11,7 +12,7 @@ class PublishScreen extends Component {
             latitude: '',
             longitude: '',
             ventMelding: '',
-            selected: undefined
+            type: 'Arkitektur',
         }
     }
     static navigationOptions = {
@@ -23,7 +24,7 @@ class PublishScreen extends Component {
     }
     onValueChange(value) {
         this.setState({
-            selected: value
+            type: value,
         });
     }
     updateValue(text, field) {
@@ -51,7 +52,7 @@ class PublishScreen extends Component {
         vp.title = this.state.title
         vp.latitude = this.state.latitude
         vp.longitude = this.state.longitude
-        vp.type = this.state.selected
+        vp.type = this.state.type
         console.log(vp.longitude)
         console.log(vp.latitude)
         console.log(this.props.navigation.getParam('kefoijwe'))
@@ -87,27 +88,25 @@ class PublishScreen extends Component {
                             <Input onChangeText={(text) => this.updateValue(text, 'title')} placeholder='Skriv inn navnet på spotten' />
                         </Item>
                     </View>
-
                     <View style={styles.item}>
-                        <Form>
-                            <Picker
-                                mode="dropdown"
-                                iosIcon={<Icon name="arrow-down" />}
-                                placeholder="Velg type spot"
-                                selectedValue={this.state.selected}
-                                onValueChange={this.onValueChange.bind(this)}
-                                headerStyle={{ backgroundColor: 'darkslateblue' }}
-                                headerBackButtonTextStyle={{ color: 'white' }}
-                                headerTitleStyle={{ color: 'white' }}
-                            >
-                                <Picker.Item label="Arkitektur" value="Arkitektur" />
-                                <Picker.Item label="Utkikkspunkt" value="Utkikkspunkt" />
-                                <Picker.Item label="Natur" value="Natur" />
-                                <Picker.Item label="Kultur" value="Kultur" />
-                                <Picker.Item label="Park" value="Park" />
-                                <Picker.Item label="Annet" value="Annet" />
-                            </Picker>
-                        </Form>
+                        <Text>Vennligst velg kategori</Text>
+                    </View>
+                    <View style={styles.pickerfield}>
+                        <Picker
+                            selectedValue={this.state.type}
+                            style={styles.picker}
+                            onValueChange={(itemValue, itemIndex) => this.setState({ type: itemValue })}
+                            headerStyle={{backgroundColor: 'darkslateblue'}}
+                            headerBackButtonTextStyle={{color: 'white'}}
+                            headerTitleStyle={{color: 'white'}}
+                            iosHeader="Velg type"
+                            iosIcon={<Icon name="arrow-down"/>}>
+                            <Picker.Item label="Arkitektur" value="Arkitektur" />
+                            <Picker.Item label="Utkikkspunkt" value="Utkikkspunkt" />
+                            <Picker.Item label="Natur" value="Natur" />
+                            <Picker.Item label="Kultur" value="Kultur" />
+                            <Picker.Item label="Annet" value="Annet" />
+                        </Picker>
                     </View>
                 </View>
 
@@ -121,7 +120,7 @@ class PublishScreen extends Component {
                             <Text>  Del spotten!  </Text>
                         </Button>
                     </View>
-                    <Text style={{textAlign: 'center'}}>{this.state.ventMelding}</Text>
+                    <Text style={{ textAlign: 'center' }}>{this.state.ventMelding}</Text>
                 </View>
 
             </View>
@@ -177,14 +176,14 @@ const styles = StyleSheet.create({
         padding: 20
     },
     propsfield: {
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        height: '25%'
         //backgroundColor: 'yellow'
     },
     picturefield: {
-        flex: 1,
+        flex: 3,
         alignItems: 'center',
         justifyContent: 'center',
         //backgroundColor: 'darkslateblue',
@@ -203,6 +202,19 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    pickerfield: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        //backgroundColor: 'blue'
+    },
+    picker: {
+        borderColor: 'black',
+        borderWidth: 2,
+        width: '50%',
+        alignItems: 'center',
     }
     /*container: {
         flex: 1,
