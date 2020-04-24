@@ -29,7 +29,7 @@ export default class FuzzyScreen extends Component {
     }
     setTur(value) {
         this.setState({
-            kjore: value
+            tur: value
         });
     }
     renderElement() {
@@ -86,7 +86,7 @@ export default class FuzzyScreen extends Component {
                                 <Text>
                                     Skulle det friste med en litta luftetur, lengre enn rundt i nabolaget? Har du tilgang på bil eller kollektiv?
                                     Da er dette funksjonaliteten for deg! Skriv inn ca lengde du er villig til å kjøre,
-                                    deretter skriver du inn hvor stort område du vil utforske!
+                                    deretter skriver du inn største avstanden du er villig til å gå!
                                     Tilbake vil du få ett sett med nydelige spots fra våre brukere! God tur!
                             </Text>
                             </Body>
@@ -104,7 +104,7 @@ export default class FuzzyScreen extends Component {
 
                     />
                     <TextInput
-                        placeholder="Skriv inn ca turlengde i km"
+                        placeholder="Skriv inn maksimum gå avstand"
                         underlineColorAndroid='transparent'
                         style={styles.TextInputStyle}
                         keyboardType={'numeric'}
