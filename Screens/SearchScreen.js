@@ -70,9 +70,6 @@ export default class SearchScreen extends Component {
         return Static_Rating_Bar
     }
 
-
-
-
     render() {
         if (this.state.isLoading) {
 

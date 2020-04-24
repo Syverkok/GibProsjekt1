@@ -66,7 +66,7 @@ class AboutScreen extends Component {
         })
             .then((response) => response.json())
             .then((vp) => {
-                console.log('Success:', vp);
+                //console.log('Success:', vp);
             })
             .catch((error) => {
                 console.error('Error:', error);
