@@ -56,7 +56,7 @@ export default function App({ navigation }) {
           }}>
             <View style={{
               borderWidth: 2,
-              borderRadius: "50%",
+              borderRadius: 50,
               borderColor: 'white',
               height: 50,
               width: 50,
@@ -67,7 +67,7 @@ export default function App({ navigation }) {
             >
               <View style={{
                 borderWidth: 2,
-                borderRadius: "50%",
+                borderRadius: 50,
                 borderColor: 'white',
                 height: 40,
                 width: 40,
