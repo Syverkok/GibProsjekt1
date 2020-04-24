@@ -12,7 +12,7 @@ export default class HomeScreen extends React.Component {
       longitude: ''
     }
   }
-  
+
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: 'SpotIT',
@@ -34,21 +34,21 @@ export default class HomeScreen extends React.Component {
   }
   displayLongitue() {
     if (this.state.longitude == '') {
-        return 10.388036;
+      return 10.388036;
     } else {
-        return this.state.longitude;
+      return this.state.longitude;
     }
   }
   displayLatitude() {
     if (this.state.latitude == '') {
-        return 63.428104;
+      return 63.428104;
     } else {
-        return this.state.latitude;
+      return this.state.latitude;
     }
   }
 
-  componentDidMount() {
-    return fetch('https://e4b1582f.ngrok.io/viewPoints')
+  upDateMarker() {
+    return fetch('https://fc7311a8.ngrok.io/viewPoints')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -68,7 +68,25 @@ export default class HomeScreen extends React.Component {
             longitudeDelta: 0.0421,
           }}
           showsUserLocation>
-          {this.state.listOfViews.map(marker => (
+          {/* {typeof(this.props.navigation.getParam('list')) == 'undefined' ? this.state.listOfViews : this.props.navigation.getParam('list').map(marker => (
+            <MapView.Marker key={marker.ID}
+              coordinate={{
+                latitude: marker.lat,
+                longitude: marker.long
+              }}
+              title={marker.title}
+            />
+          ))} */}
+
+          {typeof (this.props.navigation.getParam('list')) == 'undefined' ? this.state.listOfViews.map(marker => (
+            <MapView.Marker key={marker.ID}
+              coordinate={{
+                latitude: marker.lat,
+                longitude: marker.long
+              }}
+              title={marker.title}
+            />
+          )) : this.props.navigation.getParam('list').map(marker => (
             <MapView.Marker key={marker.ID}
               coordinate={{
                 latitude: marker.lat,
@@ -79,7 +97,7 @@ export default class HomeScreen extends React.Component {
           ))}
         </MapView>
         <Fab direction="center" position="bottomLeft" style={{ backgroundColor: 'darkslateblue' }}
-          onPress={() => this.props.navigation.navigate('')}>
+          onPress={() => this.props.navigation.navigate('Fuzzy')}>
           <Icon name="add" />
         </Fab>
         <Fab direction="center" position="bottomRight"
@@ -87,7 +105,7 @@ export default class HomeScreen extends React.Component {
           <Icon name="camera" />
         </Fab>
         <Fab direction="center" position="topLeft"
-          style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.componentDidMount()}>
+          style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.upDateMarker()}>
           <Icon name="ios-cloud-download" />
         </Fab>
       </SafeAreaView>

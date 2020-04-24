@@ -29,21 +29,11 @@ class AboutScreen extends Component {
     updateValue(text, field) {
         this.setState({ [field]: text });
     }
-    updateValue2() {
-        // navigator.geolocation.getCurrentPosition(
-        //     position => {
-        //         this.setState({ 'latitude': position.coords.latitude });
-        //         this.setState({ 'longitude': position.coords.longitude });
-        //     },
-        //     error => Alert.alert(error.message),
-        //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-        // );
-    }
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
             position => {
-                this.state.longitude = position.coords.longitude
-                this.state.latitude = position.coords.latitude
+                this.setState({ 'latitude': position.coords.latitude });
+                this.setState({ 'longitude': position.coords.longitude });
             },
             error => Alert.alert(error.message),
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
@@ -64,8 +54,9 @@ class AboutScreen extends Component {
         vp.type = this.state.selected
         console.log(vp.longitude)
         console.log(vp.latitude)
+        console.log(this.props.navigation.getParam('kefoijwe'))
         vp.image = this.props.navigation.getParam('photo2').base64
-        fetch('https://e4b1582f.ngrok.io/postjson', {
+        fetch('https://fc7311a8.ngrok.io/postjson', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
