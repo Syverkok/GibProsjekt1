@@ -51,7 +51,7 @@ export default function App({ navigation }) {
             if (cameraRef) {
               let photo2 = await cameraRef.takePictureAsync({ base64: true, quality: 0.05 });
               setPhoto2(photo2);
-              navigation.navigate('About', { photo2 });
+              navigation.navigate('Publish', {photo2});
             }
           }}>
             <View style={{
