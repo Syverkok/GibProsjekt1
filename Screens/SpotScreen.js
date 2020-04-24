@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, Modal, ActivityIndicator, SafeAreaView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import {Button} from 'native-base'
+import NewMapScreen from './NewMapScreen';
 
 
 export default class SpotScreen extends Component {
@@ -23,6 +25,7 @@ export default class SpotScreen extends Component {
             numOfRatings: 0,
             rating: 0,
             isLoading: true,
+            vp: {}
         };
         //Filled Star. You can also give the path from local
         this.Star = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Star_full.svg/1005px-Star_full.svg.png';
@@ -95,6 +98,13 @@ export default class SpotScreen extends Component {
             console.log(vp.numberOfRatings)
         })
     }
+    getVpObject(){
+        let vp ={}
+        vp.lat = this.props.navigation.getParam('lat')
+        vp.long = this.props.navigation.getParam('long')
+        vp.title = this.props.navigation.getParam('title')
+        return vp
+    }
 
     render() {
         if (this.state.isLoading) {
@@ -123,7 +133,6 @@ export default class SpotScreen extends Component {
                 </TouchableOpacity>
             );
         }
-
         let Static_Rating_Bar = [];
         //Array to hold the filled or empty Stars
         for (var i = 1; i <= this.state.Max_Rating; i++) {
@@ -141,7 +150,7 @@ export default class SpotScreen extends Component {
         }
 
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
 
                 <Modal
                     visible={this.state.modalOpen}
@@ -202,7 +211,11 @@ export default class SpotScreen extends Component {
                     {/* <Image style={styles.pictureprops} source={{uri: this.props.navigation.getParam('url')}}></Image> */}
                 </View>
 
-            </View>
+                <Button onPress={() => this.props.navigation.navigate('NewMap2', {vp:this.getVpObject()})} rounded success>
+                            <Text>  Se spotten på kartet </Text>
+                </Button>
+
+            </SafeAreaView>
         );
     }
 }

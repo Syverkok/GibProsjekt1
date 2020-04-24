@@ -10,6 +10,8 @@ import SpotScreen from './Screens/SpotScreen';
 import InfoScreen from './Screens/InfoScreen';
 import FuzzyScreen from './Screens/FuzzyScreen';
 import NewMapScreen from './Screens/NewMapScreen';
+import NewMapScreen2 from './Screens/NewMapScreen2';
+import FilterScreen from './Screens/FilterScreen';
 
 
 
@@ -20,7 +22,9 @@ const Container = createStackNavigator({
   Spot: SpotScreen,
   Fuzzy: FuzzyScreen,
   Camera: CameraScreen,
+  Filter: FilterScreen,
   NewMap: NewMapScreen,
+  NewMap2: NewMapScreen2,
   Info:InfoScreen,
   Search: SearchScreen
 },
