@@ -9,6 +9,8 @@ import SearchScreen from './Screens/SearchScreen';
 import SpotScreen from './Screens/SpotScreen';
 import InfoScreen from './Screens/InfoScreen';
 import FuzzyScreen from './Screens/FuzzyScreen';
+import NewMapScreen from './Screens/NewMapScreen';
+
 
 
 global.url = 'https://f4cdd1f5.ngrok.io'
@@ -18,6 +20,7 @@ const Container = createStackNavigator({
   Spot: SpotScreen,
   Fuzzy: FuzzyScreen,
   Camera: CameraScreen,
+  NewMap: NewMapScreen,
   Info:InfoScreen,
   Search: SearchScreen
 },

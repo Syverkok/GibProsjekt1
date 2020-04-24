@@ -37,7 +37,7 @@ export default class SpotScreen extends Component {
         );
     }
 
-    
+
 
 
 
@@ -45,7 +45,7 @@ export default class SpotScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         alignItems: 'center',
     },
     title: {

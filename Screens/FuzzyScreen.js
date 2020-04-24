@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Image, TextInput } from 'react-native';
+import { View, StyleSheet, Image, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Header, Button, Body, Title, Fab, Icon, Left, Right, Container, Content, Picker, Form, Card, CardItem, Text } from 'native-base';
 
 export default class FuzzyScreen extends Component {
@@ -16,7 +16,7 @@ export default class FuzzyScreen extends Component {
         }
     }
     static navigationOptions = {
-        headerTitle: 'SpotID',
+        headerTitle: 'SpotIT',
         headerStyle: {
             backgroundColor: 'darkslateblue'
         },
@@ -55,9 +55,7 @@ export default class FuzzyScreen extends Component {
         vp.longitude = this.state.longitude
         vp.radius = this.state.kjore
         vp.distance = this.state.tur
-        console.log(vp.longitude)
-        console.log(vp.latitude)
-        fetch('https://fc7311a8.ngrok.io/clusterViewPoints', {
+        fetch('https://74b6aa0e.ngrok.io/clusterViewPoints', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -67,63 +65,60 @@ export default class FuzzyScreen extends Component {
         })
             .then((response) => response.json())
             .then((vp) => {
-                console.log('Success:');
-                this.setState({
-                    listOfViews: vp
-                });
-
+                console.log(vp.viewPoints)
+                this.props.navigation.navigate('NewMap', { vp });
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
-
-        this.props.navigation.navigate('Home', {list :this.state.listOfViews});
     }
     render() {
         return (
-            <View style={styles.container}>
+            <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss} accessible={false}>
+                <View style={styles.container}>
 
-                <Card>
-                    <CardItem header>
-                        <Text>Finn din perftekte tur destinasjon!</Text>
-                    </CardItem>
-                    <CardItem>
-                        <Body>
-                            <Text>
-                            Skulle det friste med en litta luftetur, lengre enn rundt i nabolaget? Har du tilgang på bil eller kollektiv?
-                            Da er dette funksjonaliteten for deg! Skriv inn ca lengde du er villig til å kjøre, deretter skriver du en ca lengde 
-                            på turen din. Tilbake vil du få ett sett med nydelige spots fra våre brukere! God tur!
+                    <Card>
+                        <CardItem header>
+                            <Text>Finn din perftekte tur destinasjon!</Text>
+                        </CardItem>
+                        <CardItem>
+                            <Body>
+                                <Text>
+                                    Skulle det friste med en litta luftetur, lengre enn rundt i nabolaget? Har du tilgang på bil eller kollektiv?
+                                    Da er dette funksjonaliteten for deg! Skriv inn ca lengde du er villig til å kjøre,
+                                    deretter skriver du inn hvor stort område du vil utforske!
+                                    Tilbake vil du få ett sett med nydelige spots fra våre brukere! God tur!
                             </Text>
-                        </Body>
-                    </CardItem>
-                    <CardItem footer>
-                        <Text>Hilsen oss i SPOTIT AS</Text>
-                    </CardItem>
-                </Card>
+                            </Body>
+                        </CardItem>
+                        <CardItem footer>
+                            <Text>Hilsen oss i SPOTIT AS</Text>
+                        </CardItem>
+                    </Card>
+                    <TextInput
+                        placeholder="Skriv inn ca kjøreavstand i km"
+                        underlineColorAndroid='transparent'
+                        style={styles.TextInputStyle}
+                        keyboardType={'numeric'}
+                        onChangeText={text => this.setKjore(text)}
 
-                <TextInput
-                    placeholder="Skriv inn ca kjøreavstand i km"
-                    underlineColorAndroid='transparent'
-                    style={styles.TextInputStyle}
-                    keyboardType={'numeric'}
-                    onChangeText={text => this.setKjore(text)}
+                    />
+                    <TextInput
+                        placeholder="Skriv inn ca turlengde i km"
+                        underlineColorAndroid='transparent'
+                        style={styles.TextInputStyle}
+                        keyboardType={'numeric'}
+                        onChangeText={text => this.setTur(text)}
+                    />
+                    <View style={styles.container4}>
+                        <Button onPress={() => this.renderElement()} rounded success>
+                            <Text>  Finn turområde!  </Text>
+                        </Button>
+                        <Text>  {this.state.vent}  </Text>
+                    </View>
 
-                />
-                <TextInput
-                    placeholder="Skriv inn ca turlengde i km"
-                    underlineColorAndroid='transparent'
-                    style={styles.TextInputStyle}
-                    keyboardType={'numeric'}
-                    onChangeText={text => this.setTur(text)}
-                />
-                <View style={styles.container4}>
-                    <Button onPress={() => this.renderElement()} rounded success>
-                        <Text>  Finn turområde!  </Text>
-                    </Button>
-                    <Text>  {this.state.vent}  </Text>
                 </View>
-
-            </View>
+            </TouchableWithoutFeedback>
         );
     }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
-import { Icon, Input, Button, InputGroup, Content} from 'native-base'
+import { Icon, Input, Button, InputGroup, Content } from 'native-base'
 
 export default class SearchScreen extends Component {
     static navigationOptions = {
@@ -21,7 +21,7 @@ export default class SearchScreen extends Component {
     }
 
     componentDidMount() {
-        return fetch('https://fc7311a8.ngrok.io/viewPoints')
+        return fetch('https://74b6aa0e.ngrok.io/viewPoints')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
@@ -35,7 +35,7 @@ export default class SearchScreen extends Component {
     _renderItem = ({ item }) => (
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Spot', item)}>
             <View style={styles.item}>
-                <Text style={{fontSize: 25}}>{item.title}</Text>
+                <Text style={{ fontSize: 25 }}>{item.title}</Text>
                 <Text>Rating: {item.rating}</Text>
             </View>
         </TouchableOpacity>

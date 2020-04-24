@@ -47,8 +47,8 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  upDateMarker() {
-    return fetch('https://fc7311a8.ngrok.io/viewPoints')
+  componentDidMount() {
+    return fetch('https://74b6aa0e.ngrok.io/viewPoints')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -68,25 +68,7 @@ export default class HomeScreen extends React.Component {
             longitudeDelta: 0.0421,
           }}
           showsUserLocation>
-          {/* {typeof(this.props.navigation.getParam('list')) == 'undefined' ? this.state.listOfViews : this.props.navigation.getParam('list').map(marker => (
-            <MapView.Marker key={marker.ID}
-              coordinate={{
-                latitude: marker.lat,
-                longitude: marker.long
-              }}
-              title={marker.title}
-            />
-          ))} */}
-
-          {typeof (this.props.navigation.getParam('list')) == 'undefined' ? this.state.listOfViews.map(marker => (
-            <MapView.Marker key={marker.ID}
-              coordinate={{
-                latitude: marker.lat,
-                longitude: marker.long
-              }}
-              title={marker.title}
-            />
-          )) : this.props.navigation.getParam('list').map(marker => (
+          {this.state.listOfViews.map(marker => (
             <MapView.Marker key={marker.ID}
               coordinate={{
                 latitude: marker.lat,
@@ -98,15 +80,15 @@ export default class HomeScreen extends React.Component {
         </MapView>
         <Fab direction="center" position="bottomLeft" style={{ backgroundColor: 'darkslateblue' }}
           onPress={() => this.props.navigation.navigate('Fuzzy')}>
-          <Icon name="add" />
+          <Icon name="logo-model-s" />
         </Fab>
         <Fab direction="center" position="bottomRight"
           style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.props.navigation.navigate('Camera')}>
           <Icon name="camera" />
         </Fab>
         <Fab direction="center" position="topLeft"
-          style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.upDateMarker()}>
-          <Icon name="ios-cloud-download" />
+          style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.componentDidMount()}>
+          <Icon name="ios-refresh" />
         </Fab>
       </SafeAreaView>
     );

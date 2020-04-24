@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, TextInput } from 'react-native';
-import { Header, Button, Body, Title, Fab, Icon, Left, Right , Container ,Content, Picker, Form} from 'native-base';
+import { View, StyleSheet, Image, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { Header, Button, Body, Title, Fab, Icon, Left, Right, Container, Content, Picker, Form } from 'native-base';
 
 export default class InfoScreen extends Component {
     constructor() {
@@ -8,7 +8,7 @@ export default class InfoScreen extends Component {
         this.state = {
             photo: "",
             title: "",
-            selected: "key1"
+            keys: "key1"
 
         }
     }
@@ -24,13 +24,13 @@ export default class InfoScreen extends Component {
     }
     onValueChange(value) {
         this.setState({
-          selected: value
+            keys: value
         });
-      }
+    }
     loadData() {
         let vp = {}
         vp.title = this.state.title
-        return fetch('https://e4b1582f.ngrok.io/getViewPoint',{
+        return fetch('https://e4b1582f.ngrok.io/getViewPoint', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -49,28 +49,41 @@ export default class InfoScreen extends Component {
     }
     render() {
         return (
-            <Container>
-            <Header />
-            <Content>
-              <Form>
-                <Picker
-                  mode="dropdown"
-                  iosIcon={<Icon name="arrow-down" />}
-                  headerStyle={{ backgroundColor: "#b95dd3" }}
-                  headerBackButtonTextStyle={{ color: "#fff" }}
-                  headerTitleStyle={{ color: "#fff" }}
-                  selectedValue={this.state.selected}
-                  onValueChange={this.onValueChange.bind(this)}
-                >
-                  <Picker.Item label="Wallet" value="key0" />
-                  <Picker.Item label="ATM Card" value="key1" />
-                  <Picker.Item label="Debit Card" value="key2" />
-                  <Picker.Item label="Credit Card" value="key3" />
-                  <Picker.Item label="Net Banking" value="key4" />
-                </Picker>
-              </Form>
-            </Content>
-          </Container>
+            //         <View
+            //     style={styles.container}
+            //     onPress={this.focusOff}
+            //   >
+            //     <TouchableWithoutFeedback style={{flex: 1, backgroundColor: 'red'}} onPress={Keyboard.dismiss} accessible={false}>
+
+            //         <TextInput
+            //           ref="numberInput"
+            //           id={this.props.id}
+            //           style={styles.title}
+            //           keyboardType='numeric'
+            //           maxLength={2}
+            //           value={this.state.keys}
+            //           onChange={(event) => this.onValueChange(event.nativeEvent.text)}
+            //         />
+            //     </TouchableWithoutFeedback>
+            //   </View>
+            <View
+                style={styles.container}
+                onPress={this.focusOff}
+              >
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                <View style={{ flex: 1 }}>
+                <TextInput
+                      ref="numberInput"
+                      id={this.props.id}
+                      style={styles.title}
+                      keyboardType='numeric'
+                      maxLength={2}
+                      value={this.state.keys}
+                      onChange={(event) => this.onValueChange(event.nativeEvent.text)}
+                    />
+                </View>
+            </TouchableWithoutFeedback>
+            </View>
         );
     }
 }
