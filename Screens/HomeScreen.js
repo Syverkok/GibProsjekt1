@@ -81,10 +81,21 @@ export default class HomeScreen extends React.Component {
             />
           ))}
         </MapView>
-        <Fab direction="center" position="bottomLeft" style={{ backgroundColor: 'darkslateblue' }}
-          onPress={() => this.props.navigation.navigate('Fuzzy')}>
-          <Icon name="logo-model-s" />
-        </Fab>
+         <Fab
+            active={this.state.active}
+            direction="up"
+            containerStyle={{ }}
+            style={{ backgroundColor: 'darkslateblue' }}
+            position="bottomLeft"
+            onPress={() => this.setState({ active: !this.state.active })}>
+            <Icon name="ios-apps" />
+            <Button style={{ backgroundColor: 'darkslateblue' }}  onPress={() => this.props.navigation.navigate('Fuzzy')}>
+              <Icon name="logo-model-s" />
+            </Button>
+            <Button style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.props.navigation.navigate('Filter')}>
+              <Icon name="md-options" />
+            </Button>
+          </Fab>
         <Fab direction="center" position="bottomRight"
           style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.props.navigation.navigate('Camera')}>
           <Icon name="camera" />
