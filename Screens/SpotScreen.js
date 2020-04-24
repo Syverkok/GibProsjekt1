@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, Modal, ActivityIndicator, SafeAreaView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import {Button} from 'native-base'
+import { Button } from 'native-base'
 import NewMapScreen from './NewMapScreen';
 
 
@@ -38,14 +38,14 @@ export default class SpotScreen extends Component {
         //Keeping the Rating Selected in state
     }
 
-    getNumberOfRatings(){
+    getNumberOfRatings() {
         /*if(!this.state.updated){
             return this.props.navigation.getParam('numberOfRatings')
         }*/
         return this.state.numOfRatings
     }
 
-    getRating(){
+    getRating() {
         /*if(!this.state.updated){
             return this.props.navigation.getParam('rating')
         }*/
@@ -60,12 +60,12 @@ export default class SpotScreen extends Component {
         return await fetch('https://284b88da.ngrok.io/changeRating', {
             method: 'PUT',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(vp),
-            })
-            .then( (response) => response.json() )
+        })
+            .then((response) => response.json())
             .then((vp) => {
                 this.setState({
                     updated: true,
@@ -74,9 +74,9 @@ export default class SpotScreen extends Component {
                     modalOpen: false,
                 })
             })
-    } 
+    }
 
-    async componentDidMount(){
+    async componentDidMount() {
         let vp = {}
         vp.id = this.props.navigation.getParam('ID')
         await fetch('https://284b88da.ngrok.io/getViewPoint', {
@@ -87,18 +87,18 @@ export default class SpotScreen extends Component {
             },
             body: JSON.stringify(vp),
         })
-        .then( (response) => response.json())
-        .then( (vp) => {
-            this.setState({
-                isLoading: false,
-                image: vp.image_name,
-                rating: vp.rating,
-                numOfRatings: vp.numberOfRatings,
+            .then((response) => response.json())
+            .then((vp) => {
+                this.setState({
+                    isLoading: false,
+                    image: vp.image_name,
+                    rating: vp.rating,
+                    numOfRatings: vp.numberOfRatings,
+                })
             })
-        })
     }
-    getVpObject(){
-        let vp ={}
+    getVpObject() {
+        let vp = {}
         vp.lat = this.props.navigation.getParam('lat')
         vp.long = this.props.navigation.getParam('long')
         vp.title = this.props.navigation.getParam('title')
@@ -206,13 +206,17 @@ export default class SpotScreen extends Component {
                 </View>
 
                 <View style={styles.picturefield}>
-                    <Image style={styles.pictureprops} source={{ uri: `data:image/jpeg;base64,${this.state.image}` }}/>
+                    <Image style={styles.pictureprops} source={{ uri: `data:image/jpeg;base64,${this.state.image}` }} />
                     {/* <Image style={styles.pictureprops} source={{uri: this.props.navigation.getParam('url')}}></Image> */}
                 </View>
 
-                <Button onPress={() => this.props.navigation.navigate('NewMap2', {vp:this.getVpObject()})} rounded success>
-                            <Text>  Se spotten på kartet </Text>
-                </Button>
+                <View style={{paddingBottom: 25}}>
+                    <Button onPress={() => this.props.navigation.navigate('NewMap2', { vp: this.getVpObject() })} rounded success>
+                        <Text>  Se spotten på kartet </Text>
+                    </Button>
+                </View>
+
+
 
             </SafeAreaView>
         );

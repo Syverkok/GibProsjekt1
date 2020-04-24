@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     picker: {
         borderColor: 'black',
         borderWidth: 2,
-        width: '50%',
+        width: '40%',
         alignItems: 'center',
     }
     /*container: {
