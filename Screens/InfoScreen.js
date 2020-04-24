@@ -50,7 +50,6 @@ export default class InfoScreen extends Component {
     render() {
         return (
             <Container>
-            <Header />
             <Content>
               <Form>
                 <Picker
