@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, Modal } from 'react-native';
-import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -55,7 +54,7 @@ export default class SpotScreen extends Component {
         let vp = {}
         vp.id = this.props.navigation.getParam('ID')
         vp.rating = this.state.giveRating
-        return await fetch('https://2802f069.ngrok.io/changeRating', {
+        return await fetch('https://fc7311a8.ngrok.io/changeRating', {
             method: 'PUT',
             headers: {
               'Accept': 'application/json',
