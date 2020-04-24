@@ -34,7 +34,6 @@ export default class SearchScreen extends Component {
                     isLoading: false,
 
                 })
-                console.log(responseJson.viewPoints.rating)
 
             })
             .catch((error) => console.log(error))

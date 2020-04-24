@@ -36,16 +36,16 @@ export default class SpotScreen extends Component {
     }
 
     getNumberOfRatings(){
-        if(!this.state.updated){
+        /*if(!this.state.updated){
             return this.props.navigation.getParam('numberOfRatings')
-        }
+        }*/
         return this.state.numOfRatings
     }
 
     getRating(){
-        if(!this.state.updated){
+        /*if(!this.state.updated){
             return this.props.navigation.getParam('rating')
-        }
+        }*/
         return this.state.rating
     }
 
@@ -76,7 +76,6 @@ export default class SpotScreen extends Component {
     async componentDidMount(){
         let vp = {}
         vp.id = this.props.navigation.getParam('ID')
-        console.log(vp.id)
         await fetch('https://284b88da.ngrok.io/getViewPoint', {
             method: 'POST',
             headers: {
@@ -89,8 +88,11 @@ export default class SpotScreen extends Component {
         .then( (vp) => {
             this.setState({
                 isLoading: false,
-                image: vp.image_name
+                image: vp.image_name,
+                rating: vp.rating,
+                numOfRatings: vp.numberOfRatings,
             })
+            console.log(vp.numberOfRatings)
         })
     }
 
