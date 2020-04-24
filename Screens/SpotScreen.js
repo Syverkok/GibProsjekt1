@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, Modal } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
@@ -17,13 +17,14 @@ export default class SpotScreen extends Component {
     constructor() {
         super();
         this.state = {
-
+            image: '',
             Max_Rating: 5,
             modalOpen: false,
             giveRating: 0,
             updated: false,
             numOfRatings: 0,
             rating: 0,
+            isLoading: true,
         };
         //Filled Star. You can also give the path from local
         this.Star = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Star_full.svg/1005px-Star_full.svg.png';
@@ -53,9 +54,9 @@ export default class SpotScreen extends Component {
     async editRating(params) {
 
         let vp = {}
-        vp.id = this.props.navigation.getParam('ID')
+        vp.id = this.props.navigation.getParam('id')
         vp.rating = this.state.giveRating
-        return await fetch('https://2802f069.ngrok.io/changeRating', {
+        return await fetch('https://284b88da.ngrok.io/changeRating', {
             method: 'PUT',
             headers: {
               'Accept': 'application/json',
@@ -75,7 +76,34 @@ export default class SpotScreen extends Component {
             })
     } 
 
+    async componentDidMount(){
+        let vp = {}
+        vp.id = this.props.navigation.getParam('id')
+        console.log(vp.id)
+        await fetch('https://284b88da.ngrok.io/getViewPoint', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(vp),
+        })
+        .then( (response) => response.json())
+        .then( (vp) => {
+            this.setState({
+                isLoading: false,
+                image: vp.image_name
+            })
+        })
+    }
+
     render() {
+        if (this.state.isLoading) {
+
+            return (
+                <ActivityIndicator />
+            )
+        }
 
         let Dynamic_Rating_Bar = [];
         //Array to hold the filled or empty Stars
@@ -171,7 +199,7 @@ export default class SpotScreen extends Component {
                 </View>
 
                 <View style={styles.picturefield}>
-                    <Image style={styles.pictureprops} source={{ uri: `data:image/jpeg;base64,${this.props.navigation.getParam('image_name')}` }}/>
+                    <Image style={styles.pictureprops} source={{ uri: `data:image/jpeg;base64,${this.state.image}` }}/>
                     {/* <Image style={styles.pictureprops} source={{uri: this.props.navigation.getParam('url')}}></Image> */}
                 </View>
 
