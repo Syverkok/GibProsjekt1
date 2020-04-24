@@ -3,19 +3,19 @@ import { Text, TextInput, View, StyleSheet, TouchableOpacity, Alert, Image, Dime
 import { Header, Button, Body, Title, Fab, Icon, Left, Right, Item, Input, Content, Picker, Form, Container } from 'native-base';
 
 
-class AboutScreen extends Component {
+class PublishScreen extends Component {
     constructor() {
         super();
         this.state = {
             title: '',
             latitude: '',
             longitude: '',
-            vent: '',
-            selected: "Natur"
+            ventMelding: '',
+            selected: undefined
         }
     }
     static navigationOptions = {
-        headerTitle: 'Om SpotIT',
+        headerTitle: 'Del din spot',
         headerStyle: {
             backgroundColor: 'darkslateblue'
         },
@@ -53,7 +53,7 @@ class AboutScreen extends Component {
         if (this.state.latitude != '')
             this.submit();
         else
-            this.setState({ vent: 'Vent ca 10 sekunder mens vi henter din lokasjon' })
+            this.setState({ ventMelding: 'Oisann! Vi har ikke hentet din lokasjon enda. Prøv igjen om noen sekunder.' })
         return null;
     }
     submit() {
@@ -86,7 +86,57 @@ class AboutScreen extends Component {
 
     render() {
         return (
+
             <View style={styles.container}>
+
+                <View style={styles.propsfield}>
+                    <View style={styles.item}>
+                        <Item>
+                            <Icon active name='ios-megaphone' />
+                            <Input onChangeText={(text) => this.updateValue(text, 'title')} placeholder='Skriv inn navnet på spotten' />
+                        </Item>
+                    </View>
+
+                    <View style={styles.item}>
+                        <Form>
+                            <Picker
+                                mode="dropdown"
+                                iosIcon={<Icon name="arrow-down" />}
+                                placeholder="Velg type spot"
+                                selectedValue={this.state.selected}
+                                onValueChange={this.onValueChange.bind(this)}
+                                headerStyle={{ backgroundColor: 'darkslateblue' }}
+                                headerBackButtonTextStyle={{ color: 'white' }}
+                                headerTitleStyle={{ color: 'white' }}
+                            >
+                                <Picker.Item label="Arkitektur" value="Arkitektur" />
+                                <Picker.Item label="Utkikkspunkt" value="Utkikkspunkt" />
+                                <Picker.Item label="Natur" value="Natur" />
+                                <Picker.Item label="Kultur" value="Kultur" />
+                                <Picker.Item label="Park" value="Park" />
+                                <Picker.Item label="Annet" value="Annet" />
+                            </Picker>
+                        </Form>
+                    </View>
+                </View>
+
+                <View style={styles.picturefield}>
+                    <View style={styles.item}>
+                        <Image source={{ uri: `data:image/jpeg;base64,${this.props.navigation.getParam('photo2').base64}` }} style={styles.pictureprops} />
+                    </View>
+
+                    <View style={styles.item}>
+                        <Button onPress={() => this.renderElement()} rounded success>
+                            <Text>  Del spotten!  </Text>
+                        </Button>
+                    </View>
+                    <Text style={{textAlign: 'center'}}>{this.state.ventMelding}</Text>
+                </View>
+
+            </View>
+
+
+            /* <View style={styles.container}>
                 <View style={styles.container} >
                     <Item>
                         <Icon active name='ios-megaphone' />
@@ -105,7 +155,7 @@ class AboutScreen extends Component {
                                 onValueChange={this.onValueChange.bind(this)}
                             >
                                 <Picker.Item label="Arkitektur" value="Arkitektur" />
-                                <Picker.Item label="Utkikspunkt" value="Utkikspunkt" />
+                                <Picker.Item label="Utkikkspunkt" value="Utkikkspunkt" />
                                 <Picker.Item label="Natur" value="Natur" />
                                 <Picker.Item label="Kultur" value="Kultur" />
                                 <Picker.Item label="Park" value="Park" />
@@ -123,13 +173,47 @@ class AboutScreen extends Component {
                     </Button>
                     <Text>  {this.state.vent}  </Text>
                 </View>
-            </View>
+            </View> */
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+        alignItems: 'center',
+        //backgroundColor: 'blue',
+        padding: 20
+    },
+    propsfield: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        height: '25%'
+        //backgroundColor: 'yellow'
+    },
+    picturefield: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        //backgroundColor: 'darkslateblue',
+        width: '100%',
+    },
+    item: {
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        //backgroundColor: 'yellow'
+    },
+    pictureprops: {
+        width: 300,
+        height: 300,
+        resizeMode: 'contain',
+        borderRadius: 40,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+    /*container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
@@ -156,8 +240,7 @@ const styles = StyleSheet.create({
         width: 300,
         height: 300,
         // resizeMode: 'contain',
-    }
+    }*/
 })
 
-
-export default AboutScreen
+export default PublishScreen
