@@ -95,7 +95,6 @@ export default class SpotScreen extends Component {
                 rating: vp.rating,
                 numOfRatings: vp.numberOfRatings,
             })
-            console.log(vp.numberOfRatings)
         })
     }
     getVpObject(){
