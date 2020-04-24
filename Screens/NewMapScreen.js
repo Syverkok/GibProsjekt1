@@ -37,6 +37,9 @@ export default class NewMapScreen extends React.Component {
                                 longitude: marker.long
                             }}
                             title={marker.title}
+                            onCalloutPress={() => {
+                                this.props.navigation.navigate('Spot', marker)
+                              }}
                         />
                     ))}
                 </MapView>

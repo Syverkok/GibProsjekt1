@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, SafeAreaView, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import { Header, Button, Body, Title, Fab, Icon, Left, Right } from 'native-base';
 
@@ -35,8 +35,9 @@ export default function App({ navigation }) {
           }}>
           <TouchableOpacity
             style={{
-              flex: 0.1,
-              alignSelf: 'flex-end'
+              position: 'absolute',
+              bottom:0,
+              right:0,
             }}
             onPress={() => {
               setType(
@@ -45,7 +46,10 @@ export default function App({ navigation }) {
                   : Camera.Constants.Type.back
               );
             }}>
-            <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
+            <Image
+              style={styles.button}
+              source={require('./myButton.png')}
+            />
           </TouchableOpacity>
           <TouchableOpacity style={{ alignSelf: 'center' }} onPress={async () => {
             if (cameraRef) {
@@ -92,5 +96,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'darkslateblue'
+  },
+  button:{
+    width: 50,
+    height: 50,
   }
 })
