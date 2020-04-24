@@ -12,7 +12,7 @@ export default class HomeScreen extends React.Component {
       longitude: ''
     }
   }
-  
+
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: 'SpotIT',
@@ -34,21 +34,21 @@ export default class HomeScreen extends React.Component {
   }
   displayLongitue() {
     if (this.state.longitude == '') {
-        return 10.388036;
+      return 10.388036;
     } else {
-        return this.state.longitude;
+      return this.state.longitude;
     }
   }
   displayLatitude() {
     if (this.state.latitude == '') {
-        return 63.428104;
+      return 63.428104;
     } else {
-        return this.state.latitude;
+      return this.state.latitude;
     }
   }
 
   componentDidMount() {
-    return fetch('https://fc7311a8.ngrok.io/viewPoints')
+    return fetch('https://74b6aa0e.ngrok.io/viewPoints')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -79,8 +79,8 @@ export default class HomeScreen extends React.Component {
           ))}
         </MapView>
         <Fab direction="center" position="bottomLeft" style={{ backgroundColor: 'darkslateblue' }}
-          onPress={() => this.props.navigation.navigate('')}>
-          <Icon name="add" />
+          onPress={() => this.props.navigation.navigate('Fuzzy')}>
+          <Icon name="logo-model-s" />
         </Fab>
         <Fab direction="center" position="bottomRight"
           style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.props.navigation.navigate('Camera')}>
@@ -88,7 +88,7 @@ export default class HomeScreen extends React.Component {
         </Fab>
         <Fab direction="center" position="topLeft"
           style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.componentDidMount()}>
-          <Icon name="ios-cloud-download" />
+          <Icon name="ios-refresh" />
         </Fab>
       </SafeAreaView>
     );
