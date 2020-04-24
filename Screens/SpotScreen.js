@@ -54,7 +54,7 @@ export default class SpotScreen extends Component {
     async editRating(params) {
 
         let vp = {}
-        vp.id = this.props.navigation.getParam('id')
+        vp.id = this.props.navigation.getParam('ID')
         vp.rating = this.state.giveRating
         return await fetch('https://284b88da.ngrok.io/changeRating', {
             method: 'PUT',
@@ -72,13 +72,12 @@ export default class SpotScreen extends Component {
                     numOfRatings: vp.numberOfRatings,
                     modalOpen: false,
                 })
-                console.log(vp.rating)
             })
     } 
 
     async componentDidMount(){
         let vp = {}
-        vp.id = this.props.navigation.getParam('id')
+        vp.id = this.props.navigation.getParam('ID')
         console.log(vp.id)
         await fetch('https://284b88da.ngrok.io/getViewPoint', {
             method: 'POST',

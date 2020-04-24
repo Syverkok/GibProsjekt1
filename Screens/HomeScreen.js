@@ -1,6 +1,6 @@
 import React from 'react';
 import MapView from 'react-native-maps';
-import { Text, View, Dimensions, SafeAreaView, StyleSheet, Alert } from 'react-native';
+import { Text, View, Dimensions, SafeAreaView, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import { Header, Button, Body, Title, Fab, Icon, Left, Right } from 'native-base';
 
 export default class HomeScreen extends React.Component {
@@ -48,7 +48,7 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    return fetch('https://284b88da.ngrok.io/viewPoints')
+    return fetch('https://284b88da.ngrok.io/getViewPointInfo')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -75,6 +75,9 @@ export default class HomeScreen extends React.Component {
                 longitude: marker.long
               }}
               title={marker.title}
+              onCalloutPress={() => {
+                this.props.navigation.navigate('Spot', marker)
+              }}
             />
           ))}
         </MapView>
