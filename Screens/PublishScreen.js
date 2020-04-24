@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TextInput, View, StyleSheet, TouchableOpacity, Alert, Image, Dimensions } from 'react-native';
 import { Header, Button, Body, Title, Fab, Icon, Left, Right, Item, Input, Content, Picker, Form, Container } from 'native-base';
-import { CustomPicker } from 'react-native-custom-picker'
 
 
 class PublishScreen extends Component {
