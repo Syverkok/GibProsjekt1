@@ -122,7 +122,7 @@ export default class SearchScreen extends Component {
                         />
                     </View>
                     <Button style={{textAlign:'center', justifyContent: 'center', marginBottom: 15}} onPress={() =>
-                        this.feilFix()} rounded success>
+                        this.feilFix()} rounded info>
                         <Text>
                             Finn spotsa på kartet!
                         </Text>
