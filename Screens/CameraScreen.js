@@ -48,7 +48,7 @@ export default function App({ navigation }) {
             }}>
             <Image
               style={styles.button}
-              source={require('./myButton.png')}
+              source={require('../images/myButton.png')}
             />
           </TouchableOpacity>
           <TouchableOpacity style={{ alignSelf: 'center' }} onPress={async () => {

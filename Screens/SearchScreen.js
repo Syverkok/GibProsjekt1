@@ -22,9 +22,9 @@ export default class SearchScreen extends Component {
             itemRating: 0,
         }
         //Filled Star. You can also give the path from local
-        this.Star = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Star_full.svg/1005px-Star_full.svg.png';
+        this.Star = require('../images/Star_full.png');
         //Empty Star. You can also give the path from local
-        this.Star_With_Border = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Star_empty.svg/1005px-Star_empty.svg.png';
+        this.Star_With_Border = require('../images/Star_empty.png');
     }
 
     componentDidMount() {
@@ -71,8 +71,8 @@ export default class SearchScreen extends Component {
                     style={styles.StarImage}
                     source={
                         i <= rating
-                            ? { uri: this.Star }
-                            : { uri: this.Star_With_Border }
+                            ?  this.Star 
+                            :  this.Star_With_Border 
                     }
                     key={i}
                 />

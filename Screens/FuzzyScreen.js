@@ -1,20 +1,10 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Image, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native';
-import { Header, Button, Body, Title, Fab, Icon, Left, Right, Container, Content, Picker, Form, Card, CardItem, Text } from 'native-base';
+import { View, Text, Slider, StyleSheet, Alert } from 'react-native';
+import { Picker, Icon, Button } from 'native-base';
+
 
 export default class FuzzyScreen extends Component {
-    constructor() {
-        super();
-        this.state = {
-            kjore: 0,
-            tur: 0,
-            latitude: '',
-            longitude: '',
-            vent: '',
-            listOfViews: [],
 
-        }
-    }
     static navigationOptions = {
         headerTitle: 'SpotIT',
         headerStyle: {
@@ -22,40 +12,64 @@ export default class FuzzyScreen extends Component {
         },
         headerTintColor: 'white'
     }
-    setKjore(value) {
-        this.setState({
-            kjore: value
-        });
+
+    constructor() {
+        super();
+        this.state = {
+            distDrive: 0,
+            distWalk: 0,
+            myLat: '',
+            myLong: '',
+            waitMsg: '',
+            listOfViews: [],
+            sliderValue: 0,
+            type: 'Godt og blandet',
+        }
     }
-    setTur(value) {
+
+    setDistDrive(value) {
         this.setState({
-            tur: value
-        });
+            distDrive: value
+        })
     }
+
+    setDistWalk(value) {
+        this.setState({
+            distWalk: value
+        })
+    }
+
     renderElement() {
-        if (this.state.latitude != '')
+        if (this.state.myLat != '') {
             this.submit();
-        else
-            this.setState({ vent: 'Vent ca 10 sekunder mens vi henter din lokasjon' })
-        return null;
+        }
+
+        else {
+            this.setState({
+                waitMsg: 'Oisann! Vi har ikke hentet din lokasjon enda. Prøv igjen om noen sekunder.'
+            })
+        }
     }
+
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
             position => {
-                this.setState({ 'latitude': position.coords.latitude });
-                this.setState({ 'longitude': position.coords.longitude });
+                this.setState({ myLat: position.coords.latitude });
+                this.setState({ myLong: position.coords.longitude });
             },
             error => Alert.alert(error.message),
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
         );
     }
+
     submit() {
         let vp = {}
-        vp.latitude = this.state.latitude
-        vp.longitude = this.state.longitude
-        vp.radius = this.state.kjore
-        vp.distance = this.state.tur
-        fetch('https://74356d21.ngrok.io/clusterViewPoints', {
+        vp.latitude = this.state.myLat
+        vp.longitude = this.state.myLong
+        vp.radius = this.state.distWalk
+        vp.distance = this.state.distDrive
+        vp.type = this.state.type
+        fetch('https://867e010e.ngrok.io/clusterViewPoints', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -65,81 +79,167 @@ export default class FuzzyScreen extends Component {
         })
             .then((response) => response.json())
             .then((vp) => {
-                console.log(vp.viewPoints)
-                this.props.navigation.navigate('NewMap3', { vp:vp.viewPoints });
+                if (vp.viewPoints){
+                    console.log(vp.viewPoints)
+                    this.props.navigation.navigate('NewMap', { vp });
+                }
+                else {
+                    this.setState({
+                        waitMsg: 'Det finnes desverre ingen spots som matcher dine søkekriterier. '
+                    })
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
     }
+
     render() {
         return (
-            <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss} accessible={false}>
-                <View style={styles.container}>
+            <View style={styles.container}>
 
-                    <Card>
-                        <CardItem header>
-                            <Text>Finn din perftekte tur destinasjon!</Text>
-                        </CardItem>
-                        <CardItem>
-                            <Body>
-                                <Text>
-                                    Skulle det friste med en litta luftetur, lengre enn rundt i nabolaget? Har du tilgang på bil eller kollektiv?
-                                    Da er dette funksjonaliteten for deg! Skriv inn ca lengde du er villig til å kjøre,
-                                    deretter skriver du inn største avstanden du er villig til å gå!
-                                    Tilbake vil du få ett sett med nydelige spots fra våre brukere! God tur!
-                            </Text>
-                            </Body>
-                        </CardItem>
-                        <CardItem footer>
-                            <Text>Hilsen oss i SPOTIT AS</Text>
-                        </CardItem>
-                    </Card>
-                    <TextInput
-                        placeholder="Skriv inn ca kjøreavstand i km"
-                        underlineColorAndroid='transparent'
-                        style={styles.TextInputStyle}
-                        keyboardType={'numeric'}
-                        onChangeText={text => this.setKjore(text)}
+                <View style={styles.textfield}>
+                    <View style={styles.item}>
+                        <Text style={{textAlign: 'center', fontSize: 20, fontWeight: 'bold'}}>
+                            Finn din perfekte tur-destinasjon!
+                        </Text>
+                    </View>
+                    <View style={styles.item}>
+                        <Text style={{textAlign:'center', fontSize: 15}}>
+                            Skulle det friste med ei litta luftetur noe lenger enn runden rundt nabolaget? Har du tilgang på bil eller kollektiv?
+                            Da er dette funksjonaliteten for deg! Før inn maksimal lengde du er villig til å kjøre, og
+                            deretter maksimal gåavstand. Fullfør søket med å spesifisere hva slags type spot du er ute etter å utforske.
+                            Du vil da få foreslått en samlig med nydelige spots fra våre brukere! God tur!
+                        </Text>
+                    </View>
+                    <View style={styles.item}>
+                        <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 15}}>Hilsen oss i SpotIT</Text>
+                    </View>
+                </View>
 
-                    />
-                    <TextInput
-                        placeholder="Skriv inn maksimum gå avstand"
-                        underlineColorAndroid='transparent'
-                        style={styles.TextInputStyle}
-                        keyboardType={'numeric'}
-                        onChangeText={text => this.setTur(text)}
-                    />
-                    <View style={styles.container4}>
-                        <Button onPress={() => this.renderElement()} rounded success>
-                            <Text>  Finn turområde!  </Text>
-                        </Button>
-                        <Text>  {this.state.vent}  </Text>
+                <View style={styles.sliderfield}>
+                    <View style={styles.slider}>
+                        <Slider
+                            style={{ width: '100%' }}
+                            value={this.state.distDrive}
+                            onValueChange={(distDrive) => this.setState({ distDrive: distDrive })}
+                            step={5}
+                            maximumValue={1000}
+                        />
                     </View>
 
+                    <View style={styles.slider}>
+                        <Slider
+                            style={{ width: '100%' }}
+                            value={this.state.distWalk}
+                            onValueChange={(distWalk) => this.setState({ distWalk: distWalk })}
+                            step={1}
+                            maximumValue={40}
+                        />
+                    </View>
+
+                    <View style={{flexDirection: 'row'}}>
+                        <View style={styles.item}>
+                            <Text style={{textAlign: 'center', fontSize: 15}}>Kjøre-distanse: {this.state.distDrive} km</Text>
+                        </View>
+                        <View style={styles.item}>
+                            <Text style={{textAlign: 'center', fontSize: 15}}>Gå-distanse: {this.state.distWalk} km</Text>
+                        </View>
+                    </View>
                 </View>
-            </TouchableWithoutFeedback>
-        );
+
+
+                <View style={styles.pickerfield}>
+                    <Picker
+                        selectedValue={this.state.type}
+                        style={styles.picker}
+                        onValueChange={(itemValue, itemIndex) => this.setState({ type: itemValue })}
+                        headerStyle={{ backgroundColor: '#393f4d' }}
+                        headerBackButtonTextStyle={{ color: 'white' }}
+                        headerTitleStyle={{ color: 'white' }}
+                        iosHeader="Velg type"
+                        iosIcon={<Icon name="arrow-down" />}>
+                        <Picker.Item label="Godt og blandet" value="Godt og blandet" />
+                        <Picker.Item label="Arkitektur" value="Arkitektur" />
+                        <Picker.Item label="Utkikkspunkt" value="Utkikkspunkt" />
+                        <Picker.Item label="Natur" value="Natur" />
+                        <Picker.Item label="Kultur" value="Kultur" />
+                        <Picker.Item label="Annet" value="Annet" />
+                    </Picker>
+
+                </View>
+
+                <View style={styles.buttonfield}>
+                    <Button onPress={() => this.renderElement()} rounded info>
+                        <Text>  Finn turområde!  </Text>
+                    </Button>
+                    <Text style={{textAlign: 'center'}}>{this.state.waitMsg}</Text>
+                </View>
+
+            </View>
+        )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: 'center',
         justifyContent: 'center',
+        padding: 20,
+        //backgroundColor: 'black'
     },
-    headerText: {
-        fontSize: 20,
-        textAlign: "center",
-        margin: 10,
-        fontWeight: "bold"
+    textfield: {
+        flex: 4,
+        alignItems: 'center',
+        justifyContent: 'center',
+        //backgroundColor: 'green',
+        width: '100%',
+        padding: 10
     },
-    TextInputStyle: {
-        textAlign: 'center',
-        height: 40,
-        borderRadius: 10,
-        borderWidth: 2,
-        borderColor: '#009688',
-        marginBottom: 10
+    sliderfield: {
+        flex: 2,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        //backgroundColor: 'yellow',
+        padding: 10,
+    },
+    pickerfield: {
+        flex: 1,
+        alignItems: 'center',
+        width: '100%',
+        justifyContent: 'center',
+        //backgroundColor: 'blue',
+        padding: 10,
+    },
+    buttonfield: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        //backgroundColor: 'red',
+        width: '100%',
+        padding: 10,
+    },
+    item: {
+        padding: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    slider: {
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+    },
+    picker: {
+        flex: 1,
+        //borderColor: 'black',
+        //borderWidth: 2,
+        width: '60%',
+        //backgroundColor: 'purple',
+        justifyContent: 'center',
+        alignItems: 'center',
     }
-});
+})
+

@@ -78,7 +78,7 @@ export default class FilterScreen extends Component {
                 <View style={styles.container}>
 
                     <Card>
-                        <CardItem header>
+                        <CardItem>
                             <Text>Filtrer spots på avstand og rating!</Text>
                         </CardItem>
                         <CardItem>
@@ -90,7 +90,7 @@ export default class FilterScreen extends Component {
                             </Text>
                             </Body>
                         </CardItem>
-                        <CardItem footer>
+                        <CardItem>
                             <Text>Hilsen oss i SPOTIT AS</Text>
                         </CardItem>
                     </Card>
