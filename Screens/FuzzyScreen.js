@@ -69,7 +69,7 @@ export default class FuzzyScreen extends Component {
         vp.radius = this.state.distWalk
         vp.distance = this.state.distDrive
         vp.type = this.state.type
-        fetch('https://74356d21.ngrok.io/clusterViewPoints', {
+        fetch('https://867e010e.ngrok.io/clusterViewPoints', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -80,7 +80,6 @@ export default class FuzzyScreen extends Component {
             .then((response) => response.json())
             .then((vp) => {
                 if (vp.viewPoints){
-                    console.log(vp.viewPoints)
                     this.props.navigation.navigate('NewMap3', { vp: vp.viewPoints });
                 }
                 else {
