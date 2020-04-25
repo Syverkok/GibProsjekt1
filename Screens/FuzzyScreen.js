@@ -122,8 +122,8 @@ export default class FuzzyScreen extends Component {
                             style={{ width: '100%' }}
                             value={this.state.distDrive}
                             onValueChange={(distDrive) => this.setState({ distDrive: distDrive })}
-                            step={5}
-                            maximumValue={1000}
+                            step={10}
+                            maximumValue={10000}
                         />
                     </View>
 
@@ -139,10 +139,10 @@ export default class FuzzyScreen extends Component {
 
                     <View style={{flexDirection: 'row'}}>
                         <View style={styles.item}>
-                            <Text style={{textAlign: 'center', fontSize: 15}}>Kjøre-distanse: {this.state.distDrive} km</Text>
+                            <Text style={{textAlign: 'center', fontSize: 15}}>Reiselengde: {this.state.distDrive} km</Text>
                         </View>
                         <View style={styles.item}>
-                            <Text style={{textAlign: 'center', fontSize: 15}}>Gå-distanse: {this.state.distWalk} km</Text>
+                            <Text style={{textAlign: 'center', fontSize: 15}}>Gangavstand: {this.state.distWalk} km</Text>
                         </View>
                     </View>
                 </View>
