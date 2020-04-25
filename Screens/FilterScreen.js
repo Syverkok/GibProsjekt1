@@ -16,8 +16,8 @@ export default class FilterScreen extends Component {
     constructor() {
         super();
         this.state = {
-            distDrive: 0,
             distWalk: 0,
+            rating: 0,
             myLat: '',
             myLong: '',
             waitMsg: '',
@@ -67,7 +67,7 @@ export default class FilterScreen extends Component {
         vp.latitude = this.state.myLat
         vp.longitude = this.state.myLong
         vp.radius = this.state.distWalk
-        vp.distance = this.state.distDrive
+        vp.rating = this.state.rating
         vp.type = this.state.type
         fetch('https://867e010e.ngrok.io/getWalk', {
             method: 'POST', // or 'PUT'
@@ -119,8 +119,8 @@ export default class FilterScreen extends Component {
                     <View style={styles.slider}>
                         <Slider
                             style={{ width: '100%' }}
-                            value={this.state.distDrive}
-                            onValueChange={(distDrive) => this.setState({ distDrive: distDrive })}
+                            value={this.state.distWalk}
+                            onValueChange={(distWalk) => this.setState({ distWalk: distWalk })}
                             step={1}
                             maximumValue={50}
                         />
@@ -129,8 +129,8 @@ export default class FilterScreen extends Component {
                     <View style={styles.slider}>
                         <Slider
                             style={{ width: '100%' }}
-                            value={this.state.distWalk}
-                            onValueChange={(distWalk) => this.setState({ distWalk: distWalk })}
+                            value={this.state.rating}
+                            onValueChange={(rating) => this.setState({ rating: rating })}
                             step={1}
                             maximumValue={5}
                         />
@@ -138,10 +138,10 @@ export default class FilterScreen extends Component {
 
                     <View style={{flexDirection: 'row'}}>
                         <View style={styles.item}>
-                            <Text style={{textAlign: 'center', fontSize: 15}}>Maks gåavstand: {this.state.distDrive} km</Text>
+                            <Text style={{textAlign: 'center', fontSize: 15}}>Maks gåavstand: {this.state.distWalk} km</Text>
                         </View>
                         <View style={styles.item}>
-                            <Text style={{textAlign: 'center', fontSize: 15}}>Minimum rating: {this.state.distWalk}</Text>
+                            <Text style={{textAlign: 'center', fontSize: 15}}>Minimum rating: {this.state.rating}</Text>
                         </View>
                     </View>
                 </View>
@@ -169,7 +169,7 @@ export default class FilterScreen extends Component {
 
                 <View style={styles.buttonfield}>
                     <Button onPress={() => this.renderElement()} rounded info>
-                        <Text>  Finn turområde!  </Text>
+                        <Text>  Finn spots!  </Text>
                     </Button>
                     <Text style={{textAlign: 'center'}}>{this.state.waitMsg}</Text>
                 </View>
