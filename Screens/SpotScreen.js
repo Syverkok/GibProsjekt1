@@ -25,7 +25,8 @@ export default class SpotScreen extends Component {
             numOfRatings: 0,
             rating: 0,
             isLoading: true,
-            vp: {}
+            vp: {},
+
         };
         //Filled Star. You can also give the path from local
         this.Star = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Star_full.svg/1005px-Star_full.svg.png';
@@ -57,7 +58,7 @@ export default class SpotScreen extends Component {
         let vp = {}
         vp.id = this.props.navigation.getParam('ID')
         vp.rating = this.state.giveRating
-        return await fetch('https://284b88da.ngrok.io/changeRating', {
+        return await fetch('https://867e010e.ngrok.io/changeRating', {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -79,7 +80,7 @@ export default class SpotScreen extends Component {
     async componentDidMount() {
         let vp = {}
         vp.id = this.props.navigation.getParam('ID')
-        await fetch('https://284b88da.ngrok.io/getViewPoint', {
+        await fetch('https://867e010e.ngrok.io/getViewPoint', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -189,7 +190,6 @@ export default class SpotScreen extends Component {
                 <View style={styles.titlefield}>
                     <Text style={styles.titletext}>{this.props.navigation.getParam('title')}</Text>
                 </View>
-
                 <View style={styles.reviewfield}>
 
                     <View style={{ padding: 10 }}>
@@ -210,7 +210,7 @@ export default class SpotScreen extends Component {
                     {/* <Image style={styles.pictureprops} source={{uri: this.props.navigation.getParam('url')}}></Image> */}
                 </View>
 
-                <View style={{paddingBottom: 25}}>
+                <View style={{paddingBottom: 25, marginTop: 10}}>
                     <Button onPress={() => this.props.navigation.navigate('NewMap2', { vp: this.getVpObject() })} rounded success>
                         <Text>  Se spotten på kartet </Text>
                     </Button>
@@ -238,15 +238,32 @@ const styles = StyleSheet.create({
         paddingRight: 5
     },
     titletext: {
-        fontSize: 28,
+        fontSize: 40,
         alignItems: 'center',
-        color: 'white',
+        color: 'darkslateblue',
         borderColor: 'purple',
-        borderWidth: 4,
         paddingLeft: 5,
         paddingRight: 5,
         fontWeight: 'bold',
-        backgroundColor: 'darkslateblue',
+        // backgroundColor: 'darkslateblue',
+        textAlign: 'center'
+    },
+    typefield: {
+        height: '17%',
+        alignItems: 'center',
+        paddingTop: 0,
+        paddingLeft: 5,
+        paddingRight: 5
+    },
+    typetext: {
+        fontSize: 20,
+        alignItems: 'center',
+        color: 'darkslateblue',
+        borderColor: 'purple',
+        paddingLeft: 5,
+        paddingRight: 5,
+        fontWeight: 'bold',
+        // backgroundColor: 'darkslateblue',
         textAlign: 'center'
     },
     reviewfield: {
@@ -260,11 +277,12 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        padding: 5
     },
     pictureprops: {
-        width: 300,
-        height: 300,
+        width: "100%",
+        height: "100%",
         resizeMode: 'contain',
         borderRadius: 40,
         alignItems: 'center',
