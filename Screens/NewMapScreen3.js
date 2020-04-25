@@ -3,7 +3,7 @@ import MapView from 'react-native-maps';
 import { Text, View, Dimensions, SafeAreaView, StyleSheet, Alert } from 'react-native';
 import { Header, Button, Body, Title, Fab, Icon, Left, Right } from 'native-base';
 
-export default class NewMapScreen2 extends React.Component {
+export default class NewMapScreen3 extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -15,7 +15,7 @@ export default class NewMapScreen2 extends React.Component {
     static navigationOptions = {
         headerTitle: 'SpotIT',
         headerStyle: {
-            backgroundColor: 'darkslateblue'
+            backgroundColor: '#393f4d'
         },
         headerTintColor: 'white'
     }
@@ -24,19 +24,24 @@ export default class NewMapScreen2 extends React.Component {
             <SafeAreaView style={styles.headerStyle}>
                 <MapView style={styles.mapStyle}
                     initialRegion={{
-                        latitude: this.props.navigation.getParam('vp').lat,
-                        longitude: this.props.navigation.getParam('vp').long,
+                        latitude: this.props.navigation.getParam('vp')[0].lat,
+                        longitude: this.props.navigation.getParam('vp')[0].long,
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
                     }}
                     showsUserLocation>
-                        <MapView.Marker
+                    {this.props.navigation.getParam('vp').map(marker => (
+                        <MapView.Marker key={marker.ID}
                             coordinate={{
-                                latitude: this.props.navigation.getParam('vp').lat,
-                                longitude: this.props.navigation.getParam('vp').long
+                                latitude: marker.lat,
+                                longitude: marker.long
                             }}
-                            title={this.props.navigation.getParam('vp').title}
+                            title={marker.title}
+                            onCalloutPress={() => {
+                                this.props.navigation.navigate('Spot', marker)
+                              }}
                         />
+                    ))}
                 </MapView>
             </SafeAreaView>
         );

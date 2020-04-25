@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, Modal, ActivityIndicator, SafeAreaView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { Button } from 'native-base'
-import NewMapScreen from './NewMapScreen';
-
 
 export default class SpotScreen extends Component {
     static navigationOptions = {
         headerTitle: 'SpotID',
         headerStyle: {
-            backgroundColor: 'darkslateblue'
+            backgroundColor: '#393f4d'
         },
         headerTintColor: 'white'
     }
@@ -58,7 +56,7 @@ export default class SpotScreen extends Component {
         let vp = {}
         vp.id = this.props.navigation.getParam('ID')
         vp.rating = this.state.giveRating
-        return await fetch('https://867e010e.ngrok.io/changeRating', {
+        return await fetch('https://74356d21.ngrok.io/changeRating', {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -80,7 +78,7 @@ export default class SpotScreen extends Component {
     async componentDidMount() {
         let vp = {}
         vp.id = this.props.navigation.getParam('ID')
-        await fetch('https://867e010e.ngrok.io/getViewPoint', {
+        await fetch('https://74356d21.ngrok.io/getViewPoint', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -103,7 +101,8 @@ export default class SpotScreen extends Component {
         vp.lat = this.props.navigation.getParam('lat')
         vp.long = this.props.navigation.getParam('long')
         vp.title = this.props.navigation.getParam('title')
-        return vp
+        let list = [vp]
+        return list
     }
 
     render() {
@@ -169,12 +168,12 @@ export default class SpotScreen extends Component {
 
                             <View style={{ padding: 10, flexDirection: 'row' }}>
                                 <View style={{ padding: 10 }}>
-                                    <FontAwesome.Button name="arrow-left" backgroundColor="darkslateblue" onPress={() => this.setState({ modalOpen: false })}>
+                                    <FontAwesome.Button name="arrow-left" backgroundColor="#393f4d" onPress={() => this.setState({ modalOpen: false })}>
                                         Go back
                                     </FontAwesome.Button>
                                 </View>
                                 <View style={{ padding: 10 }}>
-                                    <FontAwesome.Button name="star" backgroundColor="darkslateblue" onPress={() => this.editRating()}
+                                    <FontAwesome.Button name="star" backgroundColor="#393f4d" onPress={() => this.editRating()}
                                     >
                                         Submit
                                     </FontAwesome.Button>
@@ -198,7 +197,7 @@ export default class SpotScreen extends Component {
                     </View>
 
                     <View style={{ padding: 10 }}>
-                        <FontAwesome.Button name="star" backgroundColor="darkslateblue" onPress={() => this.setState({ modalOpen: true, giveRating: 0 })}>
+                        <FontAwesome.Button name="star" backgroundColor="#393f4d" onPress={() => this.setState({ modalOpen: true, giveRating: 0 })}>
                             Add review
                         </FontAwesome.Button>
                     </View>
@@ -211,7 +210,7 @@ export default class SpotScreen extends Component {
                 </View>
 
                 <View style={{paddingBottom: 25, marginTop: 10}}>
-                    <Button onPress={() => this.props.navigation.navigate('NewMap2', { vp: this.getVpObject() })} rounded success>
+                    <Button onPress={() => this.props.navigation.navigate('NewMap3', { vp: this.getVpObject() })} rounded success>
                         <Text>  Se spotten på kartet </Text>
                     </Button>
                 </View>
@@ -240,7 +239,7 @@ const styles = StyleSheet.create({
     titletext: {
         fontSize: 40,
         alignItems: 'center',
-        color: 'darkslateblue',
+        color: '#393f4d',
         borderColor: 'purple',
         paddingLeft: 5,
         paddingRight: 5,
@@ -258,7 +257,7 @@ const styles = StyleSheet.create({
     typetext: {
         fontSize: 20,
         alignItems: 'center',
-        color: 'darkslateblue',
+        color: '#393f4d',
         borderColor: 'purple',
         paddingLeft: 5,
         paddingRight: 5,

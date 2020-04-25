@@ -18,7 +18,7 @@ export default class FilterScreen extends Component {
     static navigationOptions = {
         headerTitle: 'SpotIT',
         headerStyle: {
-            backgroundColor: 'darkslateblue'
+            backgroundColor: '#393f4d'
         },
         headerTintColor: 'white'
     }
@@ -55,7 +55,7 @@ export default class FilterScreen extends Component {
         vp.longitude = this.state.longitude
         vp.avstand = this.state.avstand
         vp.rating = this.state.rating
-        fetch('https://867e010e.ngrok.io/getWalk', {
+        fetch('https://74356d21.ngrok.io/getWalk', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',

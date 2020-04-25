@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ActivityIndicator, FlatList, TouchableOpacity, Image } from 'react-native';
+import { Text, View, StyleSheet, ActivityIndicator, FlatList, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { Icon, Input, Button, InputGroup, Content } from 'native-base';
 
 export default class SearchScreen extends Component {
-    static navigationOptions = {
-        headerTitle: 'Finn steder å spotte',
-        headerStyle: {
-            backgroundColor: 'darkslateblue'
-        },
-        headerTintColor: 'white'
+    static navigationOptions = ({ navigation }) => {
+        return {
+            headerTitle: 'SpotIT',
+            headerStyle: {
+                backgroundColor: '#393f4d'
+            },
+            headerTintColor: 'white'
+        }
     }
 
     constructor(props) {
@@ -26,7 +28,7 @@ export default class SearchScreen extends Component {
     }
 
     componentDidMount() {
-        return fetch('https://867e010e.ngrok.io/getViewPointInfo')
+        return fetch('https://74356d21.ngrok.io/getViewPointInfo')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
@@ -38,10 +40,20 @@ export default class SearchScreen extends Component {
             })
             .catch((error) => console.log(error))
     }
+    
+    feilFix(){
+        if(this.state.dataSource.viewPoints.filter(item => item.title.startsWith(this.state.searchKey)).length == 0)
+        return null;
+        else 
+        console.log(this.state.dataSource.viewPoints.filter(item => item.title.startsWith(this.state.searchKey)).length)
+        this.props.navigation.navigate('NewMap3', { vp: this.state.dataSource.viewPoints.filter(item => 
+            item.title.startsWith(this.state.searchKey)) })
+    }
 
     _renderItem = ({ item }) => (
         <TouchableOpacity onPress={() => {
-            this.props.navigation.navigate('Spot', item)}
+            this.props.navigation.navigate('Spot', item)
+        }
         }>
             <View style={styles.item}>
                 <Text style={styles.text}>{item.title}</Text>
@@ -102,7 +114,6 @@ export default class SearchScreen extends Component {
                             <Input placeholder='Search for a spot' onChangeText={(value) => this.setState({ searchKey: value })} />
                         </InputGroup>
                     </View>
-
                     <View style={styles.list}>
                         <FlatList
                             data={filteredData}
@@ -110,6 +121,12 @@ export default class SearchScreen extends Component {
                             keyExtractor={(item, index) => index.toString()}
                         />
                     </View>
+                    <Button style={{textAlign:'center', justifyContent: 'center', marginBottom: 15}} onPress={() =>
+                        this.feilFix()} rounded success>
+                        <Text>
+                            Finn spotsa på kartet!
+                        </Text>
+                    </Button>
 
                 </View>
 
@@ -126,14 +143,14 @@ const styles = StyleSheet.create({
     },
     searchBar: {
         borderBottomWidth: 4,
-        borderBottomColor: 'darkslateblue',
+        borderBottomColor: '#393f4d',
     },
     list: {
         flex: 1,
         paddingBottom: 5,
     },
     item: {
-        borderBottomColor: 'darkslateblue',
+        borderBottomColor: '#393f4d',
         borderBottomWidth: 2,
         alignItems: 'center',
         flex: 1

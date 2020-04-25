@@ -9,9 +9,9 @@ export default class InfoScreen extends Component {
           };
     }
     static navigationOptions = {
-        headerTitle: 'SpotID',
+        headerTitle: 'InfoScreen',
         headerStyle: {
-            backgroundColor: 'darkslateblue'
+            backgroundColor: '#393f4d'
         },
         headerTintColor: 'white'
     }

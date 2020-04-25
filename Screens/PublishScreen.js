@@ -11,13 +11,14 @@ class PublishScreen extends Component {
             latitude: '',
             longitude: '',
             ventMelding: '',
+            skrivInnTittel: '',
             type: 'Arkitektur',
         }
     }
     static navigationOptions = {
         headerTitle: 'Del din spot',
         headerStyle: {
-            backgroundColor: 'darkslateblue'
+            backgroundColor: '#393f4d'
         },
         headerTintColor: 'white'
     }
@@ -40,11 +41,12 @@ class PublishScreen extends Component {
         );
     }
     renderElement() {
-        if (this.state.latitude != '')
+        if (this.state.title == '')
+            this.setState({ skrivInnTittel: 'Vennligst skriv inn tittel på spotten.' })
+        else if (this.state.latitude != '')
             this.submit();
         else
             this.setState({ ventMelding: 'Oisann! Vi har ikke hentet din lokasjon enda. Prøv igjen om noen sekunder.' })
-        return null;
     }
     submit() {
         let vp = {}
@@ -56,7 +58,7 @@ class PublishScreen extends Component {
         console.log(vp.latitude)
         console.log(this.props.navigation.getParam('kefoijwe'))
         vp.image = this.props.navigation.getParam('photo2').base64
-        fetch('https://ced475c4.ngrok.io/postjson', {
+        fetch('https://74356d21.ngrok.io/postjson', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -86,6 +88,7 @@ class PublishScreen extends Component {
                             <Icon active name='ios-megaphone' />
                             <Input onChangeText={(text) => this.updateValue(text, 'title')} placeholder='Skriv inn navnet på spotten' />
                         </Item>
+                        <Text style ={{color:'red'}}> {this.state.skrivInnTittel} </Text>
                     </View>
                     <View style={styles.item}>
                         <Text>Vennligst velg kategori</Text>
@@ -95,7 +98,7 @@ class PublishScreen extends Component {
                             selectedValue={this.state.type}
                             style={styles.picker}
                             onValueChange={(itemValue, itemIndex) => this.setState({ type: itemValue })}
-                            headerStyle={{backgroundColor: 'darkslateblue'}}
+                            headerStyle={{backgroundColor: '#393f4d'}}
                             headerBackButtonTextStyle={{color: 'white'}}
                             headerTitleStyle={{color: 'white'}}
                             iosHeader="Velg type"

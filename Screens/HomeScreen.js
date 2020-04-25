@@ -27,7 +27,7 @@ export default class HomeScreen extends React.Component {
         </Button>
       ),
       headerStyle: {
-        backgroundColor: 'darkslateblue'
+        backgroundColor: '#393f4d'
       },
       headerTintColor: 'white'
     }
@@ -48,7 +48,7 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    return fetch('https://867e010e.ngrok.io/getViewPointInfo')
+    return fetch('https://74356d21.ngrok.io/getViewPointInfo')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -85,23 +85,23 @@ export default class HomeScreen extends React.Component {
             active={this.state.active}
             direction="up"
             containerStyle={{ }}
-            style={{ backgroundColor: 'darkslateblue' }}
+            style={{ backgroundColor: '#393f4d' }}
             position="bottomLeft"
             onPress={() => this.setState({ active: !this.state.active })}>
             <Icon name="ios-apps" />
-            <Button style={{ backgroundColor: 'darkslateblue' }}  onPress={() => this.props.navigation.navigate('Fuzzy')}>
+            <Button style={{ backgroundColor: '#393f4d' }}  onPress={() => this.props.navigation.navigate('Fuzzy')}>
               <Icon name="logo-model-s" />
             </Button>
-            <Button style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.props.navigation.navigate('Filter')}>
+            <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Filter')}>
               <Icon name="md-options" />
             </Button>
           </Fab>
         <Fab direction="center" position="bottomRight"
-          style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.props.navigation.navigate('Camera')}>
+          style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Camera')}>
           <Icon name="camera" />
         </Fab>
         <Fab direction="center" position="topLeft"
-          style={{ backgroundColor: 'darkslateblue' }} onPress={() => this.componentDidMount()}>
+          style={{ backgroundColor: '#393f4d' }} onPress={() => this.componentDidMount()}>
           <Icon name="ios-refresh" />
         </Fab>
       </SafeAreaView>

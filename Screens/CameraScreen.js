@@ -88,14 +88,14 @@ export default function App({ navigation }) {
 App.navigationOptions = {
   headerTitle: 'Legg til ny spot',
   headerStyle: {
-    backgroundColor: 'darkslateblue'
+    backgroundColor: '#393f4d'
   },
   headerTintColor: 'white',
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'darkslateblue'
+    backgroundColor: '#393f4d'
   },
   button:{
     width: 50,

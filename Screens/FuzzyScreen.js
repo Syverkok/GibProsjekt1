@@ -18,7 +18,7 @@ export default class FuzzyScreen extends Component {
     static navigationOptions = {
         headerTitle: 'SpotIT',
         headerStyle: {
-            backgroundColor: 'darkslateblue'
+            backgroundColor: '#393f4d'
         },
         headerTintColor: 'white'
     }
@@ -55,7 +55,7 @@ export default class FuzzyScreen extends Component {
         vp.longitude = this.state.longitude
         vp.radius = this.state.kjore
         vp.distance = this.state.tur
-        fetch('https://867e010e.ngrok.io/clusterViewPoints', {
+        fetch('https://74356d21.ngrok.io/clusterViewPoints', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -66,7 +66,7 @@ export default class FuzzyScreen extends Component {
             .then((response) => response.json())
             .then((vp) => {
                 console.log(vp.viewPoints)
-                this.props.navigation.navigate('NewMap', { vp });
+                this.props.navigation.navigate('NewMap3', { vp:vp.viewPoints });
             })
             .catch((error) => {
                 console.error('Error:', error);
