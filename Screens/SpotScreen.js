@@ -120,6 +120,7 @@ export default class SpotScreen extends Component {
         vp.lat = this.props.navigation.getParam('lat')
         vp.long = this.props.navigation.getParam('long')
         vp.title = this.props.navigation.getParam('title')
+        vp.ID = this.props.navigation.getParam('ID')
         let list = [vp]
         return list
     }

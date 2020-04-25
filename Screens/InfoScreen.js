@@ -9,7 +9,7 @@ export default class InfoScreen extends Component {
           };
     }
     static navigationOptions = {
-        headerTitle: 'InfoScreen',
+        headerTitle: 'Informasjonsside',
         headerStyle: {
             backgroundColor: '#393f4d'
         },

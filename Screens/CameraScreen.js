@@ -85,7 +85,7 @@ export default function App({ navigation }) {
   );
 }
 App.navigationOptions = {
-  headerTitle: 'Legg til ny spot',
+  headerTitle: 'SpotIT',
   headerStyle: {
     backgroundColor: '#393f4d'
   },

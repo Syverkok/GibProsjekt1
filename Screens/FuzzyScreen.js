@@ -105,9 +105,9 @@ export default class FuzzyScreen extends Component {
                     </View>
                     <View style={styles.item}>
                         <Text style={{textAlign:'center', fontSize: 15}}>
-                            Skulle det friste med ei litta luftetur noe lenger enn runden rundt nabolaget? Har du tilgang på bil eller kollektiv?
-                            Da er dette funksjonaliteten for deg! Før inn maksimal lengde du er villig til å kjøre, og
-                            deretter maksimal gåavstand. Fullfør søket med å spesifisere hva slags type spot du er ute etter å utforske.
+                            Skulle det friste med ei litta luftetur noe lenger enn runden rundt nabolaget? Med sykkel, bil eller kanskje fly?
+                            Da er dette funksjonaliteten for deg! Før inn maksimal lengde du er villig til å reise, og
+                            deretter maksimal gåavstand mellom spotsa. Fullfør søket med å spesifisere hva slags type spot du er ute etter å utforske.
                             Du vil da få foreslått en samlig med nydelige spots fra våre brukere! God tur!
                         </Text>
                     </View>
