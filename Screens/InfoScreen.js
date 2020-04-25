@@ -21,7 +21,7 @@ export default class InfoScreen extends Component {
 
             <Image
               style={styles.pictureprops}
-              source={require('../image/InfoScreen.jpg')}
+              source={require('../images/InfoScreen.jpg')}
             />
             </View>
         );
