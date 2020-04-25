@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef, } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, SafeAreaView, Image } from 'react-native';
 import { Camera } from 'expo-camera';
-import { Header, Button, Body, Title, Fab, Icon, Left, Right } from 'native-base';
 
 export default function App({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
