@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, Modal, ActivityIndicator, SafeAreaView } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import { Button } from 'native-base'
 import NewMapScreen from './NewMapScreen';
 
 
 export default class SpotScreen extends Component {
     static navigationOptions = {
-        headerTitle: 'SpotID',
+        headerTitle: 'SpotIT',
         headerStyle: {
             backgroundColor: 'darkslateblue'
         },
@@ -25,12 +25,13 @@ export default class SpotScreen extends Component {
             numOfRatings: 0,
             rating: 0,
             isLoading: true,
-            vp: {}
+            vp: {},
+            iconName: 'question-circle'
         };
         //Filled Star. You can also give the path from local
-        this.Star = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Star_full.svg/1005px-Star_full.svg.png';
+        this.Star = require('../images/Star_full.png');
         //Empty Star. You can also give the path from local
-        this.Star_With_Border = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Star_empty.svg/1005px-Star_empty.svg.png';
+        this.Star_With_Border = require('../images/Star_empty.png');
     }
 
     UpdateRating(key) {
@@ -52,12 +53,30 @@ export default class SpotScreen extends Component {
         return this.state.rating
     }
 
+    setIconName() {
+        if (this.props.navigation.getParam('type') == 'Kultur') {
+            this.setState({iconName: 'theater-masks'}) 
+        }
+        else if (this.props.navigation.getParam('type') == 'Arkitektur') {
+            this.setState({iconName: 'archway'})
+        }
+        else if (this.props.navigation.getParam('type') == 'Utkikkspunkt') {
+            this.setState({iconName: 'binoculars'})
+        }
+        else if (this.props.navigation.getParam('type') == 'Natur') {
+            this.setState({iconName: 'tree'})
+        }
+        else {
+            this.setState({iconName: 'question-circle'})
+        }
+    }
+
     async editRating(params) {
 
         let vp = {}
         vp.id = this.props.navigation.getParam('ID')
         vp.rating = this.state.giveRating
-        return await fetch('https://284b88da.ngrok.io/changeRating', {
+        return await fetch('https://867e010e.ngrok.io/changeRating', {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -79,7 +98,7 @@ export default class SpotScreen extends Component {
     async componentDidMount() {
         let vp = {}
         vp.id = this.props.navigation.getParam('ID')
-        await fetch('https://284b88da.ngrok.io/getViewPoint', {
+        await fetch('https://867e010e.ngrok.io/getViewPoint', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -96,6 +115,7 @@ export default class SpotScreen extends Component {
                     numOfRatings: vp.numberOfRatings,
                 })
             })
+            this.setIconName()
     }
     getVpObject() {
         let vp = {}
@@ -125,8 +145,8 @@ export default class SpotScreen extends Component {
                         style={styles.StarImage}
                         source={
                             i <= this.state.giveRating
-                                ? { uri: this.Star }
-                                : { uri: this.Star_With_Border }
+                                ? this.Star
+                                : this.Star_With_Border
                         }
                     />
                 </TouchableOpacity>
@@ -140,8 +160,8 @@ export default class SpotScreen extends Component {
                     style={styles.StarImage}
                     source={
                         i <= this.getRating()
-                            ? { uri: this.Star }
-                            : { uri: this.Star_With_Border }
+                            ? this.Star
+                            : this.Star_With_Border
                     }
                     key={i}
                 />
@@ -190,6 +210,11 @@ export default class SpotScreen extends Component {
                     <Text style={styles.titletext}>{this.props.navigation.getParam('title')}</Text>
                 </View>
 
+                <View style={{ alignItems: 'center' }}>
+                    <FontAwesome5 name={this.state.iconName} size={32} color="darkslateblue" />
+                    <Text>{this.props.navigation.getParam('type')}</Text>
+                </View>
+
                 <View style={styles.reviewfield}>
 
                     <View style={{ padding: 10 }}>
@@ -199,7 +224,7 @@ export default class SpotScreen extends Component {
 
                     <View style={{ padding: 10 }}>
                         <FontAwesome.Button name="star" backgroundColor="darkslateblue" onPress={() => this.setState({ modalOpen: true, giveRating: 0 })}>
-                            Add review
+                            Legg til review
                         </FontAwesome.Button>
                     </View>
 
@@ -210,8 +235,8 @@ export default class SpotScreen extends Component {
                     {/* <Image style={styles.pictureprops} source={{uri: this.props.navigation.getParam('url')}}></Image> */}
                 </View>
 
-                <View style={{paddingBottom: 25}}>
-                    <Button onPress={() => this.props.navigation.navigate('NewMap2', { vp: this.getVpObject() })} rounded success>
+                <View style={{ paddingBottom: 25 }}>
+                    <Button onPress={() => this.props.navigation.navigate('NewMap2', { vp: this.getVpObject() })} rounded info>
                         <Text>  Se spotten på kartet </Text>
                     </Button>
                 </View>
@@ -231,7 +256,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     titlefield: {
-        height: '17%',
+        height: '12%',
         alignItems: 'center',
         paddingTop: 10,
         paddingLeft: 5,
@@ -260,11 +285,12 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        padding: 5
     },
     pictureprops: {
-        width: 300,
-        height: 300,
+        width: '100%',
+        height: '100%',
         resizeMode: 'contain',
         borderRadius: 40,
         alignItems: 'center',

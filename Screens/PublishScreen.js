@@ -56,7 +56,7 @@ class PublishScreen extends Component {
         console.log(vp.latitude)
         console.log(this.props.navigation.getParam('kefoijwe'))
         vp.image = this.props.navigation.getParam('photo2').base64
-        fetch('https://284b88da.ngrok.io/postjson', {
+        fetch('https://867e010e.ngrok.io/postjson', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -95,11 +95,11 @@ class PublishScreen extends Component {
                             selectedValue={this.state.type}
                             style={styles.picker}
                             onValueChange={(itemValue, itemIndex) => this.setState({ type: itemValue })}
-                            headerStyle={{backgroundColor: 'darkslateblue'}}
-                            headerBackButtonTextStyle={{color: 'white'}}
-                            headerTitleStyle={{color: 'white'}}
+                            headerStyle={{ backgroundColor: 'darkslateblue' }}
+                            headerBackButtonTextStyle={{ color: 'white' }}
+                            headerTitleStyle={{ color: 'white' }}
                             iosHeader="Velg type"
-                            iosIcon={<Icon name="arrow-down"/>}>
+                            iosIcon={<Icon name="arrow-down" />}>
                             <Picker.Item label="Arkitektur" value="Arkitektur" />
                             <Picker.Item label="Utkikkspunkt" value="Utkikkspunkt" />
                             <Picker.Item label="Natur" value="Natur" />
@@ -110,15 +110,13 @@ class PublishScreen extends Component {
                 </View>
 
                 <View style={styles.picturefield}>
-                    <View style={styles.item}>
-                        <Image source={{ uri: `data:image/jpeg;base64,${this.props.navigation.getParam('photo2').base64}` }} style={styles.pictureprops} />
-                    </View>
+                    <Image source={{ uri: `data:image/jpeg;base64,${this.props.navigation.getParam('photo2').base64}` }} style={styles.pictureprops} />
+                </View>
 
-                    <View style={styles.item}>
-                        <Button onPress={() => this.renderElement()} rounded success>
-                            <Text>  Del spotten!  </Text>
-                        </Button>
-                    </View>
+                <View style={styles.item}>
+                    <Button onPress={() => this.renderElement()} rounded info>
+                        <Text>  Del spotten!  </Text>
+                    </Button>
                     <Text style={{ textAlign: 'center' }}>{this.state.ventMelding}</Text>
                 </View>
 
@@ -172,7 +170,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         //backgroundColor: 'blue',
-        padding: 20
+        paddingTop: 20,
+        paddingHorizontal: 20,
     },
     propsfield: {
         flex: 1,
@@ -187,6 +186,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         //backgroundColor: 'darkslateblue',
         width: '100%',
+        paddingVertical: 20
     },
     item: {
         padding: 10,
@@ -195,8 +195,8 @@ const styles = StyleSheet.create({
         //backgroundColor: 'yellow'
     },
     pictureprops: {
-        width: 300,
-        height: 300,
+        width: '100%',
+        height: '100%',
         resizeMode: 'contain',
         borderRadius: 40,
         alignItems: 'center',
@@ -207,11 +207,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        //backgroundColor: 'blue'
+        //backgroundColor: 'blue',
     },
     picker: {
-        borderColor: 'black',
-        borderWidth: 2,
+        //borderColor: 'black',
+        //borderWidth: 2,
         width: '40%',
         alignItems: 'center',
     }

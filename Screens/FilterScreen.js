@@ -55,7 +55,7 @@ export default class FilterScreen extends Component {
         vp.longitude = this.state.longitude
         vp.avstand = this.state.avstand
         vp.rating = this.state.rating
-        fetch('https://74b6aa0e.ngrok.io/getWalk', {
+        fetch('https://867e010e.ngrok.io/getWalk', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -78,7 +78,7 @@ export default class FilterScreen extends Component {
                 <View style={styles.container}>
 
                     <Card>
-                        <CardItem header>
+                        <CardItem>
                             <Text>Filtrer spots på avstand og rating!</Text>
                         </CardItem>
                         <CardItem>
@@ -90,7 +90,7 @@ export default class FilterScreen extends Component {
                             </Text>
                             </Body>
                         </CardItem>
-                        <CardItem footer>
+                        <CardItem>
                             <Text>Hilsen oss i SPOTIT AS</Text>
                         </CardItem>
                     </Card>
