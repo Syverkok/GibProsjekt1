@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
         //backgroundColor: 'yellow'
     },
     picturefield: {
-        flex: 3,
+        flex: 2,
         alignItems: 'center',
         justifyContent: 'center',
         //backgroundColor: 'darkslateblue',
