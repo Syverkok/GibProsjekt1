@@ -58,7 +58,7 @@ class PublishScreen extends Component {
         console.log(vp.latitude)
         console.log(this.props.navigation.getParam('kefoijwe'))
         vp.image = this.props.navigation.getParam('photo2').base64
-        fetch('https://b9c06019.ngrok.io/postjson', {
+        fetch('https://ff4349a1.ngrok.io/postjson', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',

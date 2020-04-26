@@ -61,7 +61,7 @@ export default class HomeScreen extends React.Component {
   }
 
   getPosition() {
-    if (this.state.isLoading){
+    if (this.state.isLoading) {
       navigator.geolocation.getCurrentPosition(
         position => {
           this.setState({
@@ -78,7 +78,7 @@ export default class HomeScreen extends React.Component {
 
   async componentDidMount() {
     this.getPosition()
-    return await fetch('https://b9c06019.ngrok.io/getViewPointInfo')
+    return await fetch('https://ff4349a1.ngrok.io/getViewPointInfo')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -89,7 +89,16 @@ export default class HomeScreen extends React.Component {
   }
   render() {
     if (this.state.isLoading) {
-      return <Container style ={{backgroundColor:'white'}}><Text style={{color:'white'}}> Loading </Text></Container>
+      return <Container style={{ backgroundColor: 'white', alignContent: 'center', justifyContent: 'center' }}>
+         <View style={styles.titlefield}>
+               
+        <Text style={styles.titletext}> Velkommen til SpotIT!  </Text>
+        <Text style={styles.titletext2}> Laster inn applikasjonen...  </Text>
+        <Text style={styles.titletext2}> Brukerguide i knappen øverst til venstre.  </Text>
+
+
+        </View>
+      </Container>
     }
     return (
       <SafeAreaView style={styles.headerStyle}>
@@ -152,5 +161,35 @@ const styles = StyleSheet.create({
   },
   iconStyle: {
     color: 'white'
-  }
+  },
+  titlefield: {
+    height: '12%',
+    alignItems: 'center',
+    paddingTop: 10,
+    paddingLeft: 5,
+    paddingRight: 5,
+    justifyContent: 'center'
+},
+titletext: {
+    fontSize: 30,
+    alignItems: 'center',
+    color: '#393f4d',
+    borderColor: 'purple',
+    paddingLeft: 5,
+    paddingRight: 5,
+    fontWeight: 'bold',
+    // backgroundColor: 'darkslateblue',
+    textAlign: 'center'
+},
+titletext2: {
+  fontSize: 15,
+  alignItems: 'center',
+  color: '#393f4d',
+  borderColor: 'purple',
+  paddingLeft: 5,
+  paddingRight: 5,
+  fontWeight: 'bold',
+  // backgroundColor: 'darkslateblue',
+  textAlign: 'center'
+},
 })

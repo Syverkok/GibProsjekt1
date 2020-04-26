@@ -76,7 +76,7 @@ export default class FilterScreen extends Component {
         vp.radius = this.state.distWalk
         vp.rating = this.state.rating
         vp.type = this.state.type
-        fetch('https://b9c06019.ngrok.io/getWalk', {
+        fetch('https://ff4349a1.ngrok.io/getWalk', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',

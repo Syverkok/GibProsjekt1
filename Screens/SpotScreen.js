@@ -74,7 +74,7 @@ export default class SpotScreen extends Component {
         let vp = {}
         vp.id = this.props.navigation.getParam('ID')
         vp.rating = this.state.giveRating
-        return await fetch('https://b9c06019.ngrok.io/changeRating', {
+        return await fetch('https://ff4349a1.ngrok.io/changeRating', {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -263,12 +263,12 @@ const styles = StyleSheet.create({
         paddingRight: 5
     },
     titletext: {
-        fontSize: 40,
+        fontSize: 35,
         alignItems: 'center',
         color: '#393f4d',
         borderColor: 'purple',
-        paddingLeft: 5,
-        paddingRight: 5,
+        paddingLeft: 0,
+        paddingRight: 0,
         fontWeight: 'bold',
         // backgroundColor: 'darkslateblue',
         textAlign: 'center'
