@@ -58,7 +58,7 @@ class PublishScreen extends Component {
         console.log(vp.latitude)
         console.log(this.props.navigation.getParam('kefoijwe'))
         vp.image = this.props.navigation.getParam('photo2').base64
-        fetch('https://12d52e04.ngrok.io/postjson', {
+        fetch('https://b9c06019.ngrok.io/postjson', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
         //backgroundColor: 'yellow'
     },
     picturefield: {
-        flex: 3,
+        flex: 2,
         alignItems: 'center',
         justifyContent: 'center',
         //backgroundColor: 'darkslateblue',

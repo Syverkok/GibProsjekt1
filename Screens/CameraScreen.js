@@ -52,7 +52,7 @@ export default function App({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity style={{ alignSelf: 'center' }} onPress={async () => {
             if (cameraRef) {
-              let photo2 = await cameraRef.takePictureAsync({ base64: true, quality: 0.3 });
+              let photo2 = await cameraRef.takePictureAsync({ base64: true, quality: 0.1 });
               setPhoto2(photo2);
               navigation.navigate('Publish', {photo2});
             }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Slider, StyleSheet, Alert } from 'react-native';
+import { View, Text, Slider, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
 import { Picker, Icon, Button } from 'native-base';
 
 
@@ -25,6 +25,13 @@ export default class FilterScreen extends Component {
             sliderValue: 0,
             type: 'Godt og blandet',
         }
+        this.Star = require('../images/Star_full.png');
+        this.Star_With_Border = require('../images/Star_empty.png');
+    }
+
+    UpdateRating(key) {
+        this.setState({ rating: key });
+        //Keeping the Rating Selected in state
     }
 
     setDistDrive(value) {
@@ -69,7 +76,7 @@ export default class FilterScreen extends Component {
         vp.radius = this.state.distWalk
         vp.rating = this.state.rating
         vp.type = this.state.type
-        fetch('https://a9a36676.ngrok.io/getWalk', {
+        fetch('https://b9c06019.ngrok.io/getWalk', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -94,6 +101,27 @@ export default class FilterScreen extends Component {
     }
 
     render() {
+
+        let Dynamic_Rating_Bar = [];
+        //Array to hold the filled or empty Stars
+        for (var i = 1; i <= 5; i++) {
+            Dynamic_Rating_Bar.push(
+                <TouchableOpacity
+                    activeOpacity={0.7}
+                    key={i}
+                    onPress={this.UpdateRating.bind(this, i)}>
+                    <Image
+                        style={styles.StarImage}
+                        source={
+                            i <= this.state.rating
+                                ? this.Star
+                                : this.Star_With_Border
+                        }
+                    />
+                </TouchableOpacity>
+            );
+        }
+
         return (
             <View style={styles.container}>
 
@@ -126,7 +154,7 @@ export default class FilterScreen extends Component {
                         />
                     </View>
 
-                    <View style={styles.slider}>
+                    {/*<View style={styles.slider}>
                         <Slider
                             style={{ width: '100%' }}
                             value={this.state.rating}
@@ -134,6 +162,9 @@ export default class FilterScreen extends Component {
                             step={1}
                             maximumValue={5}
                         />
+                    </View> */}
+                    <View style={styles.rating}>
+                        <View style={styles.starview}>{Dynamic_Rating_Bar}</View>
                     </View>
 
                     <View style={{flexDirection: 'row'}}>
@@ -238,7 +269,21 @@ const styles = StyleSheet.create({
         //backgroundColor: 'purple',
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    rating: {
+        paddingBottom: 20,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    starview: {
+        justifyContent: 'center',
+        flexDirection: 'row',
+    },
+    StarImage: {
+        width: 35,
+        height: 35,
+        resizeMode: 'cover',
+    },
 })
 
 

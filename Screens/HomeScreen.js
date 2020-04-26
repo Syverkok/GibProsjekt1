@@ -19,7 +19,7 @@ export default class HomeScreen extends React.Component {
       headerTitle: 'SpotIT',
       headerLeft: () => (
         <Button transparent onPress={() => navigation.navigate('Info')}>
-          <Icon name='list' style={{ color: 'white' }} />
+          <Icon name='ios-information-circle-outline' style={{ color: 'white' }} />
         </Button>
       ),
       headerRight: () => (
