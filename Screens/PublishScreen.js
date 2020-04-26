@@ -10,6 +10,7 @@ class PublishScreen extends Component {
             title: '',
             latitude: '',
             longitude: '',
+            altitude:'',
             ventMelding: '',
             skrivInnTittel: '',
             type: 'Arkitektur',
@@ -33,8 +34,12 @@ class PublishScreen extends Component {
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
             position => {
-                this.setState({ 'latitude': position.coords.latitude });
-                this.setState({ 'longitude': position.coords.longitude });
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    altitude: position.coords.altitude
+
+             });
             },
             error => Alert.alert(error.message),
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
@@ -54,6 +59,7 @@ class PublishScreen extends Component {
         vp.latitude = this.state.latitude
         vp.longitude = this.state.longitude
         vp.type = this.state.type
+        vp.altitude = this.state.altitude
         console.log(vp.longitude)
         console.log(vp.latitude)
         console.log(this.props.navigation.getParam('kefoijwe'))

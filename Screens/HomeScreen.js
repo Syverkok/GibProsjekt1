@@ -11,6 +11,7 @@ export default class HomeScreen extends React.Component {
       latitude: '',
       longitude: '',
       isLoading: true,
+      altitude: '',
     }
   }
 
@@ -49,7 +50,7 @@ export default class HomeScreen extends React.Component {
   }
 
   async updateData() {
-    return await fetch('https://b9c06019.ngrok.io/getViewPointInfo')
+    return await fetch('https://ff4349a1.ngrok.io/getViewPointInfo')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -67,6 +68,7 @@ export default class HomeScreen extends React.Component {
           this.setState({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
+            altitude: position.coords.altitude,
             isLoading: false
           });
         },
@@ -75,7 +77,6 @@ export default class HomeScreen extends React.Component {
       );
     }
   }
-
   async componentDidMount() {
     this.getPosition()
     return await fetch('https://ff4349a1.ngrok.io/getViewPointInfo')
@@ -136,6 +137,9 @@ export default class HomeScreen extends React.Component {
           </Button>
           <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Filter')}>
             <Icon name="md-options" />
+          </Button>
+          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Walk')}>
+            <Icon name="ios-walk" />
           </Button>
         </Fab>
         <Fab direction="center" position="bottomRight"
