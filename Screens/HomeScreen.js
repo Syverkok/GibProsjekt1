@@ -1,7 +1,7 @@
 import React from 'react';
 import MapView from 'react-native-maps';
-import { Text, View, Dimensions, SafeAreaView, StyleSheet, Alert, TouchableOpacity } from 'react-native';
-import { Header, Button, Body, Title, Fab, Icon, Left, Right } from 'native-base';
+import { Text, View, Dimensions, SafeAreaView, StyleSheet, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Header, Button, Body, Title, Fab, Icon, Left, Right, Container } from 'native-base';
 
 export default class HomeScreen extends React.Component {
   constructor() {
@@ -9,7 +9,8 @@ export default class HomeScreen extends React.Component {
     this.state = {
       listOfViews: [],
       latitude: '',
-      longitude: ''
+      longitude: '',
+      isLoading: true,
     }
   }
 
@@ -34,21 +35,50 @@ export default class HomeScreen extends React.Component {
   }
   displayLongitue() {
     if (this.state.longitude == '') {
-      return 10.388036;
+      return 1;
     } else {
       return this.state.longitude;
     }
   }
   displayLatitude() {
     if (this.state.latitude == '') {
-      return 63.428104;
+      return 1;
     } else {
       return this.state.latitude;
     }
   }
 
-  componentDidMount() {
-    return fetch('https://74356d21.ngrok.io/getViewPointInfo')
+  async updateData() {
+    return await fetch('https://b9c06019.ngrok.io/getViewPointInfo')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          listOfViews: responseJson.viewPoints,
+        })
+        Alert.alert('Spotsa på kartet er nå oppdatert!')
+      })
+      .catch((error) => console.log(error))
+  }
+
+  getPosition() {
+    if (this.state.isLoading){
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          this.setState({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            isLoading: false
+          });
+        },
+        error => Alert.alert(error.message),
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+      );
+    }
+  }
+
+  async componentDidMount() {
+    this.getPosition()
+    return await fetch('https://b9c06019.ngrok.io/getViewPointInfo')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -58,6 +88,9 @@ export default class HomeScreen extends React.Component {
       .catch((error) => console.log(error))
   }
   render() {
+    if (this.state.isLoading) {
+      return <Container style ={{backgroundColor:'white'}}><Text style={{color:'white'}}> Loading </Text></Container>
+    }
     return (
       <SafeAreaView style={styles.headerStyle}>
         <MapView style={styles.mapStyle}
@@ -81,27 +114,27 @@ export default class HomeScreen extends React.Component {
             />
           ))}
         </MapView>
-         <Fab
-            active={this.state.active}
-            direction="up"
-            containerStyle={{ }}
-            style={{ backgroundColor: '#393f4d' }}
-            position="bottomLeft"
-            onPress={() => this.setState({ active: !this.state.active })}>
-            <Icon name="ios-apps" />
-            <Button style={{ backgroundColor: '#393f4d' }}  onPress={() => this.props.navigation.navigate('Fuzzy')}>
-              <Icon name="logo-model-s" />
-            </Button>
-            <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Filter')}>
-              <Icon name="md-options" />
-            </Button>
-          </Fab>
+        <Fab
+          active={this.state.active}
+          direction="up"
+          containerStyle={{}}
+          style={{ backgroundColor: '#393f4d' }}
+          position="bottomLeft"
+          onPress={() => this.setState({ active: !this.state.active })}>
+          <Icon name="ios-apps" />
+          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Fuzzy')}>
+            <Icon name="logo-model-s" />
+          </Button>
+          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Filter')}>
+            <Icon name="md-options" />
+          </Button>
+        </Fab>
         <Fab direction="center" position="bottomRight"
           style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Camera')}>
           <Icon name="camera" />
         </Fab>
         <Fab direction="center" position="topLeft"
-          style={{ backgroundColor: '#393f4d' }} onPress={() => this.componentDidMount()}>
+          style={{ backgroundColor: '#393f4d' }} onPress={() => this.updateData()}>
           <Icon name="ios-refresh" />
         </Fab>
       </SafeAreaView>

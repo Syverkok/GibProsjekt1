@@ -28,7 +28,7 @@ export default class SearchScreen extends Component {
     }
 
     componentDidMount() {
-        return fetch('https://74356d21.ngrok.io/getViewPointInfo')
+        return fetch('https://12d52e04.ngrok.io/getViewPointInfo')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
