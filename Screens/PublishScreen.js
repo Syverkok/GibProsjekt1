@@ -60,9 +60,6 @@ class PublishScreen extends Component {
         vp.longitude = this.state.longitude
         vp.type = this.state.type
         vp.altitude = this.state.altitude
-        console.log(vp.longitude)
-        console.log(vp.latitude)
-        console.log(this.props.navigation.getParam('kefoijwe'))
         vp.image = this.props.navigation.getParam('photo2').base64
         fetch('https://ff4349a1.ngrok.io/postjson', {
             method: 'POST', // or 'PUT'
