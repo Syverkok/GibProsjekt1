@@ -1,6 +1,6 @@
 import React from 'react';
 import MapView from 'react-native-maps';
-import { Text, View, Dimensions, SafeAreaView, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { Text, View, Dimensions, SafeAreaView, StyleSheet, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Header, Button, Body, Title, Fab, Icon, Left, Right } from 'native-base';
 
 export default class HomeScreen extends React.Component {
@@ -9,7 +9,8 @@ export default class HomeScreen extends React.Component {
     this.state = {
       listOfViews: [],
       latitude: '',
-      longitude: ''
+      longitude: '',
+      isLoading: true
     }
   }
 
@@ -34,21 +35,32 @@ export default class HomeScreen extends React.Component {
   }
   displayLongitue() {
     if (this.state.longitude == '') {
-      return 10.388036;
+      return 9;
     } else {
       return this.state.longitude;
     }
   }
   displayLatitude() {
     if (this.state.latitude == '') {
-      return 63.428104;
+      return 62;
     } else {
       return this.state.latitude;
     }
   }
 
-  componentDidMount() {
-    return fetch('https://74356d21.ngrok.io/getViewPointInfo')
+  async componentDidMount() {
+    await navigator.geolocation.getCurrentPosition(
+      position => {
+          this.setState({ 
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            isLoading: false
+          });
+      },
+      error => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+  );
+    return await fetch('https://b9c06019.ngrok.io/getViewPointInfo')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -58,6 +70,9 @@ export default class HomeScreen extends React.Component {
       .catch((error) => console.log(error))
   }
   render() {
+    if (this.state.isLoading) {
+      return <Text> Loading </Text>
+    }
     return (
       <SafeAreaView style={styles.headerStyle}>
         <MapView style={styles.mapStyle}
