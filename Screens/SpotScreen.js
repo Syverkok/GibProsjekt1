@@ -223,7 +223,7 @@ export default class SpotScreen extends Component {
                     </View>
 
                     <View style={{ padding: 10 }}>
-                        <FontAwesome.Button name="star" backgroundColor="#393f4d" onPress={() => this.setState({ modalOpen: true, giveRating: 0 })}>
+                        <FontAwesome.Button name="star" backgroundColor="#393f4d" onPress={() => this.setState({ modalOpen: true, giveRating: 1 })}>
                             Legg til review
                         </FontAwesome.Button>
                     </View>
