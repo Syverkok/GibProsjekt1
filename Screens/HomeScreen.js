@@ -1,6 +1,6 @@
 import React from 'react';
 import MapView from 'react-native-maps';
-import { Text, View, Dimensions, SafeAreaView, StyleSheet, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Text, View, Dimensions, SafeAreaView, StyleSheet, Alert, TouchableOpacity, ActivityIndicator, Image } from 'react-native';
 import { Header, Button, Body, Title, Fab, Icon, Left, Right, Container } from 'native-base';
 
 export default class HomeScreen extends React.Component {
@@ -103,18 +103,41 @@ export default class HomeScreen extends React.Component {
   //Displays a loading screen untill the spots are loaded from the database
   render() {
     if (this.state.isLoading) {
-      return <Container style={{ backgroundColor: 'white', alignContent: 'center', justifyContent: 'center' }}>
-        <View style={styles.titlefield}>
+      return (
+        /*<ImageBackground style={styles.container} source={require('../images/SpotIT.png')}>
+          <View style={styles.overlayContainer}>
+            <View style={styles.titlefield}>
 
-          <Text style={styles.titletext}> Velkommen til SpotIT!  </Text>
-          <Text style={styles.titletext2}> Laster inn applikasjonen...  </Text>
-          <Text style={styles.titletext2}> Brukerguide i knappen øverst til venstre.  </Text>
+              <Text style={styles.titletext}> Velkommen til SpotIT!  </Text>
+              <Text style={styles.titletext2}> Laster inn applikasjonen...  </Text>
+              <Text style={styles.titletext2}> Brukerguide i knappen øverst til venstre.  </Text>
+
+            </View>
+          </View>
+
+      </ImageBackground> */
+
+        <SafeAreaView style={styles.container}>
+
+          {/*<View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>*/}
+            <Image 
+              source={require('../images/SpotIT.png')}
+              style={{width: 200, height: 200, resizeMode: 'contain'}}
+            />
+          {/*</View>*/}
+
+          {/*<View style={styles.titlefield}>*/}
+
+            <Text style={styles.titletext}> Velkommen til SpotIT!  </Text>
+            <Text style={styles.titletext2}> Laster inn applikasjonen...  </Text>
+            <Text style={styles.titletext2}> Brukerguide i knappen øverst til venstre.  </Text>
+
+          {/*</View> */}
 
 
-        </View>
-      </Container>
+        </SafeAreaView>
+      );
     }
-
     return (
       <SafeAreaView style={styles.headerStyle}>
         <MapView style={styles.mapStyle}
@@ -174,6 +197,11 @@ const styles = StyleSheet.create({
   headerStyle: {
     flex: 1
   },
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
   mapStyle: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
@@ -182,12 +210,8 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   titlefield: {
-    height: '12%',
+    flex: 1,
     alignItems: 'center',
-    paddingTop: 10,
-    paddingLeft: 5,
-    paddingRight: 5,
-    justifyContent: 'center'
   },
   titletext: {
     fontSize: 30,
