@@ -4,17 +4,8 @@ import { Text, View, Dimensions, SafeAreaView, StyleSheet, Alert, TouchableOpaci
 import { Header, Button, Body, Title, Fab, Icon, Left, Right, Container } from 'native-base';
 
 export default class HomeScreen extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      listOfViews: [],
-      latitude: '',
-      longitude: '',
-      isLoading: true,
-      altitude: '',
-    }
-  }
 
+  //Initial navigation options from the home screen header
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: 'SpotIT',
@@ -34,6 +25,20 @@ export default class HomeScreen extends React.Component {
       headerTintColor: 'white'
     }
   }
+
+  //Set values to the initial state
+  constructor() {
+    super();
+    this.state = {
+      listOfViews: [],
+      latitude: '',
+      longitude: '',
+      isLoading: true,
+      altitude: '',
+    }
+  }
+
+  //Returns the value listed in state for the variable "longitude"
   displayLongitue() {
     if (this.state.longitude == '') {
       return 1;
@@ -41,6 +46,8 @@ export default class HomeScreen extends React.Component {
       return this.state.longitude;
     }
   }
+
+  //Returns the value listed in state for the variable "latitude"
   displayLatitude() {
     if (this.state.latitude == '') {
       return 1;
@@ -49,6 +56,7 @@ export default class HomeScreen extends React.Component {
     }
   }
 
+  //Updates the spots on the current map. Mostly used after a publish of a spot. 
   async updateData() {
     return await fetch('https://03128985.ngrok.io/getViewPointInfo')
       .then((response) => response.json())
@@ -61,6 +69,7 @@ export default class HomeScreen extends React.Component {
       .catch((error) => console.log(error))
   }
 
+  //Updates the values set in state for the variables "latitude", "longitude", "altitude" and "isLoading" to the user location.
   getPosition() {
     if (this.state.isLoading) {
       navigator.geolocation.getCurrentPosition(
@@ -77,6 +86,8 @@ export default class HomeScreen extends React.Component {
       );
     }
   }
+
+  //Gets the viewpoint info from the database
   async componentDidMount() {
     this.getPosition()
     return await fetch('https://03128985.ngrok.io/getViewPointInfo')
@@ -88,19 +99,22 @@ export default class HomeScreen extends React.Component {
       })
       .catch((error) => console.log(error))
   }
+
+  //Displays a loading screen untill the spots are loaded from the database
   render() {
     if (this.state.isLoading) {
       return <Container style={{ backgroundColor: 'white', alignContent: 'center', justifyContent: 'center' }}>
-         <View style={styles.titlefield}>
-               
-        <Text style={styles.titletext}> Velkommen til SpotIT!  </Text>
-        <Text style={styles.titletext2}> Laster inn applikasjonen...  </Text>
-        <Text style={styles.titletext2}> Brukerguide i knappen øverst til venstre.  </Text>
+        <View style={styles.titlefield}>
+
+          <Text style={styles.titletext}> Velkommen til SpotIT!  </Text>
+          <Text style={styles.titletext2}> Laster inn applikasjonen...  </Text>
+          <Text style={styles.titletext2}> Brukerguide i knappen øverst til venstre.  </Text>
 
 
         </View>
       </Container>
     }
+
     return (
       <SafeAreaView style={styles.headerStyle}>
         <MapView style={styles.mapStyle}
@@ -155,6 +169,7 @@ export default class HomeScreen extends React.Component {
   }
 }
 
+//Contains propreties on each field used to style the screen visible
 const styles = StyleSheet.create({
   headerStyle: {
     flex: 1
@@ -173,8 +188,8 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 5,
     justifyContent: 'center'
-},
-titletext: {
+  },
+  titletext: {
     fontSize: 30,
     alignItems: 'center',
     color: '#393f4d',
@@ -182,18 +197,16 @@ titletext: {
     paddingLeft: 5,
     paddingRight: 5,
     fontWeight: 'bold',
-    // backgroundColor: 'darkslateblue',
     textAlign: 'center'
-},
-titletext2: {
-  fontSize: 15,
-  alignItems: 'center',
-  color: '#393f4d',
-  borderColor: 'purple',
-  paddingLeft: 5,
-  paddingRight: 5,
-  fontWeight: 'bold',
-  // backgroundColor: 'darkslateblue',
-  textAlign: 'center'
-},
+  },
+  titletext2: {
+    fontSize: 15,
+    alignItems: 'center',
+    color: '#393f4d',
+    borderColor: 'purple',
+    paddingLeft: 5,
+    paddingRight: 5,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
 })

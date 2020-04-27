@@ -16,6 +16,8 @@ import WalkScreen from './Screens/WalkScreen';
 
 
 global.url = 'https://f4cdd1f5.ngrok.io'
+
+//Navigation set-up for the app, with home screen as the initial loaded one. 
 const Container = createStackNavigator({
   Home: HomeScreen,
   Publish: PublishScreen,

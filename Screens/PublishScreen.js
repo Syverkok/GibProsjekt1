@@ -4,6 +4,16 @@ import { Header, Button, Body, Title, Fab, Icon, Left, Right, Item, Input, Conte
 
 
 class PublishScreen extends Component {
+
+    static navigationOptions = {
+        headerTitle: 'Del din spot',
+        headerStyle: {
+            backgroundColor: '#393f4d'
+        },
+        headerTintColor: 'white'
+    }
+
+    //Set values to the initial state
     constructor() {
         super();
         this.state = {
@@ -16,21 +26,21 @@ class PublishScreen extends Component {
             type: 'Arkitektur',
         }
     }
-    static navigationOptions = {
-        headerTitle: 'Del din spot',
-        headerStyle: {
-            backgroundColor: '#393f4d'
-        },
-        headerTintColor: 'white'
-    }
+    
+    //Updates the value of type listed in state to the value of "value"
     onValueChange(value) {
         this.setState({
             type: value,
         });
     }
+
+    //Adding a new value to the state with the named as "field" with the value "text"
     updateValue(text, field) {
         this.setState({ [field]: text });
     }
+
+    //This function is called directly after the render further down has returned something. 
+    //If the state is changed in this, the script re-renders with the new values listed in state.
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
             position => {
@@ -45,6 +55,8 @@ class PublishScreen extends Component {
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
         );
     }
+
+    //Checks if we have recieved the location of the user before submit.
     renderElement() {
         if (this.state.title == '')
             this.setState({ skrivInnTittel: 'Vennligst skriv inn tittel på spotten.' })
@@ -53,6 +65,8 @@ class PublishScreen extends Component {
         else
             this.setState({ ventMelding: 'Oisann! Vi har ikke hentet din lokasjon enda. Prøv igjen om noen sekunder.' })
     }
+
+    //Submit-function that posts the new spot object to the database, and then send the user back to the home map.
     submit() {
         let vp = {}
         vp.title = this.state.title
@@ -62,7 +76,7 @@ class PublishScreen extends Component {
         vp.altitude = this.state.altitude
         vp.image = this.props.navigation.getParam('photo2').base64
         fetch('https://03128985.ngrok.io/postjson', {
-            method: 'POST', // or 'PUT'
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -71,7 +85,6 @@ class PublishScreen extends Component {
         })
             .then((response) => response.json())
             .then((vp) => {
-                //console.log('Success:', vp);
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -127,50 +140,11 @@ class PublishScreen extends Component {
                 </View>
 
             </View>
-
-
-            /* <View style={styles.container}>
-                <View style={styles.container} >
-                    <Item>
-                        <Icon active name='ios-megaphone' />
-                        <Input onChangeText={(text) => this.updateValue(text, 'title')} placeholder='Skriv inn navnet på spotten' />
-                    </Item>
-                </View>
-                <View style={styles.container2} >
-                        <Form>
-                            <Picker
-                                mode="dropdown"
-                                iosIcon={<Icon name="arrow-down" />}
-                                headerStyle={{ backgroundColor: "darkslateblue" }}
-                                headerBackButtonTextStyle={{ color: "#fff" }}
-                                headerTitleStyle={{ color: "#fff" }}
-                                selectedValue={this.state.selected}
-                                onValueChange={this.onValueChange.bind(this)}
-                            >
-                                <Picker.Item label="Arkitektur" value="Arkitektur" />
-                                <Picker.Item label="Utkikkspunkt" value="Utkikkspunkt" />
-                                <Picker.Item label="Natur" value="Natur" />
-                                <Picker.Item label="Kultur" value="Kultur" />
-                                <Picker.Item label="Park" value="Park" />
-                                <Picker.Item label="Annet" value="Annet" />
-                            </Picker>
-                        </Form>
-                    </View>
-                <View style={styles.container3}>
-                    <Image source={{ uri: `data:image/jpeg;base64,${this.props.navigation.getParam('photo2').base64}` }} style={styles.picture} />
-
-                </View>
-                <View style={styles.container4}>
-                    <Button onPress={() => this.renderElement()} rounded success>
-                        <Text>  Del spotten!  </Text>
-                    </Button>
-                    <Text>  {this.state.vent}  </Text>
-                </View>
-            </View> */
         );
     }
 }
 
+//Contains propreties on each field used to style the screen visible
 const styles = StyleSheet.create({
     container: {
         flex: 1,

@@ -11,7 +11,7 @@ export default class SpotScreen extends Component {
         },
         headerTintColor: 'white'
     }
-
+    //Set values to the initial state
     constructor() {
         super();
         this.state = {
@@ -26,31 +26,23 @@ export default class SpotScreen extends Component {
             vp: {},
             iconName: 'question-circle'
         };
-        //Filled Star. You can also give the path from local
         this.Star = require('../images/Star_full.png');
-        //Empty Star. You can also give the path from local
         this.Star_With_Border = require('../images/Star_empty.png');
     }
 
+    //Updates the rating listed in state to the valye "key"
     UpdateRating(key) {
         this.setState({ giveRating: key });
-        //Keeping the Rating Selected in state
     }
-
+    //Returns the number of ratings listed in state
     getNumberOfRatings() {
-        /*if(!this.state.updated){
-            return this.props.navigation.getParam('numberOfRatings')
-        }*/
         return this.state.numOfRatings
     }
-
+    //Returns the rating value listed in state
     getRating() {
-        /*if(!this.state.updated){
-            return this.props.navigation.getParam('rating')
-        }*/
         return this.state.rating
     }
-
+    //Updates the icon name listed in state, so that each spot screen displays the correct icon to each type
     setIconName() {
         if (this.props.navigation.getParam('type') == 'Kultur') {
             this.setState({iconName: 'theater-masks'}) 
@@ -68,7 +60,7 @@ export default class SpotScreen extends Component {
             this.setState({iconName: 'question-circle'})
         }
     }
-
+    //Updates the rating to a spot and sends this to the database. The new, updated rating is then returned and updated in state.
     async editRating(params) {
 
         let vp = {}
@@ -92,7 +84,8 @@ export default class SpotScreen extends Component {
                 })
             })
     }
-
+    //This function is called directly after the render further down has returned something. 
+    //If the state is changed in this, the script re-renders with the new values listed in state.
     async componentDidMount() {
         let vp = {}
         vp.id = this.props.navigation.getParam('ID')
@@ -115,6 +108,7 @@ export default class SpotScreen extends Component {
             })
             this.setIconName()
     }
+    //Returns a list containing one single vp object
     getVpObject() {
         let vp = {}
         vp.lat = this.props.navigation.getParam('lat')
@@ -125,7 +119,9 @@ export default class SpotScreen extends Component {
         return list
     }
 
+    //Render function, which renders the visible screen.
     render() {
+        //Returns a loading icon if the data is not ready to be displayed
         if (this.state.isLoading) {
 
             return (
@@ -133,8 +129,8 @@ export default class SpotScreen extends Component {
             )
         }
 
+        //Creating a dynamic ratingbar with stars, making it possible to change rating, and saving the rating given in state
         let Dynamic_Rating_Bar = [];
-        //Array to hold the filled or empty Stars
         for (var i = 1; i <= this.state.Max_Rating; i++) {
             Dynamic_Rating_Bar.push(
                 <TouchableOpacity
@@ -152,8 +148,8 @@ export default class SpotScreen extends Component {
                 </TouchableOpacity>
             );
         }
+        //Creating a static ratingbar with stars, displaying the rating of the current spot. Is not possible to change without adding a new rating.
         let Static_Rating_Bar = [];
-        //Array to hold the filled or empty Stars
         for (var i = 1; i <= this.state.Max_Rating; i++) {
             Static_Rating_Bar.push(
                 <Image
@@ -168,9 +164,11 @@ export default class SpotScreen extends Component {
             );
         }
 
+        //When the data is loaded, this is the screen visable to the user. 
         return (
             <SafeAreaView style={styles.container}>
 
+                {/* Creating the pop-up when adding a new rating  */}
                 <Modal
                     visible={this.state.modalOpen}
                     animationType='slide'
@@ -232,7 +230,6 @@ export default class SpotScreen extends Component {
 
                 <View style={styles.picturefield}>
                     <Image style={styles.pictureprops} source={{ uri: `data:image/jpeg;base64,${this.state.image}` }} />
-                    {/* <Image style={styles.pictureprops} source={{uri: this.props.navigation.getParam('url')}}></Image> */}
                 </View>
 
                 <View style={{ paddingBottom: 25 }}>
@@ -248,6 +245,7 @@ export default class SpotScreen extends Component {
     }
 }
 
+//Contains propreties on each field used to style the screen visible
 const styles = StyleSheet.create({
     container: {
         flex: 1,

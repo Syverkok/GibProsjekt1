@@ -12,7 +12,8 @@ export default class FilterScreen extends Component {
         },
         headerTintColor: 'white'
     }
-
+    
+    //Set values to the initial state
     constructor() {
         super();
         this.state = {
@@ -29,28 +30,31 @@ export default class FilterScreen extends Component {
         this.Star_With_Border = require('../images/Star_empty.png');
     }
 
+    //Updates the rating listed in state to the valye "key"
     UpdateRating(key) {
         this.setState({ rating: key });
         //Keeping the Rating Selected in state
     }
 
+    //Updates the distance to drive value listed in state to the value "value".
     setDistDrive(value) {
         this.setState({
             distDrive: value
         })
     }
 
+    //Updates the distance to walk value listed in state to the value "value".
     setDistWalk(value) {
         this.setState({
             distWalk: value
         })
     }
 
+    //Checks if we have recieved the location of the user before submit.
     renderElement() {
         if (this.state.myLat != '') {
             this.submit();
         }
-
         else {
             this.setState({
                 waitMsg: 'Oisann! Vi har ikke hentet din lokasjon enda. Prøv igjen om noen sekunder.'
@@ -58,6 +62,7 @@ export default class FilterScreen extends Component {
         }
     }
 
+    //Retrieves the user location
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
             position => {
@@ -69,6 +74,8 @@ export default class FilterScreen extends Component {
         );
     }
 
+    //Submit-function that posts a user-request to the database, and recieves a list of spots satisfiable for the search.
+    //These spots are then displayed on a new map screen.
     submit() {
         let vp = {}
         vp.latitude = this.state.myLat
@@ -77,7 +84,7 @@ export default class FilterScreen extends Component {
         vp.rating = this.state.rating
         vp.type = this.state.type
         fetch('https://03128985.ngrok.io/getWalk', {
-            method: 'POST', // or 'PUT'
+            method: 'POST', 
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -102,8 +109,8 @@ export default class FilterScreen extends Component {
 
     render() {
 
+        //Creating a dynamic ratingbar with stars, making it possible to change rating, and saving the rating given in state
         let Dynamic_Rating_Bar = [];
-        //Array to hold the filled or empty Stars
         for (var i = 1; i <= 5; i++) {
             Dynamic_Rating_Bar.push(
                 <TouchableOpacity
@@ -154,15 +161,6 @@ export default class FilterScreen extends Component {
                         />
                     </View>
 
-                    {/*<View style={styles.slider}>
-                        <Slider
-                            style={{ width: '100%' }}
-                            value={this.state.rating}
-                            onValueChange={(rating) => this.setState({ rating: rating })}
-                            step={1}
-                            maximumValue={5}
-                        />
-                    </View> */}
                     <View style={styles.rating}>
                         <View style={styles.starview}>{Dynamic_Rating_Bar}</View>
                     </View>
@@ -210,6 +208,7 @@ export default class FilterScreen extends Component {
     }
 }
 
+//Contains propreties on each field used to style the screen visible
 const styles = StyleSheet.create({
     container: {
         flex: 1,

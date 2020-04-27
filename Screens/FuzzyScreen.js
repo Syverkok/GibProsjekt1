@@ -13,6 +13,7 @@ export default class FuzzyScreen extends Component {
         headerTintColor: 'white'
     }
 
+    //Set values to the initial state
     constructor() {
         super();
         this.state = {
@@ -27,18 +28,21 @@ export default class FuzzyScreen extends Component {
         }
     }
 
+    //Updates the distance to drive value listed in state to the value "value".
     setDistDrive(value) {
         this.setState({
             distDrive: value
         })
     }
 
+    //Updates the distance to walk value listed in state to the value "value".
     setDistWalk(value) {
         this.setState({
             distWalk: value
         })
     }
 
+    //Checks if we have recieved the location of the user before submit.
     renderElement() {
         if (this.state.myLat != '') {
             this.submit();
@@ -51,6 +55,7 @@ export default class FuzzyScreen extends Component {
         }
     }
 
+    //Retrieves the user location
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
             position => {
@@ -61,7 +66,9 @@ export default class FuzzyScreen extends Component {
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
         );
     }
-
+    
+    //Submit-function that posts a user-request to the database, and recieves a list of spots satisfiable for the search.
+    //These spots are then displayed on a new map screen.
     submit() {
         let vp = {}
         vp.latitude = this.state.myLat
@@ -180,19 +187,18 @@ export default class FuzzyScreen extends Component {
     }
 }
 
+//Contains propreties on each field used to style the screen visible
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20,
-        //backgroundColor: 'black'
     },
     textfield: {
         flex: 4,
         alignItems: 'center',
         justifyContent: 'center',
-        //backgroundColor: 'green',
         width: '100%',
         padding: 10
     },
@@ -201,7 +207,6 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        //backgroundColor: 'yellow',
         padding: 10,
     },
     pickerfield: {
@@ -209,14 +214,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         justifyContent: 'center',
-        //backgroundColor: 'blue',
         padding: 10,
     },
     buttonfield: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        //backgroundColor: 'red',
         width: '100%',
         padding: 10,
     },
@@ -233,10 +236,7 @@ const styles = StyleSheet.create({
     },
     picker: {
         flex: 1,
-        //borderColor: 'black',
-        //borderWidth: 2,
         width: '60%',
-        //backgroundColor: 'purple',
         justifyContent: 'center',
         alignItems: 'center',
     }

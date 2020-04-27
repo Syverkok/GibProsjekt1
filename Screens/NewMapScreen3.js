@@ -4,6 +4,16 @@ import { Text, View, Dimensions, SafeAreaView, StyleSheet, Alert } from 'react-n
 import { Header, Button, Body, Title, Fab, Icon, Left, Right } from 'native-base';
 
 export default class NewMapScreen3 extends React.Component {
+
+    static navigationOptions = {
+        headerTitle: 'SpotIT',
+        headerStyle: {
+            backgroundColor: '#393f4d'
+        },
+        headerTintColor: 'white'
+    }
+
+    //Set values to the initial state
     constructor() {
         super();
         this.state = {
@@ -12,13 +22,7 @@ export default class NewMapScreen3 extends React.Component {
             longitude: ''
         }
     }
-    static navigationOptions = {
-        headerTitle: 'SpotIT',
-        headerStyle: {
-            backgroundColor: '#393f4d'
-        },
-        headerTintColor: 'white'
-    }
+    
     render() {
         return (
             <SafeAreaView style={styles.headerStyle}>
@@ -48,6 +52,7 @@ export default class NewMapScreen3 extends React.Component {
     }
 }
 
+//Contains propreties on each field used to style the screen visible
 const styles = StyleSheet.create({
     headerStyle: {
         flex: 1

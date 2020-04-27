@@ -3,11 +3,7 @@ import { View, StyleSheet, Image, TextInput, Keyboard, TouchableWithoutFeedback,
 import { Header, Button, Body, Title, Fab, Icon, Left, Right, Container, Content, Picker, Form } from 'native-base';
 
 export default class InfoScreen extends Component {
-    constructor() {
-        super();
-        this.state = {
-          };
-    }
+
     static navigationOptions = {
         headerTitle: 'Informasjonsside',
         headerStyle: {
@@ -15,6 +11,14 @@ export default class InfoScreen extends Component {
         },
         headerTintColor: 'white'
     }
+    
+    //Set values to the initial state
+    constructor() {
+        super();
+        this.state = {
+          };
+    }
+    
     render() {
         return (
             <View style={styles.picturefield}>
@@ -28,6 +32,7 @@ export default class InfoScreen extends Component {
     }
 }
 
+//Contains propreties on each field used to style the screen visible
 const styles = StyleSheet.create({
     picturefield: {
         flex: 1,

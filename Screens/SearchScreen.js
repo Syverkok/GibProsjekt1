@@ -13,6 +13,7 @@ export default class SearchScreen extends Component {
         }
     }
 
+    //Set values to the initial state
     constructor(props) {
         super(props);
         this.state = {
@@ -21,12 +22,12 @@ export default class SearchScreen extends Component {
             searchKey: '',
             itemRating: 0,
         }
-        //Filled Star. You can also give the path from local
         this.Star = require('../images/Star_full.png');
-        //Empty Star. You can also give the path from local
         this.Star_With_Border = require('../images/Star_empty.png');
     }
 
+    //This function is called directly after the render further down has returned something. 
+    //If the state is changed in this, the script re-renders with the new values listed in state.
     componentDidMount() {
         return fetch('https://03128985.ngrok.io/getViewPointInfo')
             .then((response) => response.json())
@@ -41,14 +42,18 @@ export default class SearchScreen extends Component {
             .catch((error) => console.log(error))
     }
     
+    //Sends you to a new map screen only if there are results matching the user search. 
     feilFix(){
-        if(this.state.dataSource.viewPoints.filter(item => item.title.startsWith(this.state.searchKey)).length == 0)
-        return null;
-        else 
-        this.props.navigation.navigate('NewMap3', { vp: this.state.dataSource.viewPoints.filter(item => 
-            item.title.startsWith(this.state.searchKey)) })
+        if(this.state.dataSource.viewPoints.filter(item => item.title.startsWith(this.state.searchKey)).length == 0) {
+            return null;
+        }
+        else {
+            this.props.navigation.navigate('NewMap3', { vp: this.state.dataSource.viewPoints.filter(item => 
+                item.title.startsWith(this.state.searchKey)) })
+        }
     }
 
+    //Makes every spot in the search list pushable, with displayed title and rating using the rating bar.
     _renderItem = ({ item }) => (
         <TouchableOpacity onPress={() => {
             this.props.navigation.navigate('Spot', item)
@@ -61,9 +66,10 @@ export default class SearchScreen extends Component {
         </TouchableOpacity>
     );
 
+    //Function making the static rating bar, which only displays the rating. This is therefore not possible to edit witout passing
+    //the spot a new rating.
     makeRatingBar(rating) {
         let Static_Rating_Bar = [];
-        //Array to hold the filled or empty Stars
         for (var i = 1; i <= 5; i++) {
             Static_Rating_Bar.push(
                 <Image
@@ -80,6 +86,7 @@ export default class SearchScreen extends Component {
         return Static_Rating_Bar
     }
 
+    //Render function, which renders the visible screen.
     render() {
         if (this.state.isLoading) {
 
@@ -88,21 +95,12 @@ export default class SearchScreen extends Component {
             )
         }
         else {
+            //Returns only the spots starting with the key in the search field.
             const filteredData = this.state.dataSource.viewPoints.filter((item) => {
                 return item.title.startsWith(this.state.searchKey)
             })
 
-            /* let todos = filteredData.map((value, key) => {
-
-                return (
-                    <View key={key}>
-                        <Text style={styles.item}>
-                            {value.title}
-                        </Text>
-                    </View>
-                );
-            }); */
-
+            //When the data is loaded, this is the screen visable to the user. 
             return (
 
                 <View style={styles.container}>
@@ -134,6 +132,7 @@ export default class SearchScreen extends Component {
     }
 }
 
+//Contains propreties on each field used to style the screen visible
 const styles = StyleSheet.create({
     container: {
         flex: 1,

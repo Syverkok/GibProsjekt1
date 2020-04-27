@@ -13,6 +13,7 @@ export default class WalkScreen extends Component {
         headerTintColor: 'white'
     }
 
+    //Set values to the initial state
     constructor() {
         super();
         this.state = {
@@ -27,22 +28,23 @@ export default class WalkScreen extends Component {
         this.Star = require('../images/Star_full.png');
         this.Star_With_Border = require('../images/Star_empty.png');
     }
+    //Checks if we have recieved the location of the user before submit.
     renderElement() {
         if (this.state.myLat != '') {
             this.submit();
         }
-
         else {
             this.setState({
                 waitMsg: 'Oisann! Vi har ikke hentet din lokasjon enda. Prøv igjen om noen sekunder.'
             })
         }
     }
+    //Updates the rating listed in state to the valye "key"
     UpdateRating(key) {
         this.setState({ rating: key });
-        //Keeping the Rating Selected in state
     }
-
+    //This function is called directly after the render further down has returned something. 
+    //If the state is changed in this, the script re-renders with the new values listed in state.
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
             position => {
@@ -56,7 +58,8 @@ export default class WalkScreen extends Component {
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
         );
     }
-
+    //Submit-function that posts a user-request to the database, and recieves a list of spots satisfiable for the search.
+    //These spots are then displayed on a new map screen.
     submit() {
         let vp = {}
         vp.latitude = this.state.myLat
@@ -66,7 +69,7 @@ export default class WalkScreen extends Component {
         vp.rating = this.state.rating
         vp.altitude = this.state.altitude
         fetch('https://03128985.ngrok.io/lazyWalk', {
-            method: 'POST', // or 'PUT'
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -89,10 +92,11 @@ export default class WalkScreen extends Component {
             });
     }
 
+    //Render function, which renders the visible screen.
     render() {
 
+        //Creating a dynamic ratingbar with stars, making it possible to change rating, and saving the rating given in state
         let Dynamic_Rating_Bar = [];
-        //Array to hold the filled or empty Stars
         for (var i = 1; i <= 5; i++) {
             Dynamic_Rating_Bar.push(
                 <TouchableOpacity
@@ -187,6 +191,7 @@ export default class WalkScreen extends Component {
     }
 }
 
+//Contains propreties on each field used to style the screen visible
 const styles = StyleSheet.create({
     container: {
         flex: 1,
