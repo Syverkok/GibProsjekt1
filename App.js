@@ -1,19 +1,37 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {Text, View, Dimensions, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import PublishScreen from './Screens/PublishScreen';
+import HomeScreen from './Screens/HomeScreen';
+import CameraScreen from './Screens/CameraScreen';
+import SearchScreen from './Screens/SearchScreen';
+import SpotScreen from './Screens/SpotScreen';
+import InfoScreen from './Screens/InfoScreen';
+import FuzzyScreen from './Screens/FuzzyScreen';
+import NewMapScreen3 from './Screens/NewMapScreen3';
+import FilterScreen from './Screens/FilterScreen';
+import WalkScreen from './Screens/WalkScreen';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Jake er nub!few test</Text>
-    </View>
-  );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
+global.url = 'https://f4cdd1f5.ngrok.io'
+
+//Navigation set-up for the app, with home screen as the initial loaded one. 
+const Container = createStackNavigator({
+  Home: HomeScreen,
+  Publish: PublishScreen,
+  Spot: SpotScreen,
+  Fuzzy: FuzzyScreen,
+  Camera: CameraScreen,
+  Walk: WalkScreen,
+  Filter: FilterScreen,
+  NewMap3: NewMapScreen3,
+  Info:InfoScreen,
+  Search: SearchScreen
+},
+{
+  initialRouteName: 'Home',
 });
+
+export default createAppContainer(Container);

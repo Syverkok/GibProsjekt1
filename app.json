@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Blank Template",
-    "slug": "AwesomeProject",
+    "name": "SpotIT",
+    "slug": "gibProject",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
@@ -11,9 +11,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./images/SpotIT.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./images/SpotIT.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
