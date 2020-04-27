@@ -254,14 +254,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     titlefield: {
-        height: '12%',
+        height: '16%',
         alignItems: 'center',
+        //justifyContent: 'center',
         paddingTop: 10,
         paddingLeft: 5,
         paddingRight: 5
     },
     titletext: {
-        fontSize: 35,
+        fontSize: 33,
         alignItems: 'center',
         color: '#393f4d',
         borderColor: 'purple',

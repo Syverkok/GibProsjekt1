@@ -17,13 +17,13 @@ export default class FilterScreen extends Component {
     constructor() {
         super();
         this.state = {
-            distWalk: 0,
+            distWalk: 1,
             rating: 0,
             myLat: '',
             myLong: '',
             waitMsg: '',
             listOfViews: [],
-            sliderValue: 0,
+            sliderValue: 1,
             type: 'Godt og blandet',
         }
         this.Star = require('../images/Star_full.png');
@@ -158,6 +158,7 @@ export default class FilterScreen extends Component {
                             onValueChange={(distWalk) => this.setState({ distWalk: distWalk })}
                             step={1}
                             maximumValue={50}
+                            minimumValue={1}
                         />
                     </View>
 

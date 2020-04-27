@@ -17,13 +17,13 @@ export default class FuzzyScreen extends Component {
     constructor() {
         super();
         this.state = {
-            distDrive: 0,
-            distWalk: 0,
+            distDrive: 1,
+            distWalk: 1,
             myLat: '',
             myLong: '',
             waitMsg: '',
             listOfViews: [],
-            sliderValue: 0,
+            sliderValue: 1,
             type: 'Godt og blandet',
         }
     }
@@ -131,6 +131,7 @@ export default class FuzzyScreen extends Component {
                             onValueChange={(distDrive) => this.setState({ distDrive: distDrive })}
                             step={10}
                             maximumValue={10000}
+                            minimumValue={1}
                         />
                     </View>
 
@@ -141,15 +142,16 @@ export default class FuzzyScreen extends Component {
                             onValueChange={(distWalk) => this.setState({ distWalk: distWalk })}
                             step={1}
                             maximumValue={40}
+                            minimumValue={1}
                         />
                     </View>
 
                     <View style={{flexDirection: 'row'}}>
                         <View style={styles.item}>
-                            <Text style={{textAlign: 'center', fontSize: 15}}>Reiselengde: {this.state.distDrive} km</Text>
+                            <Text style={{textAlign: 'center', fontSize: 15}}>Maks reiselengde: {this.state.distDrive} km</Text>
                         </View>
                         <View style={styles.item}>
-                            <Text style={{textAlign: 'center', fontSize: 15}}>Gangavstand: {this.state.distWalk} km</Text>
+                            <Text style={{textAlign: 'center', fontSize: 15}}>Maks gangavstand: {this.state.distWalk} km</Text>
                         </View>
                     </View>
                 </View>
