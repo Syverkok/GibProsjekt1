@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 30,
+        textAlign: 'center'
     },
     starview: {
         justifyContent: 'center',
