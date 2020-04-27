@@ -69,7 +69,7 @@ export default class FuzzyScreen extends Component {
         vp.radius = this.state.distWalk
         vp.distance = this.state.distDrive
         vp.type = this.state.type
-        fetch('https://ff4349a1.ngrok.io/clusterViewPoints', {
+        fetch('https://03128985.ngrok.io/clusterViewPoints', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -107,7 +107,7 @@ export default class FuzzyScreen extends Component {
                         <Text style={{textAlign:'center', fontSize: 15}}>
                             Skulle det friste med ei litta luftetur noe lenger enn runden rundt nabolaget? Med sykkel, bil eller kanskje fly?
                             Da er dette funksjonaliteten for deg! Før inn maksimal lengde du er villig til å reise, og
-                            deretter maksimal gåavstand mellom spotsa. Fullfør søket med å spesifisere hva slags type spot du er ute etter å utforske.
+                            deretter maksimal gåavstand mellom spotsa. Fullfør søket med å spesifisere hva slags type spots du er ute etter å utforske.
                             Du vil da få foreslått en samlig med nydelige spots fra våre brukere! God tur!
                         </Text>
                     </View>

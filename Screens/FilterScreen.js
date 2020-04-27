@@ -76,7 +76,7 @@ export default class FilterScreen extends Component {
         vp.radius = this.state.distWalk
         vp.rating = this.state.rating
         vp.type = this.state.type
-        fetch('https://ff4349a1.ngrok.io/getWalk', {
+        fetch('https://03128985.ngrok.io/getWalk', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': 'application/json',
@@ -128,7 +128,7 @@ export default class FilterScreen extends Component {
                 <View style={styles.textfield}>
                     <View style={styles.item}>
                         <Text style={{textAlign: 'center', fontSize: 20, fontWeight: 'bold'}}>
-                            Finn ditt neste spot!
+                            Finn spots i nærheten av deg!
                         </Text>
                     </View>
                     <View style={styles.item}>

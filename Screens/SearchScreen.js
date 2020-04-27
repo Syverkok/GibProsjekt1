@@ -28,7 +28,7 @@ export default class SearchScreen extends Component {
     }
 
     componentDidMount() {
-        return fetch('https://ff4349a1.ngrok.io/getViewPointInfo')
+        return fetch('https://03128985.ngrok.io/getViewPointInfo')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
@@ -45,7 +45,6 @@ export default class SearchScreen extends Component {
         if(this.state.dataSource.viewPoints.filter(item => item.title.startsWith(this.state.searchKey)).length == 0)
         return null;
         else 
-        console.log(this.state.dataSource.viewPoints.filter(item => item.title.startsWith(this.state.searchKey)).length)
         this.props.navigation.navigate('NewMap3', { vp: this.state.dataSource.viewPoints.filter(item => 
             item.title.startsWith(this.state.searchKey)) })
     }
@@ -90,7 +89,7 @@ export default class SearchScreen extends Component {
         }
         else {
             const filteredData = this.state.dataSource.viewPoints.filter((item) => {
-                return item.title.indexOf(this.state.searchKey) >= 0
+                return item.title.startsWith(this.state.searchKey)
             })
 
             /* let todos = filteredData.map((value, key) => {

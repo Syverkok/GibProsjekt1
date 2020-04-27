@@ -50,7 +50,7 @@ export default class HomeScreen extends React.Component {
   }
 
   async updateData() {
-    return await fetch('https://ff4349a1.ngrok.io/getViewPointInfo')
+    return await fetch('https://03128985.ngrok.io/getViewPointInfo')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -79,7 +79,7 @@ export default class HomeScreen extends React.Component {
   }
   async componentDidMount() {
     this.getPosition()
-    return await fetch('https://ff4349a1.ngrok.io/getViewPointInfo')
+    return await fetch('https://03128985.ngrok.io/getViewPointInfo')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
