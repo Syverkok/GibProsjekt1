@@ -119,21 +119,14 @@ export default class HomeScreen extends React.Component {
 
         <SafeAreaView style={styles.container}>
 
-          {/*<View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>*/}
-            <Image 
-              source={require('../images/SpotIT.png')}
-              style={{width: 200, height: 200, resizeMode: 'contain'}}
-            />
-          {/*</View>*/}
+          <Image
+            source={require('../images/SpotIT.png')}
+            style={{ width: 200, height: 200, resizeMode: 'contain' }}
+          />
 
-          {/*<View style={styles.titlefield}>*/}
-
-            <Text style={styles.titletext}> Velkommen til SpotIT!  </Text>
-            <Text style={styles.titletext2}> Laster inn applikasjonen...  </Text>
-            <Text style={styles.titletext2}> Brukerguide i knappen øverst til venstre.  </Text>
-
-          {/*</View> */}
-
+          <Text style={styles.titletext}> Velkommen til SpotIT!  </Text>
+          <Text style={styles.titletext2}> Laster inn applikasjonen...  </Text>
+          <Text style={styles.titletext2}> Brukerguide i knappen øverst til venstre.  </Text>
 
         </SafeAreaView>
       );
