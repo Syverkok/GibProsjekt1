@@ -20,7 +20,7 @@ export default class WalkScreen extends Component {
             myLong: '',
             waitMsg: '',
             type: 'Godt og blandet',
-            styrke: 'Medium',
+            styrke: 'Bakker',
             rating: 0,
             altitude:''
         }
@@ -116,15 +116,15 @@ export default class WalkScreen extends Component {
                 <View style={styles.textfield}>
                     <View style={styles.item}>
                         <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>
-                            Finn spotten for deg!
+                            Spotfinner for slappfisker!
                         </Text>
                     </View>
                     <View style={styles.item}>
                         <Text style={{ textAlign: 'center', fontSize: 15 }}>
                             Ønsker du å slite deg ut minst mulig er dette funksjonalitet for deg!
-                            Her veies lengde av turen opp mot høydeforskjell etter eget ønske.
-                            Velg "Lett" hvis du hater bakker. Dersom kort turlengde er viktigst velg "Hard"
-                            Tilbake vil du få den perfekte sptten for deg! God tur!
+                            Her kan du justere om lengden av turen er mest avgjørende, eller om 
+                            det er bakkene du helst vil unngå!
+                            Velg under hva du helst vil unngå når du skal finne din neste spot!
                         </Text>
                     </View>
                     <View style={styles.item}>
@@ -153,9 +153,9 @@ export default class WalkScreen extends Component {
                         headerTitleStyle={{ color: 'white' }}
                         iosHeader="Velg type"
                         iosIcon={<Icon name="arrow-down" />}>
-                        <Picker.Item label="Lett" value="Lett" />
-                        <Picker.Item label="Medium" value="Medium" />
-                        <Picker.Item label="Hard" value="Hard" />
+                        <Picker.Item label="Lengde" value="Lengde" />
+                        <Picker.Item label="Begge" value="Begge" />
+                        <Picker.Item label="Bakker" value="Bakker" />
                     </Picker>
                     <Picker
                         selectedValue={this.state.type}
