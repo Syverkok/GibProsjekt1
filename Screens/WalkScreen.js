@@ -28,47 +28,20 @@ export default class WalkScreen extends Component {
         this.Star = require('../images/Star_full.png');
         this.Star_With_Border = require('../images/Star_empty.png');
     }
-    //Checks if we have recieved the location of the user before submit.
-    renderElement() {
-        if (this.state.myLat != '') {
-            this.submit();
-        }
-        else {
-            this.setState({
-                waitMsg: 'Oisann! Vi har ikke hentet din lokasjon enda. Prøv igjen om noen sekunder.'
-            })
-        }
-    }
-    //Updates the rating listed in state to the valye "key"
+
     UpdateRating(key) {
         this.setState({ rating: key });
     }
-    //This function is called directly after the render further down has returned something. 
-    //If the state is changed in this, the script re-renders with the new values listed in state.
-    componentDidMount() {
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                this.setState({ 
-                    myLat: position.coords.latitude,
-                    myLong: position.coords.longitude,
-                    altitude: position.coords.altitude
-                });
-            },
-            error => Alert.alert(error.message),
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-        );
-    }
-    //Submit-function that posts a user-request to the database, and recieves a list of spots satisfiable for the search.
-    //These spots are then displayed on a new map screen.
+ 
     submit() {
         let vp = {}
-        vp.latitude = this.state.myLat
-        vp.longitude = this.state.myLong
+        vp.latitude = this.props.navigation.getParam('lat')
+        vp.longitude = this.props.navigation.getParam('long')
+        vp.altitude = this.props.navigation.getParam('alt')
         vp.styrke = this.state.styrke
         vp.type = this.state.type
         vp.rating = this.state.rating
-        vp.altitude = this.state.altitude
-        fetch('https://03128985.ngrok.io/lazyWalk', {
+        fetch('https://601ab826.ngrok.io/lazyWalk', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -180,7 +153,7 @@ export default class WalkScreen extends Component {
 
                 </View>
                 <View style={styles.buttonfield}>
-                    <Button onPress={() => this.renderElement()} rounded info>
+                    <Button onPress={() => this.submit()} rounded info>
                         <Text>  Finn turområde!  </Text>
                     </Button>
                     <Text style={{ textAlign: 'center' }}>{this.state.waitMsg}</Text>

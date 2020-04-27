@@ -162,13 +162,13 @@ export default class HomeScreen extends React.Component {
           position="bottomLeft"
           onPress={() => this.setState({ active: !this.state.active })}>
           <Icon name="ios-apps" />
-          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Fuzzy')}>
+          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Fuzzy', {lat: this.state.latitude, long: this.state.longitude, alt: this.state.altitude})}>
             <Icon name="logo-model-s" />
           </Button>
-          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Filter')}>
+          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Filter', {lat: this.state.latitude, long: this.state.longitude, alt: this.state.altitude})}>
             <Icon name="md-options" />
           </Button>
-          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Walk')}>
+          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Walk', {lat: this.state.latitude, long: this.state.longitude, alt: this.state.altitude})}>
             <Icon name="ios-walk" />
           </Button>
         </Fab>

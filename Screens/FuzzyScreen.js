@@ -41,38 +41,14 @@ export default class FuzzyScreen extends Component {
             distWalk: value
         })
     }
-
-    //Checks if we have recieved the location of the user before submit.
-    renderElement() {
-        if (this.state.myLat != '') {
-            this.submit();
-        }
-
-        else {
-            this.setState({
-                waitMsg: 'Oisann! Vi har ikke hentet din lokasjon enda. Prøv igjen om noen sekunder.'
-            })
-        }
-    }
-
-    //Retrieves the user location
-    componentDidMount() {
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                this.setState({ myLat: position.coords.latitude });
-                this.setState({ myLong: position.coords.longitude });
-            },
-            error => Alert.alert(error.message),
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-        );
-    }
-
+ 
     //Submit-function that posts a user-request to the database, and recieves a list of spots satisfiable for the search.
     //These spots are then displayed on a new map screen.
     submit() {
         let vp = {}
-        vp.latitude = this.state.myLat
-        vp.longitude = this.state.myLong
+        vp.latitude = this.props.navigation.getParam('lat')
+        vp.longitude = this.props.navigation.getParam('long')
+        vp.altitude = this.props.navigation.getParam('alt')
         vp.radius = this.state.distWalk
         vp.distance = this.state.distDrive
         vp.type = this.state.type
@@ -178,7 +154,7 @@ export default class FuzzyScreen extends Component {
                 </View>
 
                 <View style={styles.buttonfield}>
-                    <Button onPress={() => this.renderElement()} rounded info>
+                    <Button onPress={() => this.submit()} rounded info>
                         <Text>  Finn turområde!  </Text>
                     </Button>
                     <Text style={{textAlign: 'center'}}>{this.state.waitMsg}</Text>
