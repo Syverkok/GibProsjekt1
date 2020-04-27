@@ -66,7 +66,7 @@ export default class FuzzyScreen extends Component {
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
         );
     }
-    
+
     //Submit-function that posts a user-request to the database, and recieves a list of spots satisfiable for the search.
     //These spots are then displayed on a new map screen.
     submit() {
@@ -76,8 +76,8 @@ export default class FuzzyScreen extends Component {
         vp.radius = this.state.distWalk
         vp.distance = this.state.distDrive
         vp.type = this.state.type
-        fetch('https://03128985.ngrok.io/clusterViewPoints', {
-            method: 'POST', // or 'PUT'
+        fetch('https://601ab826.ngrok.io/clusterViewPoints', {
+            method: 'POST', 
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

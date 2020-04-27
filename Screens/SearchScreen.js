@@ -29,7 +29,7 @@ export default class SearchScreen extends Component {
     //This function is called directly after the render further down has returned something. 
     //If the state is changed in this, the script re-renders with the new values listed in state.
     componentDidMount() {
-        return fetch('https://03128985.ngrok.io/getViewPointInfo')
+        return fetch('https://601ab826.ngrok.io/getViewPointInfo')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({

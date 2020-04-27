@@ -75,7 +75,7 @@ class PublishScreen extends Component {
         vp.type = this.state.type
         vp.altitude = this.state.altitude
         vp.image = this.props.navigation.getParam('photo2').base64
-        fetch('https://03128985.ngrok.io/postjson', {
+        fetch('https://601ab826.ngrok.io/postjson', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -149,7 +149,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        //backgroundColor: 'blue',
         paddingTop: 20,
         paddingHorizontal: 20,
     },
@@ -158,13 +157,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        //backgroundColor: 'yellow'
     },
     picturefield: {
         flex: 2,
         alignItems: 'center',
         justifyContent: 'center',
-        //backgroundColor: 'darkslateblue',
         width: '100%',
         paddingVertical: 20
     },
@@ -172,7 +169,6 @@ const styles = StyleSheet.create({
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        //backgroundColor: 'yellow'
     },
     pictureprops: {
         width: '100%',
@@ -187,42 +183,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        //backgroundColor: 'blue',
     },
     picker: {
-        //borderColor: 'black',
-        //borderWidth: 2,
         width: '40%',
         alignItems: 'center',
     }
-    /*container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 30,
-        paddingTop: 0
-    },
-    container2: {
-        flex: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: 0
-    },
-    container3: {
-        flex: 3,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    container4: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    picture: {
-        width: 300,
-        height: 300,
-        // resizeMode: 'contain',
-    }*/
 })
 
 export default PublishScreen

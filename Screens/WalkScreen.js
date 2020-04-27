@@ -198,13 +198,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20,
-        //backgroundColor: 'black'
     },
     textfield: {
         flex: 4,
         alignItems: 'center',
         justifyContent: 'center',
-        //backgroundColor: 'green',
         width: '100%',
         padding: 10
     },
@@ -213,14 +211,12 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        //backgroundColor: 'yellow',
         padding: 10,
     },
     ratingfield: {
         flex: 2,
         alignItems: 'center',
         justifyContent: 'center',
-        //backgroundColor: 'blue',
         padding: 10,
         marginTop: -70
     },
@@ -229,14 +225,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         justifyContent: 'center',
-        //backgroundColor: 'blue',
         padding: 10,
     },
     buttonfield: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        //backgroundColor: 'red',
         width: '100%',
         padding: 10,
     },
@@ -267,10 +261,7 @@ const styles = StyleSheet.create({
     },
     picker: {
         flex: 1,
-        //borderColor: 'black',
-        //borderWidth: 2,
         width: '60%',
-        //backgroundColor: 'purple',
         justifyContent: 'center',
         alignItems: 'center',
     }
