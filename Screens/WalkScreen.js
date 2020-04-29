@@ -41,7 +41,7 @@ export default class WalkScreen extends Component {
         vp.styrke = this.state.styrke
         vp.type = this.state.type
         vp.rating = this.state.rating
-        fetch('https://601ab826.ngrok.io/lazyWalk', {
+        fetch('https://63e279dd.ngrok.io/lazyWalk', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
