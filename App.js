@@ -12,6 +12,7 @@ import FuzzyScreen from './Screens/FuzzyScreen';
 import NewMapScreen3 from './Screens/NewMapScreen3';
 import FilterScreen from './Screens/FilterScreen';
 import WalkScreen from './Screens/WalkScreen';
+import HomeScreenCluster from './Screens/HomeScreenCluster';
 
 
 
@@ -28,10 +29,11 @@ const Container = createStackNavigator({
   Filter: FilterScreen,
   NewMap3: NewMapScreen3,
   Info:InfoScreen,
-  Search: SearchScreen
+  Search: SearchScreen,
+  HomeCluster: HomeScreenCluster,
 },
 {
-  initialRouteName: 'Home',
+  initialRouteName: 'HomeCluster',
 });
 
 export default createAppContainer(Container);

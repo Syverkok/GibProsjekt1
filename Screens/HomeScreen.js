@@ -1,5 +1,6 @@
 import React from 'react';
 import MapView from 'react-native-maps';
+//import MapView from 'react-native-map-clustering'
 import { Text, View, Dimensions, SafeAreaView, StyleSheet, Alert, TouchableOpacity, ActivityIndicator, Image } from 'react-native';
 import { Header, Button, Body, Title, Fab, Icon, Left, Right, Container } from 'native-base';
 
@@ -104,18 +105,6 @@ export default class HomeScreen extends React.Component {
   render() {
     if (this.state.isLoading) {
       return (
-        /*<ImageBackground style={styles.container} source={require('../images/SpotIT.png')}>
-          <View style={styles.overlayContainer}>
-            <View style={styles.titlefield}>
-
-              <Text style={styles.titletext}> Velkommen til SpotIT!  </Text>
-              <Text style={styles.titletext2}> Laster inn applikasjonen...  </Text>
-              <Text style={styles.titletext2}> Brukerguide i knappen øverst til venstre.  </Text>
-
-            </View>
-          </View>
-
-      </ImageBackground> */
 
         <SafeAreaView style={styles.container}>
 
@@ -162,13 +151,13 @@ export default class HomeScreen extends React.Component {
           position="bottomLeft"
           onPress={() => this.setState({ active: !this.state.active })}>
           <Icon name="ios-apps" />
-          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Fuzzy', {lat: this.state.latitude, long: this.state.longitude, alt: this.state.altitude})}>
+          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Fuzzy', { lat: this.state.latitude, long: this.state.longitude, alt: this.state.altitude })}>
             <Icon name="logo-model-s" />
           </Button>
-          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Filter', {lat: this.state.latitude, long: this.state.longitude, alt: this.state.altitude})}>
+          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Filter', { lat: this.state.latitude, long: this.state.longitude, alt: this.state.altitude })}>
             <Icon name="md-options" />
           </Button>
-          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Walk', {lat: this.state.latitude, long: this.state.longitude, alt: this.state.altitude})}>
+          <Button style={{ backgroundColor: '#393f4d' }} onPress={() => this.props.navigation.navigate('Walk', { lat: this.state.latitude, long: this.state.longitude, alt: this.state.altitude })}>
             <Icon name="ios-walk" />
           </Button>
         </Fab>
