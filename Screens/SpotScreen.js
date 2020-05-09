@@ -66,7 +66,7 @@ export default class SpotScreen extends Component {
         let vp = {}
         vp.id = this.props.navigation.getParam('ID')
         vp.rating = this.state.giveRating
-        return await fetch('https://63e279dd.ngrok.io/changeRating', {
+        return await fetch('https://a5658bf3.ngrok.io/changeRating', {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -89,7 +89,7 @@ export default class SpotScreen extends Component {
     async componentDidMount() {
         let vp = {}
         vp.id = this.props.navigation.getParam('ID')
-        await fetch('https://63e279dd.ngrok.io/getViewPoint', {
+        await fetch('https://a5658bf3.ngrok.io/getViewPoint', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

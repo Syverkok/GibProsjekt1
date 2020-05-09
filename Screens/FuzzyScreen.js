@@ -52,7 +52,7 @@ export default class FuzzyScreen extends Component {
         vp.radius = this.state.distWalk
         vp.distance = this.state.distDrive
         vp.type = this.state.type
-        fetch('https://63e279dd.ngrok.io/clusterViewPoints', {
+        fetch('https://a5658bf3.ngrok.io/clusterViewPoints', {
             method: 'POST', 
             headers: {
                 'Accept': 'application/json',
