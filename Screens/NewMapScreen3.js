@@ -36,7 +36,7 @@ export default class NewMapScreen3 extends React.Component {
                     }}
                     showsUserLocation
                     clusterColor={'#393f4d'}
-                    >
+                        >
                     {this.props.navigation.getParam('vp').map(marker => (
                         <Marker key={marker.ID}
                             coordinate={{
