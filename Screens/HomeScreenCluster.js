@@ -57,7 +57,7 @@ export default class HomeScreenCluster extends React.Component {
 
     //Updates the spots on the current map. Mostly used after a publish of a spot. 
     async updateData() {
-        return await fetch('https://63e279dd.ngrok.io/getViewPointInfo')
+        return await fetch('https://geo-spotit.herokuapp.com/getViewPointInfo')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
@@ -89,7 +89,7 @@ export default class HomeScreenCluster extends React.Component {
     //Gets the viewpoint info from the database
     async componentDidMount() {
         this.getPosition()
-        return await fetch('https://63e279dd.ngrok.io/getViewPointInfo')
+        return await fetch('https://geo-spotit.herokuapp.com/getViewPointInfo')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({

@@ -1,5 +1,6 @@
 import React from 'react';
-import MapView from 'react-native-maps';
+import MapView from "react-native-map-clustering";
+import {Marker} from 'react-native-maps';
 import { Text, View, Dimensions, SafeAreaView, StyleSheet, Alert } from 'react-native';
 import { Header, Button, Body, Title, Fab, Icon, Left, Right } from 'native-base';
 
@@ -33,9 +34,11 @@ export default class NewMapScreen3 extends React.Component {
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
                     }}
-                    showsUserLocation>
+                    showsUserLocation
+                    clusterColor={'#393f4d'}
+                        >
                     {this.props.navigation.getParam('vp').map(marker => (
-                        <MapView.Marker key={marker.ID}
+                        <Marker key={marker.ID}
                             coordinate={{
                                 latitude: marker.lat,
                                 longitude: marker.long

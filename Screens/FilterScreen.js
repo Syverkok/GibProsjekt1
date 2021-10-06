@@ -61,7 +61,7 @@ export default class FilterScreen extends Component {
         vp.radius = this.state.distWalk
         vp.rating = this.state.rating
         vp.type = this.state.type
-        fetch('https://63e279dd.ngrok.io/getWalk', {
+        fetch('https://geo-spotit.herokuapp.com/getWalk', {
             method: 'POST', 
             headers: {
                 'Accept': 'application/json',
